@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/api/my-task", (req, res) => {
-    res.send("My Task");
+router.get("/api/task", (req, res) => {
+    res.send("Task");
 })
 
 export default router;

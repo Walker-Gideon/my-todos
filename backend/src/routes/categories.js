@@ -2,8 +2,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.json({ message: "Inital route loading..." });
+router.get("/api/categories", (req, res) => {
+    res.send("Task Categories");
 })
 
 export default router;

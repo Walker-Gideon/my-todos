@@ -1,22 +1,29 @@
 import { Router } from "express";
 
 import helpRouter from "./help.js";
-import myTaskRouter from "./myTask.js";
-import initialRouter from "./inital.js";
+import taskRouter from "./task.js";
 import settingsRouter from "./settings.js";
 import vitalTaskRouter from "./vitalTask.js";
 import dashboardRouter from "./dashboard.js";
-import taskCategoriesRouter from "./taskCategories.js";
+import categoriesRouter from "./categories.js";
 
 
 const router = Router();
 
-router.use(initialRouter);
+/*
 router.use(dashboardRouter);
 router.use(vitalTaskRouter);
 router.use(myTaskRouter);
-router.use(taskCategoriesRouter);
+router.use(categoriesRouter);
 router.use(settingsRouter);
 router.use(helpRouter);
+*/
+
+router.use("/dashboard", dashboardRouter);
+router.use("/tasks", taskRouter);
+router.use("/vital-tasks", vitalTaskRouter);
+router.use("/categories", categoriesRouter);
+router.use("/settings", settingsRouter);
+router.use("/help", helpRouter);
 
 export default router;
