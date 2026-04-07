@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import helpRouter from "./help.js";
 import taskRouter from "./task.js";
+import loginRouter from "./login.js";
 import settingsRouter from "./settings.js";
 import registerRouter from "./regrister.js";
 import vitalTaskRouter from "./vitalTask.js";
@@ -20,12 +21,13 @@ router.use(settingsRouter);
 router.use(helpRouter);
 */
 
-router.use("/auth/sign-in", registerRouter);
-router.use("/dashboard", dashboardRouter);
-router.use("/tasks", taskRouter);
-router.use("/vital-tasks", vitalTaskRouter);
-router.use("/categories", categoriesRouter);
-router.use("/settings", settingsRouter);
-router.use("/help", helpRouter);
+router.use(registerRouter);
+router.use(loginRouter);
+router.use(dashboardRouter);
+router.use(taskRouter);
+router.use(vitalTaskRouter);
+router.use(categoriesRouter);
+router.use(settingsRouter);
+router.use(helpRouter);
 
 export default router;
