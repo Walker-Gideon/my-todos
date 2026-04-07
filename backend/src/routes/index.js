@@ -1,12 +1,13 @@
-const { Router } = require("express");
+import { Router } from "express";
 
-import helpRouter from "./help";
-import myTaskRouter from "./myTask";
-import initialRouter from "./inital";
-import settingsRouter from "./settings";
-import vitalTaskRouter from "./vitalTask";
-import dashboardRouter from "./dashboard";
-import taskCategoriesRouter from "./taskCategories";
+import helpRouter from "./help.js";
+import myTaskRouter from "./myTask.js";
+import initialRouter from "./inital.js";
+import settingsRouter from "./settings.js";
+import vitalTaskRouter from "./vitalTask.js";
+import dashboardRouter from "./dashboard.js";
+import taskCategoriesRouter from "./taskCategories.js";
+
 
 const router = Router();
 
