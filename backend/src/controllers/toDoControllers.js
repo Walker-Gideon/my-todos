@@ -14,3 +14,13 @@ const createTodo = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+/**
+ * @desc Get all todos
+ * @route GET /api/dashboard, /api/task, /api/vitalTask
+ * @access Private
+ */
+const getTodo = async (req, res) => {
+    const todos = await todoModel.find();
+    res.send(todos);
+}
