@@ -17,7 +17,7 @@ const todoSchema = new mongoose.Schema({
     },
     priority: {
         type: String,
-        enum: [Extreme, Moderte, Low],
+        enum: ["Extreme", "Moderate", "Low"],
         reuired: true
     },
     image: {
