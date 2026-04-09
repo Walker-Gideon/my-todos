@@ -1,4 +1,3 @@
-import { MongoInvalidArgumentError } from "mongodb";
 import mongoose from "mongoose";
 
 const todoSchema = new mongoose.Schema({
@@ -13,12 +12,12 @@ const todoSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        reuired: false
+        required: false
     },
     priority: {
         type: String,
-        enum: ["Extreme", "Moderate", "Low"],
-        reuired: true
+        enum: ["extreme", "moderate", "low"],
+        required: true
     },
     image: {
         type: String,
