@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { createTodo, getTodo } from "../controllers/toDoControllers.js";
+import { resolveIsVital } from "../utils/middlewares.js";
+import { createTodo, getVitalTodo } from "../controllers/toDoControllers.js";
 
 const router = Router();
 
-router.post("/api/vitalTask", createTodo)
-router.get("/api/vitalTask", getTodo)
+router.post("/api/vitalTask", resolveIsVital, createTodo)
+router.get("/api/vitalTask", getVitalTodo)
 
 export default router;
