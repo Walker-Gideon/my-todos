@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -11,6 +10,8 @@ const PORT = process.env.port || 5000;
 
 mongoose.connect(process.env.MONGODB_URL).then(() => console.log("Connected to MongoDB")).catch((err) => console.log(err));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 app.listen(PORT, () => {
