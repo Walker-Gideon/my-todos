@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { createTodo } from "../controllers/toDoControllers.js";
 
 const router = Router();
 
-router.get("/api/task", (req, res) => {
-    res.send("Task");
-})
+router.post("/api/task", createTodo)
 
 export default router;
