@@ -11,7 +11,8 @@ export const createTodo = async (req, res) => {
         const todo = await todoModel.create({ userId, title, description, priority, image, completed });
         res.status(201).json(todo);
     } catch (error) {
-        res.status(500).json({ message: "Failed to create todo" });
+        console.error("Create Todo Error:", error);
+        res.status(500).json({ message: "Failed to create todo", error: error.message });
     }
 }
 
