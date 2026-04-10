@@ -1,4 +1,4 @@
-import type { LayoutProps } from "./interfac";
+import type { LayoutProps } from "./interfaces";
 
 export default function Container({ children, className, ...rest }: LayoutProps) {
     return (
