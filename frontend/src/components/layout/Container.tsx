@@ -1,6 +1,8 @@
-export default function Container({ props, children }: { props: any, children: React.ReactNode }) {
+import type { LayoutProps } from "./interfac";
+
+export default function Container({ children, className, ...rest }: LayoutProps) {
     return (
-        <div className={`w-full min-h-screen ${props.className}`}>
+        <div className={`w-full min-h-screen ${className}`} {...rest}>
             {children}
         </div>
     )
