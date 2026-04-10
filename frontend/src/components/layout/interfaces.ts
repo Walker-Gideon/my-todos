@@ -4,6 +4,8 @@ export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
 }
 
-export interface HeadersProps extends LayoutProps {
-    variant: "nav" | "main" | "footer" | "aside" | "section" | "div";
+export interface ContainerProps extends LayoutProps {
+    variant?: "header" | "nav" | "main" | "footer" | "aside" | "section" | "div";
+    container?: "div";
 }
+

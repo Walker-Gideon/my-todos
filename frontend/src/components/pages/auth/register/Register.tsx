@@ -2,8 +2,10 @@ import Container from "../../../layout/Container";
 
 export default function Register() {
     return (
-        <Container className="">
-            <p className="text-xl text-blue-500">Register</p>
+        <Container container="div" className="">
+            <Container variant="header" className="">
+                <p>Register</p>
+            </Container>
         </Container>
     )
 }
