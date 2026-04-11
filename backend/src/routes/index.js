@@ -4,7 +4,7 @@ import helpRouter from "./help.js";
 import taskRouter from "./task.js";
 import loginRouter from "./login.js";
 import settingsRouter from "./settings.js";
-import registerRouter from "./regrister.js";
+import registerRouter from "./register.js";
 import vitalTaskRouter from "./vitalTask.js";
 import dashboardRouter from "./dashboard.js";
 import categoriesRouter from "./categories.js";
