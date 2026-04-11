@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { resolveIsTask } from "../utils/middlewares.js";
+import { protect } from "../middleware/authMiddleware.js";
+import { resolveIsTask } from "../middleware/middlewares.js";
 import { createTodo, getTaskTodo } from "../controllers/todoController.js";
 
 const router = Router();
 
-router.post("/api/task", resolveIsTask, createTodo)
-router.get("/api/task", getTaskTodo)
+router.post("/api/task", protect, resolveIsTask, createTodo)
+router.get("/api/task", protect, getTaskTodo)
 
 export default router;
