@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { resolveIsTask } from "../utils/middlewares.js";
-import { createTodo, getTaskTodo } from "../controllers/toDoControllers.js";
+import { createTodo, getTaskTodo } from "../controllers/todoController.js";
 
 const router = Router();
 

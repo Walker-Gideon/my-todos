@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { resolveIsVital } from "../utils/middlewares.js";
-import { createTodo, getVitalTodo } from "../controllers/toDoControllers.js";
+import { createTodo, getVitalTodo } from "../controllers/todoController.js";
 
 const router = Router();
 

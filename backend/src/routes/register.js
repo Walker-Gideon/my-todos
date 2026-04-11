@@ -1,9 +1,8 @@
 import { Router } from "express";
+import { registerUser } from "../controllers/userController.js";
 
 const router = Router();
 
-router.get("/api/auth/register", (req, res) => {
-    res.send("Register");
-})
+router.post("/api/auth/register", registerUser)
 
 export default router;
