@@ -1,4 +1,4 @@
-import todoModel from "../models/toDoModel.js";
+import todoModel from "../models/Todo.js";
 
 /**
  * @desc Create a new todo
