@@ -12,5 +12,5 @@ export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     type: string;
     placeholder?: string;
     className?: string;
-    defaultStyling?: string;
+    defaultStyling?: boolean;
 }

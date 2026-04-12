@@ -1,9 +1,16 @@
+import { TbUserEdit, TbLockFilled, TbLock, TbMailFilled, TbUserFilled } from "react-icons/tb";
+
 import Input from "../../../ui/Input";
 import Container from "../../../layout/Container";
 
 export default function Register() {
+    const styling = {
+        inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm",
+        input: "w-full focus:outline-none px-2 py-2"
+    }
+
     return (
-        <Container container="div" className={""}>
+        <Container container="div" className={"flex flex-col gap-4 p-8 mx-8 md:mx-0 md:p-0"}>
             <Container variant="header" className={""}>
                 <h1>Sign Up</h1>
             </Container>
@@ -14,29 +21,54 @@ export default function Register() {
                     <p>Sign up to get started</p>
                 </div>
 
-                <form action={""} className="flex flex-col gap-4">
-                {/* Inpute : icon and placeholder (6 in total) */}
+                <form action={""} className={"flex flex-col gap-4 border border-gray-300 rounded-md p-4 min-w-0 w-full"}>
                     <div className="flex flex-col gap-4">
-                        <Input type="text" placeholder="Enter First Name" className="w-full" />
-                        <Input type="text" placeholder="Enter Last Name" className="w-full" />
-                        <Input type="text" placeholder="Enter Username" className="w-full" />
-                        <Input type="email" placeholder="Enter Email" className="w-full" />
-                        <Input type="password" placeholder="Enter Password" className="w-full" />
-                        <Input type="password" placeholder="Confirm Password" className="w-full" />
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbUserEdit />
+                            <Input type="text" placeholder="Enter First Name" defaultStyling={false} className={styling["input"]} />
+                        </Container>
+
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbUserEdit />
+                            <Input type="text" placeholder="Enter Last Name" defaultStyling={false} className={styling["input"]} />
+                        </Container>
+
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbUserFilled />
+                            <Input type="text" placeholder="Enter Username" defaultStyling={false} className={styling["input"]} />
+                        </Container>
+
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbMailFilled />
+                            <Input type="email" placeholder="Enter Email" defaultStyling={false} className={styling["input"]} />
+                        </Container>
+
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbLockFilled />
+                            <Input type="password" placeholder="Enter Password" defaultStyling={false} className={styling["input"]} />
+                        </Container>
+
+                        <Container container="div" className={styling["inputContainer"]}>
+                            <TbLock />
+                            <Input type="password" placeholder="Confirm Password" defaultStyling={false} className={styling["input"]} />
+                        </Container>
                     </div>
-                    <div>
-                        <div>
-                            <input type="checkbox" />
-                            <label htmlFor="">Remember me</label>
-                        </div>
-                        <button type="submit">Register</button>
-                        <div>
+
+                    <Container container="div" className={"flex flex-col gap-4"}>
+                        <Container container="div" className={"flex items-center gap-2"}>
+                            <Input type="checkbox" defaultStyling={false} />
+                            <label htmlFor="" className={"text-sm"}>I agree to all terms and conditions</label>
+                        </Container>
+
+                        <button type="submit" className={"bg-blue-500 text-white px-4 py-2 rounded-md"}>Register</button>
+
+                        <Container container="div" className={"flex items-center gap-2 text-sm"}>
                             <p>Already have an account?</p>
-                            <button>
+                            <button className={"text-blue-500"}>
                                 Sign In
                             </button>
-                        </div>
-                    </div>
+                        </Container>
+                    </Container>
                 </form>
             </Container>
         </Container>
