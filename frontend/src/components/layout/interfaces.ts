@@ -7,5 +7,6 @@ export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
 export interface ContainerProps extends LayoutProps {
     variant?: "header" | "nav" | "main" | "footer" | "aside" | "section" | "div";
     container?: "div";
+    styleName? : String;
 }
 

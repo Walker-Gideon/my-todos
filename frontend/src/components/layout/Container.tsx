@@ -1,6 +1,17 @@
 import type { ContainerProps } from "./interfaces";
 
-export default function Container({ children, className, variant, container, ...rest }: ContainerProps) {
+export default function Container({ children, className, styleName, variant = "div", container, ...rest }: ContainerProps) {
+    const Component = container === "div" ? "div" : variant;
+
+    const defaultClasses = container === "div" ? "w-full min-h-screen" : "";
+
+    return (
+        <Component className={`${variant === "div" ? styleName : defaultClasses} ${className}`} {...rest}>
+            {children}
+        </Component>
+    );
+
+    /*
     if (variant === "nav") {
         return (
             <nav className={className} {...rest}>
@@ -64,4 +75,5 @@ export default function Container({ children, className, variant, container, ...
             </div>
         )
     }
+    */
 }
