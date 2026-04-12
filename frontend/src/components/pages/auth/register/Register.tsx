@@ -1,3 +1,4 @@
+import Input from "../../../ui/Input";
 import Container from "../../../layout/Container";
 
 export default function Register() {
@@ -7,16 +8,21 @@ export default function Register() {
                 <h1>Sign Up</h1>
             </Container>
 
-            <Container variant="main" className={""}>
+            <Container variant="main" className={"flex items-center justify-center"}>
+                <div className={"hidden md:block"}>
+                    <p>Welcome to Todo App</p>
+                    <p>Sign up to get started</p>
+                </div>
+
                 <form action={""} className="flex flex-col gap-4">
                 {/* Inpute : icon and placeholder (6 in total) */}
                     <div className="flex flex-col gap-4">
-                        <input type="text" placeholder="Enter First Name" className="w-full" />
-                        <input type="text" placeholder="Enter Last Name" className="w-full" />
-                        <input type="text" placeholder="Enter Username" className="w-full" />
-                        <input type="email" placeholder="Enter Email" className="w-full" />
-                        <input type="password" placeholder="Enter Password" className="w-full" />
-                        <input type="password" placeholder="Confirm Password" className="w-full" />
+                        <Input type="text" placeholder="Enter First Name" className="w-full" />
+                        <Input type="text" placeholder="Enter Last Name" className="w-full" />
+                        <Input type="text" placeholder="Enter Username" className="w-full" />
+                        <Input type="email" placeholder="Enter Email" className="w-full" />
+                        <Input type="password" placeholder="Enter Password" className="w-full" />
+                        <Input type="password" placeholder="Confirm Password" className="w-full" />
                     </div>
                     <div>
                         <div>
