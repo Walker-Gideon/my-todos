@@ -1,4 +1,4 @@
-import todoModel from "../models/toDoModel.js";
+import todoModel from "../models/Todo.js";
 
 /**
  * @desc Create a new todo
@@ -7,8 +7,16 @@ import todoModel from "../models/toDoModel.js";
  */
 export const createTodo = async (req, res) => {
     try {
-        const { userId, title, description, priority, image, completed, isVital } = req.body;
-        const todo = await todoModel.create({ userId, title, description, priority, image, completed, isVital });
+        const { title, description, priority, image, completed, isVital } = req.body;
+        const todo = await todoModel.create({ 
+            userId: req.user._id, 
+            title, 
+            description, 
+            priority, 
+            image, 
+            completed, 
+            isVital 
+        });
         res.status(201).json(todo);
     } catch (error) {
         res.status(500).json({ message: "Failed to create todo", error: error.message });
@@ -22,7 +30,7 @@ export const createTodo = async (req, res) => {
  */
 export const getTodo = async (req, res) => {
     try {
-        const todos = await todoModel.find();
+        const todos = await todoModel.find({ userId: req.user._id });
         res.status(200).json(todos);
     } catch (error) {
         res.status(500).json({ message: "Failed to get todos" });
@@ -36,7 +44,7 @@ export const getTodo = async (req, res) => {
  */
 export const getTaskTodo = async (req, res) => {
     try {
-        const todos = await todoModel.find({ isVital: false });
+        const todos = await todoModel.find({ userId: req.user._id, isVital: false });
         res.status(200).json(todos);
     } catch (error) {
         res.status(500).json({ message: "Failed to get task todos" });
@@ -50,7 +58,7 @@ export const getTaskTodo = async (req, res) => {
  */
 export const getVitalTodo = async (req, res) => {
     try {
-        const todos = await todoModel.find({ isVital: true });
+        const todos = await todoModel.find({ userId: req.user._id, isVital: true });
         res.status(200).json(todos);
     } catch (error) {
         res.status(500).json({ message: "Failed to get vital todos" });
