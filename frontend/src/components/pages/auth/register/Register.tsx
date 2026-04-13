@@ -1,4 +1,10 @@
-import { TbUserEdit, TbLockFilled, TbLock, TbMailFilled, TbUserFilled } from "react-icons/tb";
+import {
+    TbLock,
+    TbUserEdit,
+    TbLockFilled,
+    TbMailFilled,
+    TbUserFilled
+} from "react-icons/tb";
 
 import Input from "../../../ui/Input";
 import Container from "../../../layout/Container";
@@ -21,7 +27,8 @@ export default function Register() {
                     <p>Sign up to get started</p>
                 </div>
 
-                <form action={""} className={"flex flex-col gap-4 border border-gray-300 rounded-md p-4 min-w-0 w-full"}>
+                {/* border border-gray-300 rounded-md p-4 */}
+                <form action={""} className={"flex flex-col gap-4 min-w-0 w-full"}>
                     <div className="flex flex-col gap-4">
                         <Container container="div" className={styling["inputContainer"]}>
                             <TbUserEdit />
@@ -55,10 +62,10 @@ export default function Register() {
                     </div>
 
                     <Container container="div" className={"flex flex-col gap-4"}>
-                        <Container container="div" className={"flex items-center gap-2"}>
-                            <Input type="checkbox" defaultStyling={false} />
-                            <label htmlFor="" className={"text-sm"}>I agree to all terms and conditions</label>
-                        </Container>
+                        <label className={"flex items-center gap-2 cursor-pointer group"}>
+                            <Input type="checkbox" defaultStyling={false} className={"w-4 h-4 cursor-pointer accent-primary"} />
+                            <span className={"text-sm"}>I agree to all terms and conditions</span>
+                        </label>
 
                         <button type="submit" className={"bg-blue-500 text-white px-4 py-2 rounded-md"}>Register</button>
 
