@@ -8,6 +8,10 @@ import {
 
 import Input from "../../../ui/Input";
 import Container from "../../../layout/Container";
+import Span from "../../../ui/Span";
+import Label from "../../../ui/Label";
+import Paragraph from "../../../ui/Paragraph";
+import Button from "../../../ui/Button";
 
 export default function Register() {
     const styling = {
@@ -62,18 +66,26 @@ export default function Register() {
                     </div>
 
                     <Container container="div" className={"flex flex-col gap-4"}>
-                        <label className={"flex items-center gap-2 cursor-pointer group"}>
+                        <Label className={"flex items-center gap-2 cursor-pointer group"}>
                             <Input type="checkbox" defaultStyling={false} className={"w-4 h-4 cursor-pointer accent-primary"} />
-                            <span className={"text-sm"}>I agree to all terms and conditions</span>
-                        </label>
+                            <Span className={"text-sm"}>I agree to all terms and conditions</Span>
+                        </Label>
 
-                        <button type="submit" className={"bg-blue-500 text-white px-4 py-2 rounded-md"}>Register</button>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                        >
+                            Register
+                        </Button>
 
                         <Container container="div" className={"flex items-center gap-2 text-sm"}>
-                            <p>Already have an account?</p>
-                            <button className={"text-blue-500"}>
+                            <Paragraph>Already have an account?</Paragraph>
+                            <Button
+                                onClick={(e) => { e.preventDefault(); console.log("Sign In") }}
+                                className={"text-blue-500"}
+                            >
                                 Sign In
-                            </button>
+                            </Button>
                         </Container>
                     </Container>
                 </form>

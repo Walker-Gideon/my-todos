@@ -14,3 +14,21 @@ export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     className?: string;
     defaultStyling?: boolean;
 }
+
+export interface SpanProps extends React.HTMLAttributes<HTMLSpanElement> {
+    children: React.ReactNode;
+}
+
+export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
+    children: React.ReactNode;
+}
+
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+    type?: "submit" | "reset";
+    variant?: "primary" | "outline" | "text";
+}
+
+export interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
+    children: React.ReactNode;
+}
