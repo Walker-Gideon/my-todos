@@ -6,6 +6,8 @@ import {
     TbUserFilled
 } from "react-icons/tb";
 
+import { useNavigate } from "react-router-dom";
+
 import Span from "../../../ui/Span";
 import Label from "../../../ui/Label";
 import Input from "../../../ui/Input";
@@ -17,6 +19,8 @@ import Container from "../../../layout/Container";
 import RegisterIllustration from "../../../../assets/registration_illustration.png";
 
 export default function Register() {
+    const navigate = useNavigate();
+
     const styling = {
         inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
@@ -129,7 +133,7 @@ export default function Register() {
                                 <Paragraph variant="small">Already have an account?</Paragraph>
                                 <Button
                                     variant="text"
-                                    onClick={(e) => { e.preventDefault(); console.log("Sign In") }}
+                                    onClick={(e) => { e.preventDefault(); navigate("/auth/login") }}
                                     className={"text-primary font-semibold hover:underline transition-all"}
                                 >
                                     Sign In
