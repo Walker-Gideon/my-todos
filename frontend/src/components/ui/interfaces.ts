@@ -5,7 +5,7 @@ export interface UiProps extends React.HTMLAttributes<HTMLHeadingElement> {
 }
 
 export interface HeadingsProps extends UiProps {
-    variant: "h1" | "h2" | "h3";
+    variant: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
 export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
@@ -13,4 +13,23 @@ export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     placeholder?: string;
     className?: string;
     defaultStyling?: boolean;
+}
+
+export interface SpanProps extends React.HTMLAttributes<HTMLSpanElement> {
+    children: React.ReactNode;
+}
+
+export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
+    children: React.ReactNode;
+}
+
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+    type?: "submit" | "reset";
+    variant?: "primary" | "outline" | "text";
+}
+
+export interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {
+    children: React.ReactNode;
+    variant?: "small" | "medium" | "large";
 }
