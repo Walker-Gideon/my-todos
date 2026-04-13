@@ -12,6 +12,7 @@ import Span from "../../../ui/Span";
 import Label from "../../../ui/Label";
 import Paragraph from "../../../ui/Paragraph";
 import Button from "../../../ui/Button";
+import Headings from "../../../ui/Headings";
 
 export default function Register() {
     const styling = {
@@ -20,75 +21,112 @@ export default function Register() {
     }
 
     return (
-        <Container container="div" className={"flex flex-col gap-4 p-8 mx-8 md:mx-0 md:p-0"}>
-            <Container variant="header" className={""}>
-                <h1>Sign Up</h1>
-            </Container>
+        <Container container="div" className={"h-screen flex flex-col gap-4 items-center justify-center bg-primary/10"}>
+            {/* max-w-sm */}
+            <Container className={"w-full max-w-xs md:mx-0 px-5 py-3 md:p-0 bg-white rounded-md"}>
+                <Container variant="header" className={"w-full mb-4"}>
+                    <Headings variant="h1" className={"text-dark text-2xl font-bold"}>Sign Up</Headings>
+                </Container>
 
-            <Container variant="main" className={"flex items-center justify-center"}>
-                <div className={"hidden md:block"}>
-                    <p>Welcome to Todo App</p>
-                    <p>Sign up to get started</p>
-                </div>
-
-                {/* border border-gray-300 rounded-md p-4 */}
-                <form action={""} className={"flex flex-col gap-4 min-w-0 w-full"}>
-                    <div className="flex flex-col gap-4">
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbUserEdit />
-                            <Input type="text" placeholder="Enter First Name" defaultStyling={false} className={styling["input"]} />
-                        </Container>
-
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbUserEdit />
-                            <Input type="text" placeholder="Enter Last Name" defaultStyling={false} className={styling["input"]} />
-                        </Container>
-
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbUserFilled />
-                            <Input type="text" placeholder="Enter Username" defaultStyling={false} className={styling["input"]} />
-                        </Container>
-
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbMailFilled />
-                            <Input type="email" placeholder="Enter Email" defaultStyling={false} className={styling["input"]} />
-                        </Container>
-
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbLockFilled />
-                            <Input type="password" placeholder="Enter Password" defaultStyling={false} className={styling["input"]} />
-                        </Container>
-
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbLock />
-                            <Input type="password" placeholder="Confirm Password" defaultStyling={false} className={styling["input"]} />
-                        </Container>
+                <Container variant="main" className={"flex items-center justify-center w-full"}>
+                    <div className={"hidden medium:block"}>
+                        <p>Welcome to Todo App</p>
+                        <p>Sign up to get started</p>
                     </div>
 
-                    <Container container="div" className={"flex flex-col gap-4"}>
-                        <Label className={"flex items-center gap-2 cursor-pointer group"}>
-                            <Input type="checkbox" defaultStyling={false} className={"w-4 h-4 cursor-pointer accent-primary"} />
-                            <Span className={"text-sm"}>I agree to all terms and conditions</Span>
-                        </Label>
+                {/* border border-gray-300 rounded-md p-4 */}
+                    <form action={""} className={"flex flex-col gap-4 min-w-0 w-full"}>
+                        <div className="flex flex-col gap-4">
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbUserEdit />
+                                <Input 
+                                    type="text" 
+                                    defaultStyling={false} 
+                                    placeholder="Enter First Name" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
 
-                        <Button
-                            type="submit"
-                            variant="primary"
-                        >
-                            Register
-                        </Button>
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbUserEdit />
+                                <Input 
+                                    type="text" 
+                                    defaultStyling={false} 
+                                    placeholder="Enter Last Name" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
 
-                        <Container container="div" className={"flex items-center gap-2 text-sm"}>
-                            <Paragraph>Already have an account?</Paragraph>
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbUserFilled />
+                                <Input 
+                                    type="text" 
+                                    defaultStyling={false} 
+                                    placeholder="Enter Username" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
+
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbMailFilled />
+                                <Input 
+                                    type="email" 
+                                    defaultStyling={false} 
+                                    placeholder="Enter Email" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
+
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbLockFilled />
+                                <Input 
+                                    type="password" 
+                                    defaultStyling={false} 
+                                    placeholder="Enter Password" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
+
+                            <Container container="div" className={styling["inputContainer"]}>
+                                <TbLock />
+                                <Input 
+                                    type="password" 
+                                    defaultStyling={false} 
+                                    placeholder="Confirm Password" 
+                                    className={styling["input"]} 
+                                />
+                            </Container>
+                        </div>
+
+                        <Container container="div" className={"flex flex-col gap-4"}>
+                            <Label className={"flex items-center gap-2 cursor-pointer group"}>
+                                <Input 
+                                    type="checkbox" 
+                                    defaultStyling={false} 
+                                    className={"w-4 h-4 cursor-pointer accent-primary"} 
+                                />
+                                <Span className={"text-sm"}>I agree to all terms and conditions</Span>
+                            </Label>
+
                             <Button
-                                onClick={(e) => { e.preventDefault(); console.log("Sign In") }}
-                                className={"text-blue-500"}
+                                type="submit"
+                                variant="primary"
                             >
-                                Sign In
+                                Register
                             </Button>
+
+                            <Container container="div" className={"flex items-center gap-2 text-sm"}>
+                                <Paragraph variant="small">Already have an account?</Paragraph>
+                                <Button
+                                    onClick={(e) => { e.preventDefault(); console.log("Sign In") }}
+                                    className={"text-blue-500 hover:text-blue-600 hover:underline transition-all duration-200"}
+                                >
+                                    Sign In
+                                </Button>
+                            </Container>
                         </Container>
-                    </Container>
-                </form>
+                    </form>
+                </Container>
             </Container>
         </Container>
     )

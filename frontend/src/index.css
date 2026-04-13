@@ -5,8 +5,9 @@
 
     /* Colors */
     --color-primary: #FF9090;
-    --color-primary-hover : #e68282;
+    --color-primary-hover: #e68282;
     --color-col-white: #F8F9FB;
+    --color-dark: #212427;
 
     --color-border-primary: #565454;
     /* --color-primary: #007bff;
@@ -23,6 +24,7 @@
     /* 
     --font-sans: "Quicksand", sans-serif;
 
+    */
   --breakpoint-smallest: 300px;
   --breakpoint-sm: 325px;
   --breakpoint-medium: 650px;
@@ -30,7 +32,6 @@
   --breakpoint-middle: 850px;
   --breakpoint-maxmid: 900px;
   --breakpoint-lg: 1024px;
-    */
 }
 
 @layer components {
