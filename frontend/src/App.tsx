@@ -24,7 +24,7 @@ export default function App() {
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<Navigate replace to="register" />} />
           <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
+          <Route path="sign-in" element={<Login />} />
         </Route>
 
         <Route

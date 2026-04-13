@@ -111,7 +111,7 @@ export default function RegisterForm() {
                     <Paragraph variant="small">Already have an account?</Paragraph>
                     <Button
                         variant="text"
-                        onClick={(e) => { e.preventDefault(); navigate("/auth/login") }}
+                        onClick={(e) => { e.preventDefault(); navigate("/auth/sign-in") }}
                         className={"text-primary font-semibold hover:underline transition-all"}
                     >
                         Sign In
