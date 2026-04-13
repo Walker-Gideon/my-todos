@@ -14,12 +14,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Register />} />
+        <Route index element={<Navigate replace to="/auth/register" />} />
 
-        <Route element={<AuthLayout />}>
-          <Route index element={<Navigate replace to="auth/register" />} />
-          <Route path="auth/register" element={<Register />} />
-          <Route path="auth/login" element={<Login />} />
+        <Route path="auth" element={<AuthLayout />}>
+          <Route index element={<Navigate replace to="register" />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
         </Route>
 
         <Route
