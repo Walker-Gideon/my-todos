@@ -5,7 +5,7 @@ export default function Button({ children, type, className, variant, ...rest }: 
     
     if (variant === "primary") {
         return (
-            <button type={type} className={`${defaultStyling} bg-primary hover:bg-primary-hover hover:text-white transition-all duration-300 ease-in-out text-col-white px-4 py-2 rounded-md ${className}`} {...rest}>
+            <button type={type} className={`${defaultStyling} bg-primary hover:bg-primary-hover hover:text-white transition-all duration-300 ease-in-out text-col-white px-4 py-3 rounded-md ${className}`} {...rest}>
                 {children}
             </button>
         )
