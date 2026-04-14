@@ -34,12 +34,13 @@ export default function App() {
             // </ProtectedRoute>
           }
         >
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="tasks" element={<Task />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="vital-tasks" element={<VitalTask />} />
-          <Route path="categories" element={<Categories />} />
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="vital-task" element={<VitalTask />} />
+            <Route path="tasks" element={<Task />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="categories" element={<Categories />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
