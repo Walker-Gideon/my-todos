@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+/* Icons used is TB */
+
 @theme {
     /* Font-style */
 
@@ -7,6 +9,7 @@
     --color-primary: #FF9090;
     --color-primary-hover: #e68282;
     --color-col-white: #F8F9FB;
+    --color-col-white-2: #F8F8F8;
     --color-dark: #212427;
 
     --color-border-primary: #565454;
