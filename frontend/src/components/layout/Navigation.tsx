@@ -14,7 +14,7 @@ export default function Navigation() {
 
     const navItems = [
         { name: "Dashboard", href: "/dashboard" },
-        { name: "Vital Task", href: "/vital-tasks" },
+        { name: "Vital Task", href: "/vital-task" },
         { name: "Tasks", href: "/tasks" },
         { name: "Categories", href: "/categories" },
         { name: "Settings", href: "/settings" },
