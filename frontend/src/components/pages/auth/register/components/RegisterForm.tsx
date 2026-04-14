@@ -102,6 +102,11 @@ export default function RegisterForm() {
                 <Button
                     type="submit"
                     variant="primary"
+                    onClick={(e) => {
+                        // forn now
+                        e.preventDefault();
+                        navigate("/dashboard")
+                    }}
                     className={"w-full font-semibold shadow-lg"}
                 >
                     Register
@@ -111,7 +116,10 @@ export default function RegisterForm() {
                     <Paragraph variant="small">Already have an account?</Paragraph>
                     <Button
                         variant="text"
-                        onClick={(e) => { e.preventDefault(); navigate("/auth/sign-in") }}
+                        onClick={(e) => { 
+                            e.preventDefault(); 
+                            navigate("/auth/sign-in") 
+                        }}
                         className={"text-primary font-semibold hover:underline transition-all"}
                     >
                         Sign In
