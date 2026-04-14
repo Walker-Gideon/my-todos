@@ -1,12 +1,6 @@
 import Container from "@/components/layout/Container";
 
 export default function DashboardMain() {
-    /*
-    List of elements in the main:
-    - Sub header
-    - Main content (Todos, Task Status, Completed Task)
-    */
-
     return (
         <Container variant="main" className={"w-4/5 h-full bg-primary"}>
             <Container variant="header" className={"w-full h-full bg-primary"}>
