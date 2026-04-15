@@ -2,27 +2,15 @@ import { motion } from "motion/react";
 import { NavLink } from "react-router-dom";
 import type { IconType } from "react-icons";
 
-import { PiGearFill } from "react-icons/pi";
-import { RxExclamationMark } from "react-icons/rx";
-import { 
-    TbList,
-    TbLogout,
-    TbClipboardCheck,
-    TbLayoutDashboardFilled
-} from "react-icons/tb";
+import { TbLogout } from "react-icons/tb";
+import { navItems } from "@/components/data/navLinks";
 
 import Container from "./Container";
 import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 
-const navItems = [
-    { name: "Dashboard", icon: TbLayoutDashboardFilled, href: "/dashboard" },
-    { name: "Vital Task", icon: RxExclamationMark, href: "/vital-task" },
-    { name: "Tasks", icon: TbClipboardCheck, href: "/tasks" },
-    { name: "Categories", icon: TbList, href: "/categories" },
-    { name: "Settings", icon: PiGearFill, href: "/settings" },
-]
+
 
 export default function Navigation({ show, onClick }: { show?: boolean, onClick?: () => void }) {
     function handleLogout() {}
