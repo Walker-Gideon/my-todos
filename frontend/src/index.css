@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 /* Icons used is TB */
+/* import { TbMenu2 } from "react-icons/tb"; */
 
 @theme {
     /* Font-style */
