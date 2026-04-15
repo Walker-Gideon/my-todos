@@ -35,12 +35,14 @@ export default function App() {
           }
         >
           <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="task" element={<Task />} />
-          <Route path="settings" element={<Settings />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="vital-task" element={<VitalTask />} />
+          <Route path="tasks" element={<Task />} />
+          <Route path="settings" element={<Settings />} />
           <Route path="categories" element={<Categories />} />
         </Route>
+
+        {/* Page Not Found */}
       </Routes>
     </BrowserRouter>
   )
