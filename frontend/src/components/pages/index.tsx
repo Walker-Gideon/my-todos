@@ -7,12 +7,14 @@ import Navigation from "@/components/layout/Navigation";
 
 export default function AppLayout() {
     return (
-        <Container container="div" className={""}>
+        <Container container="div" className={"h-screen flex flex-col overflow-hidden"}>
             <Header />
 
-            <Container container="div" className={"w-full h-full flex gap-4"}>
+            <Container variant="div" className={"w-full flex-1 flex ga overflow-visible"}>
                 <Navigation />
-                <Outlet />
+                <Container variant="main" className="flex-1 h-full">
+                    <Outlet />
+                </Container>
             </Container>
         </Container>
     )

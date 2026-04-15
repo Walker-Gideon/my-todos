@@ -20,7 +20,7 @@ export default function Header() {
     }
 
     return (
-        <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-6 py-4 px-4 medium:px-12 md:px-16 shadow-md"}>
+        <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-10 py-4 px-4 medium:px-12 md:px-16 shadow-md"}>
             <Container variant="div" className={"w-full h-full flex items-center justify-between gap-4 lg:space-x-32"}>
                 <Headings variant="h1" className={"flex items-center font-semibold text-xl medium:text-2xl md:text-3xl"}>
                     {/* The words will come from the nav button that is either Dashboard pr To-do and they are split into two */}
