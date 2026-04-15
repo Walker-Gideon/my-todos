@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { NavLink } from "react-router-dom";
 import type { IconType } from "react-icons";
 
@@ -27,9 +28,20 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
     function handleLogout() {}
 
     return (
-        <Container variant="aside" className={`fixed md:relative flex-col w-64 h-full bg-primary text-col-white p-4 pt-12 shadow-xl border-r border-r-primary rounded-r-md mt-4 ${show ? "block z-50" : "hidden md:flex"}`}>
+        <Container 
+            variant="aside" 
+            as={show ? motion.aside : "aside"}
+            {...(show ? {
+                initial: { x: "-100%" },
+                animate: { x: 0 },
+                exit: { x: "-100%" },
+                transition: { type: "spring", damping: 25, stiffness: 200 }
+            } : {})}
+            className={`fixed md:relative flex flex-col w-72 md:w-64 h-screen md:h-full bg-primary text-col-white p-4 md:pt-12 shadow-xl border-r border-r-primary rounded-r-md md:mt-4 ${show ? "z-50" : "hidden md:flex"}`}
+            onClick={(e) => e.stopPropagation()}
+        >
             <Container variant="div" className={"flex flex-col items-center mb-4"}>
-                <Container variant="div" className={"absolute -top-8 left-1/2 -translate-x-1/2"}>
+                <Container variant="div" className={"md:absolute md:-top-8 md:left-1/2 md:-translate-x-1/2"}>
                     <img 
                         src="https://ui-avatars.com/api/?name=User&background=212427&color=fff" 
                         alt="user image" 
@@ -42,16 +54,20 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                     <Paragraph variant="small" className={"leading-none"}>user@email.com</Paragraph>
                 </Container>
             </Container>
-            <Container variant="nav" className={"flex flex-col gap-2 flex-1"}>
-                {navItems.map((item) => (
-                    <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} onClick={onClick} />
-                ))}
-            </Container>
-            <Container variant="div" className={"mt-auto mb-2 pt-2 border-t border-white/10"}>
-                <Button onClick={handleLogout} className={"w-full flex items-center justify-start gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm"}>
-                    <TbLogout size={20} />
-                    <Span className={"font-medium"}>Logout</Span>
-                </Button>
+
+            <Container variant="div" className={"flex flex-col justify-between flex-1"}>
+                <Container variant="nav" className={"flex flex-col gap-2 flex-1"}>
+                    {navItems.map((item) => (
+                        <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} onClick={onClick} />
+                    ))}
+                </Container>
+
+                <Container variant="div" className={"mt-auto mb-2 pt-2 border-t border-white/10"}>
+                    <Button onClick={handleLogout} className={"w-full flex items-center justify-start gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm"}>
+                        <TbLogout size={20} />
+                        <Span className={"font-medium"}>Logout</Span>
+                    </Button>
+                </Container>
             </Container>
         </Container>
     )

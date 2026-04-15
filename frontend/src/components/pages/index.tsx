@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { AnimatePresence } from "motion/react";
 import { Outlet } from "react-router-dom";
 
 import Header from "@/components/layout/Header";
+import Backdrop from "@/components/layout/Backdrop";
 import Container from "@/components/layout/Container";
 import Navigation from "@/components/layout/Navigation";
-import Backdrop from "@/components/layout/Backdrop";
-import Conditional from "@/components/layout/Conditional";
 
 
 export default function AppLayout() {
@@ -14,6 +14,17 @@ export default function AppLayout() {
     function handleMenu() {
         setIsMenuOpen(!isMenuOpen);
     }
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     return (
         <Container container="div" className={"h-screen flex flex-col overflow-hidden"}>
@@ -26,11 +37,13 @@ export default function AppLayout() {
                 </Container>
             </Container>
 
-            <Conditional condition={isMenuOpen}>
-                <Backdrop onClick={handleMenu} show={isMenuOpen}>
-                    <Navigation show={isMenuOpen} onClick={handleMenu} />
-                </Backdrop>
-            </Conditional>
+            <AnimatePresence>
+                {isMenuOpen && (
+                    <Backdrop onClick={handleMenu} show={isMenuOpen}>
+                        <Navigation show={isMenuOpen} onClick={handleMenu} />
+                    </Backdrop>
+                )}
+            </AnimatePresence>
         </Container>
     )
 }
