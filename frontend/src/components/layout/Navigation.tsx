@@ -23,11 +23,11 @@ const navItems = [
     { name: "Settings", icon: PiGearFill, href: "/settings" },
 ]
 
-export default function Navigation() {
+export default function Navigation({ show, onClick }: { show?: boolean, onClick?: () => void }) {
     function handleLogout() {}
 
     return (
-        <Container variant="aside" className={"relative hidden md:flex flex-col w-64 h-full bg-primary text-col-white p-4 pt-12 shadow-xl border-r border-r-primary rounded-r-md mt-4"}>
+        <Container variant="aside" className={`fixed md:relative flex-col w-64 h-full bg-primary text-col-white p-4 pt-12 shadow-xl border-r border-r-primary rounded-r-md mt-4 ${show ? "block z-50" : "hidden md:flex"}`}>
             <Container variant="div" className={"flex flex-col items-center mb-4"}>
                 <Container variant="div" className={"absolute -top-8 left-1/2 -translate-x-1/2"}>
                     <img 
@@ -44,7 +44,7 @@ export default function Navigation() {
             </Container>
             <Container variant="nav" className={"flex flex-col gap-2 flex-1"}>
                 {navItems.map((item) => (
-                    <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} />
+                    <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} onClick={onClick} />
                 ))}
             </Container>
             <Container variant="div" className={"mt-auto mb-2 pt-2 border-t border-white/10"}>
@@ -57,11 +57,12 @@ export default function Navigation() {
     )
 }
 
-function NavItems({ name, icon: Icon, href }: { name: string, icon: IconType, href: string }) {
+function NavItems({ name, icon: Icon, href, onClick }: { name: string, icon: IconType, href: string, onClick: () => void }) {
     return (
         <NavLink 
             to={href} 
             end
+            onClick={onClick}   
             className={({ isActive }) =>
               `flex items-center gap-3 p-2 rounded-md transition-all duration-300 group ${
                 isActive 

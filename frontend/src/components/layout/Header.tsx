@@ -14,10 +14,8 @@ import Container from "@/components/layout/Container";
 
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 
-export default function Header() {
+export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
     const { dayInWords, day, monthInWords, year } = useDateFormat();
-
-    function handleMenu() {}
 
     const styling = {
         inputContainer: "w-full flex items-center border border-white rounded-md text-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 shadow-md shadow-primary/50 transition-all",
@@ -30,7 +28,7 @@ export default function Header() {
         <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-10 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shadow-md shadow-primary/50"}>
             <Container variant="div" className={"w-full flex items-center justify-between gap-4 lg:space-x-32"}>
                 <Container variant="div" className={"flex items-center gap-4"}>
-                    <Button onClick={handleMenu} className={`${styling["icon"]} md:hidden`}>
+                    <Button onClick={onMenuClick} className={`${styling["icon"]} md:hidden`}>
                         <TbMenu2 size={20} />
                     </Button>
                     <Headings variant="h1" className={"flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl"}>
