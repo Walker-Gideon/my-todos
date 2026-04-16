@@ -15,9 +15,11 @@ export default function Dashboard() {
     return (
         <Container variant="main" className={"w-full h-full"}>
             <Container variant="header" className={"w-full flex gap-2 md:gap-0 flex-col md:flex-row items-center md:justify-between mb-2"}>
-                <Container variant="div" className={"flex items-center flex-row gap-2"}>
-                    <Paragraph className={"text-2xl md:text-3xl font-medium"}>Welcome back, username</Paragraph>
-                    <Span className={"text-2xl md:text-3xl"}>👋</Span>
+                <Container variant="div" className={"w-full md:flex-1 flex min-w-0 items-center flex-row gap-2 text-3xl"}>
+                    <Paragraph className={"font-medium truncate"}>
+                        Welcome back, <Span>username</Span>
+                    </Paragraph>
+                    <Span>👋</Span>
                 </Container>
 
                 <Container variant="div" className={"w-full md:w-auto flex items-center justify-between md:justify-end flex-row gap-2"}>
