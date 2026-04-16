@@ -24,11 +24,9 @@
     --color-light: #f8f9fa;
     --color-dark: #343a40; */
 
+    --shadow-sidebar: 12px 0 15px -3px rgba(0, 0, 0, 0.12), 4px 0 6px -2px rgba(0, 0, 0, 0.05);
+
     /* Break-points */
-
-    /*
-
-    */
   --breakpoint-smallest: 300px;
   --breakpoint-sm: 325px;
   --breakpoint-medium: 650px;
