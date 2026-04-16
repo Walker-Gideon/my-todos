@@ -25,7 +25,7 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                 exit: { x: "-100%" },
                 transition: { type: "spring", damping: 25, stiffness: 200 }
             } : {})}
-            className={`fixed md:relative flex flex-col w-72 md:w-64 h-screen md:h-full bg-primary text-col-white p-4 md:pt-12 shadow-xl border-r border-r-primary rounded-r-md md:mt-4 ${show ? "z-50" : "hidden md:flex"}`}
+            className={`fixed md:relative flex flex-col w-72 md:w-18 midmax:w-64 h-screen md:h-full bg-primary text-col-white p-4 md:pt-12 shadow-xl border-r border-r-primary rounded-r-md md:mt-4 transition-all duration-300 ease-in-out ${show ? "z-50" : "hidden md:flex"}`}
             onClick={(e) => e.stopPropagation()}
         >
             <Profile />
@@ -35,10 +35,10 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                         <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} onClick={onClick} />
                     ))}
                 </Container>
-                <Container variant="div" className={"mt-auto md:mb-2 pt-2 border-t border-white/10"}>
-                    <Button onClick={handleLogout} className={"w-full flex items-center justify-start gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm"}>
-                        <TbLogout size={20} />
-                        <Span className={"font-medium"}>Logout</Span>
+                <Container variant="div" className={"mt-auto md:mb-2 pt-2 border-t border-white/10 overflow-hidden"}>
+                    <Button onClick={handleLogout} className={"w-full flex items-center justify-center midmax:justify-start gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm"}>
+                        <TbLogout size={20} className={"shrink-0"} />
+                        <Span className={"font-medium hidden midmax:block"}>Logout</Span>
                     </Button>
                 </Container>
             </Container>
@@ -53,11 +53,11 @@ function Profile() {
                 <img 
                     src="https://ui-avatars.com/api/?name=User&background=212427&color=fff" 
                     alt="user image" 
-                    className={"w-15 h-15 md:w-20 md:h-20 rounded-full border-2 border-col-white-2 shadow-lg object-cover bg-dark"} 
+                    className={"w-15 h-15 md:w-15 midmax:w-20 md:h-15 midmax:h-20 rounded-full border-2 border-col-white-2 shadow-lg object-cover bg-dark"} 
                 />
             </Container>
 
-            <Container variant="div" className={"text-center mt-1 text-white"}>
+            <Container variant="div" className={"hidden md:block text-center mt-1 text-white"}>
                 <Paragraph className={"font-semibold"}>Full Name</Paragraph>
                 <Paragraph variant="small" className={"leading-none"}>user@email.com</Paragraph>
             </Container>
@@ -72,15 +72,15 @@ function NavItems({ name, icon: Icon, href, onClick }: { name: string, icon: Ico
             end
             onClick={onClick}   
             className={({ isActive }) =>
-              `flex items-center gap-3 p-2 rounded-md transition-all duration-300 group ${
+              `flex items-center justify-center midmax:justify-start gap-3 p-2 rounded-md transition-all duration-300 group ${
                 isActive 
                   ? "bg-white text-primary shadow-lg shadow-white/10" 
                   : "text-white hover:text-white hover:bg-white/5"
               }`
             }
         >
-            <Icon size={20} />
-            <Span className={"font-medium"}>{name}</Span>
+            <Icon size={20} className={"shrink-0"} />
+            <Span className={"font-medium hidden midmax:block truncate"}>{name}</Span>
         </NavLink>
     )
 }
