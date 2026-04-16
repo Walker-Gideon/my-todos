@@ -32,7 +32,7 @@ export default function AppLayout() {
 
             <Container variant="div" className={"w-full flex-1 flex md:gap-4 overflow-visible"}>
                 <Navigation />
-                <Container variant="main" className={"flex-1 h-full md:h-[90%] mx-4 md:mx-8 overflow-y-auto"}>
+                <Container variant="main" className={"flex-1 md:h-[98%] mx-4 md:mx-8 overflow-y-auto md:overflow-hidden"}>
                     <Outlet />
                 </Container>
             </Container>
