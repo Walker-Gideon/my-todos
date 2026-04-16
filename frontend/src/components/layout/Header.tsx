@@ -25,7 +25,7 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
     }
 
     return (
-        <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-6 md:mb-10 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shadow-md shadow-primary/50"}>
+        <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-6 md:mb-7 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shadow-md shadow-primary/50"}>
             <Container variant="div" className={"w-full flex items-center justify-between gap-4 lg:space-x-32"}>
                 <Container variant="div" className={"flex items-center gap-4"}>
                     <Button onClick={onMenuClick} className={`${styling["icon"]} md:hidden`}>
