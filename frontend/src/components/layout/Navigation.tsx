@@ -39,7 +39,11 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                     ))}
                 </Container>
                 <Container variant="div" className={"mt-auto pt-2 border-t border-white/10 overflow-hidden"}>
-                    <Button onClick={handleLogout} className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm ${isSidebarOpen ? "justify-center" : "justify-start"}`}>
+                    <Button 
+                        ariaLabel="Logout"
+                        onClick={handleLogout} 
+                        className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm ${isSidebarOpen ? "justify-center" : "justify-start"}`}
+                    >
                         <TbLogout size={20} className={"shrink-0"} />
                         <Span 
                             className={`font-medium ${isSidebarOpen ? "hidden" : "block"}`}
@@ -57,6 +61,7 @@ function Profile({openSidebar, onOpenSidebar}: {openSidebar: boolean, onOpenSide
     return (
         <Container variant="div" className={"mb-3 pb-3 border-b border-white/10"}>
             <Button 
+                ariaLabel={openSidebar ? "Close Sidebar" : "Open Sidebar"}
                 onClick={() => onOpenSidebar(!openSidebar)}
                 className={`hidden md:block transition-all duration-300 ${openSidebar ? "w-full flex items-center justify-center px-2 mt-1 mb-3" : "absolute right-4"}`}
             >
@@ -85,6 +90,7 @@ function NavItems({ name, icon: Icon, href, openSidebar, onClick }: { name: stri
     return (
         <NavLink 
             to={href} 
+            aria-label={name}
             end
             onClick={onClick}   
             className={({ isActive }) =>
