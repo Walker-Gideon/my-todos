@@ -102,6 +102,7 @@ export default function RegisterForm() {
                 <Button
                     type="submit"
                     variant="primary"
+                    ariaLabel="Register"
                     onClick={(e) => {
                         // forn now
                         e.preventDefault();
@@ -116,6 +117,7 @@ export default function RegisterForm() {
                     <Paragraph variant="small">Already have an account?</Paragraph>
                     <Button
                         variant="text"
+                        ariaLabel="Navigate to sign in page"
                         onClick={(e) => { 
                             e.preventDefault(); 
                             navigate("/auth/sign-in") 
