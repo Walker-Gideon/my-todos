@@ -14,7 +14,7 @@ import Container from "@/components/layout/Container";
 
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 
-export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
+export default function Header({ menuOpen, onMenuClick }: { menuOpen: boolean, onMenuClick: () => void }) {
     const { dayInWords, day, monthInWords, year } = useDateFormat();
 
     const styling = {
@@ -28,7 +28,11 @@ export default function Header({ onMenuClick }: { onMenuClick: () => void }) {
         <Container variant="header" className={"w-full md:h-20 bg-col-white-2 mb-6 md:mb-7 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shadow-md shadow-primary/50"}>
             <Container variant="div" className={"w-full flex items-center justify-between gap-4 lg:space-x-32"}>
                 <Container variant="div" className={"flex items-center gap-4"}>
-                    <Button onClick={onMenuClick} className={`${styling["icon"]} md:hidden`}>
+                    <Button 
+                        ariaLabel={menuOpen ? "Close Menu" : "Open Menu"}
+                        onClick={onMenuClick} 
+                        className={`${styling["icon"]} md:hidden`}
+                    >
                         <TbMenu2 size={20} />
                     </Button>
                     <Headings variant="h1" className={"flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl"}>
@@ -80,7 +84,11 @@ function SearchBar({ styling }: { styling: any }) {
                 placeholder="Search your task here..." 
                 className={styling["input"]} 
             />
-            <Button type="submit" className={styling["icon"]}>
+            <Button 
+                type="submit" 
+                ariaLabel="Search query"
+                className={styling["icon"]}
+            >
                 <TbSearch className={styling["iconSize"]} />
             </Button>
         </form>
@@ -90,10 +98,16 @@ function SearchBar({ styling }: { styling: any }) {
 function NotificationAndDate({ styling }: { styling: any }) {
     return (
         <Container variant="div" className={"flex items-center gap-4"}>
-            <Button className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}>
+            <Button 
+                ariaLabel="Notifications"
+                className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}
+            >
                 <TbBell className={styling["iconSize"]} />
             </Button>
-            <Button className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}>
+            <Button 
+                ariaLabel="Calendar"
+                className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}
+            >
                 <TbCalendarWeek className={styling["iconSize"]} />
             </Button>
         </Container>

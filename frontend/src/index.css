@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 /* Icons used is TB */
-/* import { TbMenu2 } from "react-icons/tb"; */
+/* import { TbMenu2 } from "react-icons/tb"; 
+rounded-xl
+*/
 
 @theme {
     /* Font-style */
 
     /* Colors */
     --color-primary: #FF9090;
+    --color-secondary: #FF6767;
     --color-primary-hover: #e68282;
     --color-col-white: #F8F9FB;
-    --color-col-white-2: #F8F8F8;
+    --color-col-white-2: #F8F8F8; 
     --color-dark: #212427;
     --color-blue: #3ABEFF;
+    --color-gray: #A1A3AB;
 
     --color-border-primary: #565454;
-    /* --color-primary: #007bff;
+    /* --color-primary: #007bff; 
     --color-secondary: #6c757d;
     --color-success: #28a745;
     --color-danger: #dc3545;
@@ -37,7 +41,17 @@
 }
 
 @layer components {
-    
+  .iconSize {
+    @apply w-5 h-5;
+  }
+
+  .transition-primary {
+    @apply transition-all duration-300 ease-in-out;
+  } 
+
+  .primary-border {
+    @apply border border-gray-300;
+  }
 }
 
 

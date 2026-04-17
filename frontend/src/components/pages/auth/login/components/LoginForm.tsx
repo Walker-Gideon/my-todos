@@ -51,6 +51,7 @@ export default function LoginForm() {
 
                 <Button
                     type="submit"
+                    ariaLabel="Sign In"
                     variant="primary"
                     className={"w-full font-semibold shadow-lg"}
                 >
@@ -61,6 +62,7 @@ export default function LoginForm() {
                     <Paragraph variant="small">Don't have an account?</Paragraph>
                     <Button
                         variant="text"
+                        ariaLabel="Navigate to register page"
                         onClick={(e) => { e.preventDefault(); navigate("/auth/register") }}
                         className={"text-primary font-semibold hover:underline transition-all"}
                     >

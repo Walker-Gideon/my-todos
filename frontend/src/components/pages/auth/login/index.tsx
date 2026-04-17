@@ -12,8 +12,6 @@ const MotionContainer = motion(Container);
 export default function Login() {
     const { direction } = useOutletContext<{ direction: number }>();
     
-    // Direction 1 means we navigated forward (to sign-in)
-    // Direction 0 means we navigated back (to register)
     const xOffset = 50;
     
     return (
