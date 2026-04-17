@@ -25,6 +25,7 @@ export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
 
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
+    ariaLabel?: string;
     type?: "submit" | "reset";
     variant?: "primary" | "outline" | "text";
 }
