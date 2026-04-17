@@ -12,8 +12,6 @@ const MotionContainer = motion(Container);
 export default function Register() {
     const { direction } = useOutletContext<{ direction: number }>();
     
-    // Slide left if direction is 1 (to sign-in), slide right if direction is -1
-    // But since we are ENTERING, we come from the opposite side.
     const xOffset = 50;
     
     return (
