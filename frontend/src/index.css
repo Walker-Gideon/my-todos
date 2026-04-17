@@ -8,6 +8,7 @@
 
     /* Colors */
     --color-primary: #FF9090;
+    --color-secondary: #FF6767;
     --color-primary-hover: #e68282;
     --color-col-white: #F8F9FB;
     --color-col-white-2: #F8F8F8;
@@ -37,7 +38,13 @@
 }
 
 @layer components {
-    
+  .iconSize {
+    @apply w-5 h-5;
+  }
+
+  .transition-primary {
+    @apply transition-all duration-300 ease-in-out;
+  } 
 }
 
 
