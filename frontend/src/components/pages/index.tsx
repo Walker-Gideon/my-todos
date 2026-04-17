@@ -30,7 +30,7 @@ export default function AppLayout() {
         <Container container="div" className={"h-screen flex flex-col overflow-hidden"}>
             <Header menuOpen={isMenuOpen} onMenuClick={handleMenu} />
 
-            <Container variant="div" className={"w-full flex-1 flex md:gap-4 overflow-visible"}>
+            <Container variant="div" className={"w-full flex-1 flex overflow-visible"}>
                 <Navigation />
                 <Container variant="main" className={"flex-1 md:h-[98%] mx-4 md:mx-8 overflow-y-auto md:overflow-hidden"}>
                     <Outlet />
