@@ -1,9 +1,7 @@
-import Span from "@/components/ui/Span";
-import Button from "@/components/ui/Button";
-import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 import ShadowBox from "@/components/layout/ShadowBox";
 import DashboardHeader from "./components/DashboardHeader";
+import DashboardTodos from "./components/DashboardTodos";
 
 export default function Dashboard() {
     /*
@@ -18,7 +16,7 @@ export default function Dashboard() {
             <DashboardHeader />
             <Container variant="div" className={"w-full flex flex-col md:flex-row flex-1 gap-4 p-4 primary-border"}>
                 <ShadowBox>
-                    <p>Todos</p>
+                    <DashboardTodos />
                 </ShadowBox>
 
                 <Container variant="div" className={"w-full flex flex-col gap-4"}>
