@@ -56,3 +56,25 @@ export const registerValidationSchema = {
     },
   },
 };
+
+export const loginValidationSchema = {
+  email: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Email is required",
+    },
+    isEmail: {
+      errorMessage: "Email is invalid",
+    },
+  },
+  password: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Password is required",
+    },
+  },
+};
