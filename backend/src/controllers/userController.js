@@ -1,4 +1,5 @@
 import userModel from "../models/User.js";
+import { validationResult } from "express-validator";
 import generateToken from "../utils/generateToken.js";
 
 /**
@@ -7,6 +8,11 @@ import generateToken from "../utils/generateToken.js";
  * @access Public
  */
 export const registerUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
         const { firstName, lastName, username, email, password } = req.body;
         const user = await userModel.create({ firstName, lastName, username, email, password });
@@ -20,6 +26,12 @@ export const registerUser = async (req, res) => {
             token: generateToken(user._id)
         });
     } catch (error) {
+        if (error.code === 11000) {
+            const field = Object.keys(error.keyPattern)[0];
+            return res.status(400).json({ 
+                message: `${field.charAt(0).toUpperCase() + field.slice(1)} already exists` 
+            });
+        }
         res.status(500).json({ message: "Failed to register user", error: error.message });
     }
 }
@@ -30,6 +42,11 @@ export const registerUser = async (req, res) => {
  * @access Public
  */
 export const loginUser = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email });
