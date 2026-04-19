@@ -5,7 +5,7 @@ import { loginUser, type LoginData } from '@/api/auth';
 export const useLoginUser = () => {
     const navigate = useNavigate();
 
-    const { mutate: login, isPending, error } = useMutation({
+    const { mutate: login, isPending, error, reset, isSuccess } = useMutation({
         mutationFn: (data: LoginData) => loginUser(data),
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
@@ -13,5 +13,5 @@ export const useLoginUser = () => {
         },
     });
 
-    return { login, isPending, error };
+    return { login, isPending, error, reset, isSuccess };
 }
