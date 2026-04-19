@@ -13,7 +13,6 @@ export interface LoginData {
     password: string;
 }
 
-// Accepts a single object — required by React Query's MutationFunction type
 export const registerUser = async ({ firstName, lastName, username, email, password }: RegisterData) => {
     const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
@@ -24,7 +23,9 @@ export const registerUser = async ({ firstName, lastName, username, email, passw
     });
     if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.message || 'Registration failed');
+        const messages = err.errors && Array.isArray(err.errors) ? err.errors.map((e: { msg?: string; message?: string }) => e.msg || e.message || 'Verification failed') : [err.message || err.error || err.msg || 'Registration failed'];
+        const errorMessage = [...new Set(messages)].join(', ');
+        throw new Error(errorMessage);
     }
     return response.json();
 }
@@ -39,7 +40,9 @@ export const loginUser = async ({ email, password }: LoginData) => {
     });
     if (!response.ok) {
         const err = await response.json();
-        throw new Error(err.message || 'Login failed');
+        const messages = err.errors && Array.isArray(err.errors) ? err.errors.map((e: { msg?: string; message?: string }) => e.msg || e.message || 'Verification failed') : [err.message || err.error || err.msg || 'Login failed'];
+        const errorMessage = [...new Set(messages)].join(', ');
+        throw new Error(errorMessage);
     }
     return response.json();
 }
