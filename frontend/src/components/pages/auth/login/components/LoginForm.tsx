@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useForm, type SubmitHandler } from "react-hook-form"
 import { TbLockFilled, TbUserFilled } from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
@@ -8,9 +9,30 @@ import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 
+import { useLoginUser } from "@/components/pages/auth/hooks/useLoginUser";
+
+type LoginData = {
+  email: string
+  password: string
+}
+
 export default function LoginForm() {
     const navigate = useNavigate();
-    
+    const { login, isPending, error } = useLoginUser();
+
+    const { 
+        register,
+        handleSubmit,
+        reset,
+    } = useForm<LoginData>()
+
+    const onSubmit: SubmitHandler<LoginData> = (data) => {
+        login(data);
+    }
+
+    console.log(isPending)
+    console.log(error)
+
     const styling = {
         inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
@@ -18,7 +40,7 @@ export default function LoginForm() {
     }
 
     return (
-        <form action={""} className={"flex flex-col gap-5 w-full"}>
+        <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-5 w-full"}>
             <Container container="div" className={styling["inputContainer"]}>
                 <TbUserFilled className={styling["icon"]} />
                 <Input 
@@ -26,6 +48,7 @@ export default function LoginForm() {
                     defaultStyling={false} 
                     placeholder="Username" 
                     className={styling["input"]} 
+                    {...register("email")}
                 />
             </Container>
 
@@ -36,6 +59,7 @@ export default function LoginForm() {
                     defaultStyling={false} 
                     placeholder="Password" 
                     className={styling["input"]} 
+                    {...register("password")}
                 />
             </Container>
 
