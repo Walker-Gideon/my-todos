@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -10,6 +11,10 @@ const PORT = process.env.port || 5000;
 
 mongoose.connect(process.env.MONGODB_URL).then(() => console.log("Connected to MongoDB")).catch((err) => console.log(err));
 
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
