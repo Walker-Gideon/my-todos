@@ -1,9 +1,15 @@
 import { 
+  QueryClient, 
+  QueryClientProvider 
+} from "@tanstack/react-query";
+import { 
   Route, 
   Routes, 
   Navigate, 
   BrowserRouter, 
 } from "react-router-dom";
+
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AppLayout from "./components/pages";
 import Task from "./components/pages/task";
@@ -15,8 +21,18 @@ import Dashboard from "./components/pages/dashboard";
 import Categories from "./components/pages/categories";
 import Register from "./components/pages/auth/register";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+    },
+  },
+});
+
 export default function App() {
   return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
     <BrowserRouter>
       <Routes>
         <Route index element={<Navigate replace to="/auth/register" />} />
@@ -45,5 +61,6 @@ export default function App() {
         {/* Page Not Found */}
       </Routes>
     </BrowserRouter>
+    </QueryClientProvider>
   )
 }
