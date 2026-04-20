@@ -5,7 +5,7 @@ import { registerUser, type RegisterData } from '@/api/auth';
 export const useRegisterUser = () => {
     const navigate = useNavigate();
 
-    const { mutate: register, isPending, error } = useMutation({
+    const { mutate: register, isPending, error, reset, isSuccess } = useMutation({
         mutationFn: (data: RegisterData) => registerUser(data),
         onSuccess: (data) => {
             localStorage.setItem('token', data.token);
@@ -13,5 +13,5 @@ export const useRegisterUser = () => {
         },
     });
 
-    return { register, isPending, error };
+    return { register, isPending, error, reset, isSuccess };
 }
