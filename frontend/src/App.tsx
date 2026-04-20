@@ -20,6 +20,7 @@ import Settings from "./components/pages/settings";
 import Dashboard from "./components/pages/dashboard";
 import Categories from "./components/pages/categories";
 import Register from "./components/pages/auth/register";
+import PublicRoute from "./components/utils/PublicRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 
 const queryClient = new QueryClient({
@@ -38,10 +39,12 @@ export default function App() {
       <Routes>
         <Route index element={<Navigate replace to="/auth/register" />} />
 
-        <Route path="auth" element={<AuthLayout />}>
-          <Route index element={<Navigate replace to="register" />} />
-          <Route path="register" element={<Register />} />
-          <Route path="sign-in" element={<Login />} />
+        <Route element={<PublicRoute />}>
+          <Route path="auth" element={<AuthLayout />}>
+            <Route index element={<Navigate replace to="register" />} />
+            <Route path="register" element={<Register />} />
+            <Route path="sign-in" element={<Login />} />
+          </Route>
         </Route>
 
         <Route element={<ProtectedRoute />}>
