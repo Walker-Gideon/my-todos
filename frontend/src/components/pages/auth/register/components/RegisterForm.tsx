@@ -31,7 +31,7 @@ type RegisterData = {
 
 export default function RegisterForm() {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm<RegisterData>()
+    const { register, handleSubmit, watch } = useForm<RegisterData>()
     const { register: registerUser, isPending, error, reset: resetMutation, isSuccess } = useRegisterUser();
 
     const onSubmit: SubmitHandler<RegisterData> = async (data) => {
@@ -151,10 +151,11 @@ export default function RegisterForm() {
                         {...register("confirmPassword", { 
                             required: "Confirm Password is required",
                             disabled: isPending,
-                            minLength: {
-                                value: 8,
-                                message: "Confirm Password must be at least 8 characters"
-                            }
+                            validate: (val: string) => {
+                                if (watch('password') !== val) {
+                                  return "Your passwords do not match";
+                                }
+                            },
                         })}
                     />
                 </Container>
