@@ -20,6 +20,7 @@ import Settings from "./components/pages/settings";
 import Dashboard from "./components/pages/dashboard";
 import Categories from "./components/pages/categories";
 import Register from "./components/pages/auth/register";
+import ProtectedRoute from "./components/utils/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,19 +44,15 @@ export default function App() {
           <Route path="sign-in" element={<Login />} />
         </Route>
 
-        <Route
-          element={
-            // <ProtectedRoute>
-              <AppLayout />
-            // </ProtectedRoute>
-          }
-        >
-          <Route index element={<Navigate replace to="dashboard" />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="vital-task" element={<VitalTask />} />
-          <Route path="tasks" element={<Task />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="categories" element={<Categories />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AppLayout />}>
+            <Route index element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="vital-task" element={<VitalTask />} />
+            <Route path="tasks" element={<Task />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="categories" element={<Categories />} />
+          </Route>
         </Route>
 
         {/* Page Not Found */}
