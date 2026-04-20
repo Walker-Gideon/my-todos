@@ -72,6 +72,11 @@ import { motion } from "motion/react"
 Task to work on
 1. Remember me functionality (backend and frontend
 2. There should be a forget password page
-3. Register page functionality
+3. Register page functionality - Inprogress
 4. Agree to terms and condition logic (backend and frontend)
+
+NB 
+** Prevent user from going back to the auth page after they have sign in unless they logout
+** Error messages are not displaying for when the input data are not right
+** Make password visisble/invisible
 */
