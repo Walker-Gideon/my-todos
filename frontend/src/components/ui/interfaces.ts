@@ -10,6 +10,7 @@ export interface HeadingsProps extends UiProps {
 
 export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     type: string;
+    disabled?: boolean;
     placeholder?: string;
     className?: string;
     defaultStyling?: boolean;
@@ -26,6 +27,7 @@ export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement> {
 export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     ariaLabel?: string;
+    disabled?: boolean;
     type?: "submit" | "reset";
     variant?: "primary" | "outline" | "text";
 }
