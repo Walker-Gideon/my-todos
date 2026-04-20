@@ -29,6 +29,11 @@ export default function LoginForm() {
         login(data);
     }
 
+    const handleNavigateToRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate("/auth/register")
+    }
+
     const styling = {
         inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
@@ -101,7 +106,7 @@ export default function LoginForm() {
                         variant="text"
                         ariaLabel="Navigate to register page"
                         disabled={isPending}
-                        onClick={(e) => { e.preventDefault(); navigate("/auth/register") }}
+                        onClick={handleNavigateToRegister}
                         className={`text-primary font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         Create One
