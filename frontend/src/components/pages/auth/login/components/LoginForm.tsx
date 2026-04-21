@@ -1,15 +1,19 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TbLockFilled, TbUserFilled } from "react-icons/tb";
 import { useForm, type SubmitHandler } from "react-hook-form"
+import { 
+    TbEye, 
+    TbEyeOff,
+    TbLockFilled,
+    TbUserFilled
+} from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
 import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Toast from "@/components/layout/Toast";
 import Paragraph from "@/components/ui/Paragraph";
-import Container from "@/components/layout/Container";
-import Conditional from "@/components/layout/Conditional";
+import FormRow from "@/components/pages/auth/components/FormRow";
 
 import { useLoginUser } from "@/components/pages/auth/hooks/useLoginUser";
 
@@ -21,8 +25,10 @@ type LoginData = {
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm<LoginData>()
-    const { login, isPending, error, reset: resetMutation, isSuccess } = useLoginUser();
+    const { login, isPending } = useLoginUser();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginData>()
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit: SubmitHandler<LoginData> = async (data) => {
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -31,18 +37,27 @@ export default function LoginForm() {
 
     const handleNavigateToRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        navigate("/auth/register")
+        navigate("/auth/register");
+    }
+
+    const handleForgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate("/auth/forget-password");
+    }
+
+    const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setShowPassword(!showPassword);
     }
 
     const styling = {
-        inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
         icon: "text-zinc-400"
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-5 w-full"}>
-            <Container container="div" className={styling["inputContainer"]}>
+            <FormRow errorsField={errors.email} errorMessage={errors.email?.message}>
                 <TbUserFilled className={styling["icon"]} />
                 <Input 
                     type="text" 
@@ -58,12 +73,12 @@ export default function LoginForm() {
                         }
                     })}
                 />
-            </Container>
+            </FormRow>
 
-            <Container container="div" className={"flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all"}>
+            <FormRow errorsField={errors.password} errorMessage={errors.password?.message}>
                 <TbLockFilled className={styling["icon"]} />
                 <Input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     defaultStyling={false} 
                     placeholder="Password" 
                     className={styling["input"]} 
@@ -76,19 +91,37 @@ export default function LoginForm() {
                         }
                     })}
                 />
-            </Container>
+                <Button 
+                    variant="text" 
+                    onClick={handlePassword}
+                    className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                >
+                    {showPassword ? <TbEyeOff className="text-zinc-400" /> : <TbEye className="text-zinc-400" />}
+                </Button>
+            </FormRow>
 
             <div className={"flex flex-col gap-6 mt-2"}>
-                <Label className={"flex items-center gap-2 cursor-pointer group"}>
-                    <Input 
-                        type="checkbox" 
+                <div className={"flex items-center justify-between"}>
+                    <Label className={"flex items-center gap-2 cursor-pointer group"}>
+                        <Input 
+                            type="checkbox" 
+                            disabled={isPending}
+                            defaultStyling={false} 
+                            className={"w-4 h-4 cursor-pointer accent-primary disabled:cursor-not-allowed"} 
+                            {...register("rememberMe")}
+                        />
+                        <Span className={"text-sm text-zinc-600"}>Remember Me</Span>
+                    </Label>
+                    <Button
+                        variant="text"
+                        ariaLabel="Forgot Password"
                         disabled={isPending}
-                        defaultStyling={false} 
-                        className={"w-4 h-4 cursor-pointer accent-primary disabled:cursor-not-allowed"} 
-                        {...register("rememberMe")}
-                    />
-                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>Remember Me</Span>
-                </Label>
+                        onClick={handleForgotPassword}
+                        className={`text-zinc-600 transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    >
+                        Forgot Password?
+                    </Button>
+                </div>
 
                 <Button
                     type="submit"
@@ -107,32 +140,12 @@ export default function LoginForm() {
                         ariaLabel="Navigate to register page"
                         disabled={isPending}
                         onClick={handleNavigateToRegister}
-                        className={`text-primary font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`text-blue font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         Create One
                     </Button>
                 </div>
             </div>
-            <Conditional condition={isSuccess}>
-                <Toast
-                    message={"Login successfully"}
-                    type="success"
-                    isVisible={isSuccess}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
-            <Conditional condition={!!error}>
-                <Toast
-                    message={error?.message || ""}
-                    type="error"
-                    isVisible={!!error}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
         </form>
     )
 }

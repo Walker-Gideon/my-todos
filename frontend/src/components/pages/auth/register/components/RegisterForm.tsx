@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { 
@@ -5,17 +6,17 @@ import {
     TbUserEdit, 
     TbLockFilled, 
     TbMailFilled, 
-    TbUserFilled 
+    TbUserFilled,
+    TbEye,
+    TbEyeOff
 } from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
 import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Toast from "@/components/layout/Toast";
 import Paragraph from "@/components/ui/Paragraph";
-import Container from "@/components/layout/Container";
-import Conditional from "@/components/layout/Conditional";
+import FormRow from "@/components/pages/auth/components/FormRow";
 
 import { useRegisterUser } from "@/components/pages/auth/hooks/useRegisterUser";
 
@@ -31,8 +32,11 @@ type RegisterData = {
 
 export default function RegisterForm() {
     const navigate = useNavigate();
-    const { register, handleSubmit, watch } = useForm<RegisterData>()
-    const { register: registerUser, isPending, error, reset: resetMutation, isSuccess } = useRegisterUser();
+    const { register: registerUser, isPending } = useRegisterUser();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterData>()
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onSubmit: SubmitHandler<RegisterData> = async (data) => {
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -41,11 +45,19 @@ export default function RegisterForm() {
 
     const handleNavigateToSignIn = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        navigate("/auth/sign-in")
+        navigate("/auth/sign-in");
+    }
+
+    const handleConfirmPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setShowConfirmPassword(!showConfirmPassword);
+    }
+    const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setShowPassword(!showPassword);
     }
     
     const styling = {
-        inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
         icon: "text-zinc-400"
     }
@@ -54,7 +66,7 @@ export default function RegisterForm() {
         <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-5 w-full"}>
             <div className={"flex flex-col gap-4"}>
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                    <Container container="div" className={styling["inputContainer"]}>
+                    <FormRow errorsField={errors.firstName} errorMessage={errors.firstName?.message}>
                         <TbUserEdit className={styling["icon"]} />
                         <Input 
                             type="text" 
@@ -66,9 +78,9 @@ export default function RegisterForm() {
                                 disabled: isPending,
                             })}
                         />
-                    </Container>
+                    </FormRow>
 
-                    <Container container="div" className={styling["inputContainer"]}>
+                    <FormRow errorsField={errors.lastName} errorMessage={errors.lastName?.message}>
                         <TbUserEdit className={styling["icon"]} />
                         <Input 
                             type="text" 
@@ -80,10 +92,10 @@ export default function RegisterForm() {
                                 disabled: isPending,
                             })}
                         />
-                    </Container>
+                    </FormRow>
                 </div>
 
-                <Container container="div" className={styling["inputContainer"]}>
+                <FormRow errorsField={errors.username} errorMessage={errors.username?.message}>
                     <TbUserFilled className={styling["icon"]} />
                     <Input 
                         type="text" 
@@ -95,7 +107,7 @@ export default function RegisterForm() {
                             disabled: isPending,
                             minLength: {
                                 value: 5,
-                                message: "Username must be at least 3 characters"
+                                message: "Username must be at least 5 characters"
                             },
                             maxLength: {
                                 value: 20,
@@ -103,9 +115,9 @@ export default function RegisterForm() {
                             }
                         })}
                     />
-                </Container>
+                </FormRow>
 
-                <Container container="div" className={styling["inputContainer"]}>
+                <FormRow errorsField={errors.email} errorMessage={errors.email?.message}>
                     <TbMailFilled className={styling["icon"]} />
                     <Input 
                         type="email" 
@@ -119,14 +131,14 @@ export default function RegisterForm() {
                                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                                 message: "Invalid email address"
                             }
-                    })} 
+                        })} 
                     />
-                </Container>
+                </FormRow>
 
-                <Container container="div" className={styling["inputContainer"]}>
+                <FormRow errorsField={errors.password} errorMessage={errors.password?.message}>
                     <TbLockFilled className={styling["icon"]} />
                     <Input 
-                        type="password" 
+                        type={showPassword ? "text" : "password"} 
                         defaultStyling={false} 
                         placeholder="Password" 
                         className={styling["input"]} 
@@ -139,12 +151,19 @@ export default function RegisterForm() {
                             }
                         })}
                     />
-                </Container>
+                    <Button 
+                        variant="text" 
+                        onClick={handlePassword}
+                        className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                    >
+                        {showPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
+                    </Button>
+                </FormRow>
 
-                <Container container="div" className={styling["inputContainer"]}>
+                <FormRow errorsField={errors.confirmPassword} errorMessage={errors.confirmPassword?.message}>
                     <TbLock className={styling["icon"]} />
                     <Input 
-                        type="password" 
+                        type={showConfirmPassword ? "text" : "password"} 
                         defaultStyling={false} 
                         placeholder="Confirm Password" 
                         className={styling["input"]} 
@@ -153,12 +172,19 @@ export default function RegisterForm() {
                             disabled: isPending,
                             validate: (val: string) => {
                                 if (watch('password') !== val) {
-                                  return "Your passwords do not match";
+                                    return "Your passwords do not match";
                                 }
                             },
                         })}
                     />
-                </Container>
+                    <Button 
+                        variant="text" 
+                        onClick={handleConfirmPassword}
+                        className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                    >
+                        {showConfirmPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
+                    </Button>
+                </FormRow>
             </div>
 
             <div className={"flex flex-col gap-6 mt-2"}>
@@ -172,8 +198,9 @@ export default function RegisterForm() {
                             disabled: isPending,
                         })}
                     />
-                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>I agree to the terms and conditions</Span>
+                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>I agree to all terms</Span>
                 </Label>
+                {errors.agreeToTerms && <Span className="text-xs text-red-500 ml-1 -mt-5">{errors.agreeToTerms.message}</Span>}
 
                 <Button
                     type="submit"
@@ -192,32 +219,13 @@ export default function RegisterForm() {
                         ariaLabel="Navigate to sign in page"
                         disabled={isPending}
                         onClick={handleNavigateToSignIn}
-                        className={`text-primary font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`text-blue font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         Sign In
                     </Button>
                 </div>
             </div>
-            <Conditional condition={isSuccess}>
-                <Toast
-                    message={"Registered successfully"}
-                    type="success"
-                    isVisible={isSuccess}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
-            <Conditional condition={!!error}>
-                <Toast
-                    message={error?.message || ""}
-                    type="error"
-                    isVisible={!!error}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
         </form>
     )
 }
+
