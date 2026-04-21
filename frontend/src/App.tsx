@@ -23,6 +23,7 @@ import Categories from "./components/pages/categories";
 import Register from "./components/pages/auth/register";
 import PublicRoute from "./components/utils/PublicRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
+import ForgetPassword from "./components/pages/auth/components/ForgetPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +46,7 @@ export default function App() {
               <Route index element={<Navigate replace to="register" />} />
               <Route path="register" element={<Register />} />
               <Route path="sign-in" element={<Login />} />
+              <Route path="forget-password" element={<ForgetPassword />} />
             </Route>
           </Route>
 
