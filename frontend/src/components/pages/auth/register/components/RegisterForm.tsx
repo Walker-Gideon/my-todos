@@ -15,10 +15,8 @@ import Span from "@/components/ui/Span";
 import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Toast from "@/components/layout/Toast";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
-import Conditional from "@/components/layout/Conditional";
 
 import { useRegisterUser } from "@/components/pages/auth/hooks/useRegisterUser";
 
@@ -34,9 +32,9 @@ type RegisterData = {
 
 export default function RegisterForm() {
     const navigate = useNavigate();
+    const { register: registerUser, isPending } = useRegisterUser();
     const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterData>()
-    const { register: registerUser, isPending, error, reset: resetMutation, isSuccess } = useRegisterUser();
-    
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -246,27 +244,6 @@ export default function RegisterForm() {
                     </Button>
                 </div>
             </div>
-
-            {/* <Conditional condition={isSuccess}>
-                <Toast
-                    message={"Registered successfully"}
-                    type="success"
-                    isVisible={isSuccess}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
-            <Conditional condition={!!error}>
-                <Toast
-                    message={error?.message || ""}
-                    type="error"
-                    isVisible={!!error}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional> */}
         </form>
     )
 }

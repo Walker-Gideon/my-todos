@@ -1,16 +1,19 @@
-import { useNavigate } from "react-router-dom";
-import { TbLockFilled, TbUserFilled, TbEye, TbEyeOff } from "react-icons/tb";
-import { useForm, type SubmitHandler } from "react-hook-form"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm, type SubmitHandler } from "react-hook-form"
+import { 
+    TbEye, 
+    TbEyeOff,
+    TbLockFilled,
+    TbUserFilled
+} from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
 import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
-import Toast from "@/components/layout/Toast";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
-import Conditional from "@/components/layout/Conditional";
 
 import { useLoginUser } from "@/components/pages/auth/hooks/useLoginUser";
 
@@ -22,8 +25,9 @@ type LoginData = {
 
 export default function LoginForm() {
     const navigate = useNavigate();
+    const { login, isPending } = useLoginUser();
     const { register, handleSubmit, formState: { errors } } = useForm<LoginData>()
-    const { login, isPending, error, reset: resetMutation, isSuccess } = useLoginUser();
+
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit: SubmitHandler<LoginData> = async (data) => {
@@ -129,27 +133,6 @@ export default function LoginForm() {
                     </Button>
                 </div>
             </div>
-
-            {/* <Conditional condition={isSuccess}>
-                <Toast
-                    message={"Login successfully"}
-                    type="success"
-                    isVisible={isSuccess}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional>
-            <Conditional condition={!!error}>
-                <Toast
-                    message={error?.message || ""}
-                    type="error"
-                    isVisible={!!error}
-                    onClose={() => {
-                        resetMutation();
-                    }}
-                />
-            </Conditional> */}
         </form>
     )
 }
