@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { TbLockFilled, TbUserFilled } from "react-icons/tb";
+import { TbLockFilled, TbUserFilled, TbEye, TbEyeOff } from "react-icons/tb";
 import { useForm, type SubmitHandler } from "react-hook-form"
+import { useState } from "react";
 
 import Span from "@/components/ui/Span";
 import Label from "@/components/ui/Label";
@@ -21,8 +22,9 @@ type LoginData = {
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { register, handleSubmit } = useForm<LoginData>()
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginData>()
     const { login, isPending, error, reset: resetMutation, isSuccess } = useLoginUser();
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit: SubmitHandler<LoginData> = async (data) => {
         await new Promise(resolve => setTimeout(resolve, 800));
@@ -32,6 +34,11 @@ export default function LoginForm() {
     const handleNavigateToRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate("/auth/register")
+    }
+
+    const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setShowPassword(!showPassword)
     }
 
     const styling = {
@@ -59,11 +66,12 @@ export default function LoginForm() {
                     })}
                 />
             </Container>
+            {errors.email && <Span className="text-xs text-red-500 -mt-3 ml-2">{errors.email.message}</Span>}
 
-            <Container container="div" className={"flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all"}>
+            <Container container="div" className={"flex items-center border border-border-primary rounded-md px-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all"}>
                 <TbLockFilled className={styling["icon"]} />
                 <Input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     defaultStyling={false} 
                     placeholder="Password" 
                     className={styling["input"]} 
@@ -76,7 +84,15 @@ export default function LoginForm() {
                         }
                     })}
                 />
+                <Button 
+                    variant="text" 
+                    onClick={handlePassword}
+                    className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                >
+                    {showPassword ? <TbEyeOff className="text-zinc-400" /> : <TbEye className="text-zinc-400" />}
+                </Button>
             </Container>
+            {errors.password && <Span className="text-xs text-red-500 -mt-3 ml-2">{errors.password.message}</Span>}
 
             <div className={"flex flex-col gap-6 mt-2"}>
                 <Label className={"flex items-center gap-2 cursor-pointer group"}>
@@ -113,7 +129,8 @@ export default function LoginForm() {
                     </Button>
                 </div>
             </div>
-            <Conditional condition={isSuccess}>
+
+            {/* <Conditional condition={isSuccess}>
                 <Toast
                     message={"Login successfully"}
                     type="success"
@@ -132,7 +149,7 @@ export default function LoginForm() {
                         resetMutation();
                     }}
                 />
-            </Conditional>
+            </Conditional> */}
         </form>
     )
 }
