@@ -45,16 +45,16 @@ export default function RegisterForm() {
 
     const handleNavigateToSignIn = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        navigate("/auth/sign-in")
+        navigate("/auth/sign-in");
     }
 
     const handleConfirmPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setShowConfirmPassword(!showConfirmPassword)
+        setShowConfirmPassword(!showConfirmPassword);
     }
     const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setShowPassword(!showPassword)
+        setShowPassword(!showPassword);
     }
     
     const styling = {
@@ -198,7 +198,7 @@ export default function RegisterForm() {
                             disabled: isPending,
                         })}
                     />
-                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>I agree to the terms and conditions</Span>
+                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>I agree to all terms</Span>
                 </Label>
                 {errors.agreeToTerms && <Span className="text-xs text-red-500 ml-1 -mt-5">{errors.agreeToTerms.message}</Span>}
 
@@ -219,7 +219,7 @@ export default function RegisterForm() {
                         ariaLabel="Navigate to sign in page"
                         disabled={isPending}
                         onClick={handleNavigateToSignIn}
-                        className={`text-primary font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`text-blue font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         Sign In
                     </Button>

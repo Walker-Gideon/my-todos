@@ -37,12 +37,17 @@ export default function LoginForm() {
 
     const handleNavigateToRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        navigate("/auth/register")
+        navigate("/auth/register");
+    }
+
+    const handleForgotPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate("/auth/forget-password");
     }
 
     const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setShowPassword(!showPassword)
+        setShowPassword(!showPassword);
     }
 
     const styling = {
@@ -96,16 +101,27 @@ export default function LoginForm() {
             </FormRow>
 
             <div className={"flex flex-col gap-6 mt-2"}>
-                <Label className={"flex items-center gap-2 cursor-pointer group"}>
-                    <Input 
-                        type="checkbox" 
+                <div className={"flex items-center justify-between"}>
+                    <Label className={"flex items-center gap-2 cursor-pointer group"}>
+                        <Input 
+                            type="checkbox" 
+                            disabled={isPending}
+                            defaultStyling={false} 
+                            className={"w-4 h-4 cursor-pointer accent-primary disabled:cursor-not-allowed"} 
+                            {...register("rememberMe")}
+                        />
+                        <Span className={"text-sm text-zinc-600"}>Remember Me</Span>
+                    </Label>
+                    <Button
+                        variant="text"
+                        ariaLabel="Forgot Password"
                         disabled={isPending}
-                        defaultStyling={false} 
-                        className={"w-4 h-4 cursor-pointer accent-primary disabled:cursor-not-allowed"} 
-                        {...register("rememberMe")}
-                    />
-                    <Span className={"text-sm text-zinc-600 dark:text-zinc-400"}>Remember Me</Span>
-                </Label>
+                        onClick={handleForgotPassword}
+                        className={`text-zinc-600 transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    >
+                        Forgot Password?
+                    </Button>
+                </div>
 
                 <Button
                     type="submit"
@@ -124,7 +140,7 @@ export default function LoginForm() {
                         ariaLabel="Navigate to register page"
                         disabled={isPending}
                         onClick={handleNavigateToRegister}
-                        className={`text-primary font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
+                        className={`text-blue font-semibold hover:underline transition-all ${isPending ? "cursor-not-allowed" : "cursor-pointer"}`}
                     >
                         Create One
                     </Button>
