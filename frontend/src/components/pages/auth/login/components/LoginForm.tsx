@@ -13,7 +13,7 @@ import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
-import Container from "@/components/layout/Container";
+import FormRow from "@/components/pages/auth/components/FormRow";
 
 import { useLoginUser } from "@/components/pages/auth/hooks/useLoginUser";
 
@@ -46,14 +46,13 @@ export default function LoginForm() {
     }
 
     const styling = {
-        inputContainer: "flex items-center border border-border-primary rounded-md pl-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
         icon: "text-zinc-400"
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-5 w-full"}>
-            <Container container="div" className={styling["inputContainer"]}>
+            <FormRow errorsField={errors.email} errorMessage={errors.email?.message}>
                 <TbUserFilled className={styling["icon"]} />
                 <Input 
                     type="text" 
@@ -69,10 +68,9 @@ export default function LoginForm() {
                         }
                     })}
                 />
-            </Container>
-            {errors.email && <Span className="text-xs text-red-500 -mt-3 ml-2">{errors.email.message}</Span>}
+            </FormRow>
 
-            <Container container="div" className={"flex items-center border border-border-primary rounded-md px-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all"}>
+            <FormRow errorsField={errors.password} errorMessage={errors.password?.message}>
                 <TbLockFilled className={styling["icon"]} />
                 <Input 
                     type={showPassword ? "text" : "password"} 
@@ -95,8 +93,7 @@ export default function LoginForm() {
                 >
                     {showPassword ? <TbEyeOff className="text-zinc-400" /> : <TbEye className="text-zinc-400" />}
                 </Button>
-            </Container>
-            {errors.password && <Span className="text-xs text-red-500 -mt-3 ml-2">{errors.password.message}</Span>}
+            </FormRow>
 
             <div className={"flex flex-col gap-6 mt-2"}>
                 <Label className={"flex items-center gap-2 cursor-pointer group"}>

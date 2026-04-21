@@ -16,7 +16,7 @@ import Label from "@/components/ui/Label";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
-import Container from "@/components/layout/Container";
+import FormRow from "@/components/pages/auth/components/FormRow";
 
 import { useRegisterUser } from "@/components/pages/auth/hooks/useRegisterUser";
 
@@ -58,7 +58,6 @@ export default function RegisterForm() {
     }
     
     const styling = {
-        inputContainer: "flex items-center border border-border-primary rounded-md px-3 text-sm hover:border-primary-hover focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 transition-all",
         input: "w-full focus:outline-none px-2 py-2.5 md:p-2 bg-transparent",
         icon: "text-zinc-400"
     }
@@ -67,143 +66,125 @@ export default function RegisterForm() {
         <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col gap-5 w-full"}>
             <div className={"flex flex-col gap-4"}>
                 <div className={"grid grid-cols-1 md:grid-cols-2 gap-4"}>
-                    <div className="flex flex-col gap-1">
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbUserEdit className={styling["icon"]} />
-                            <Input 
-                                type="text" 
-                                defaultStyling={false} 
-                                placeholder="First Name" 
-                                className={styling["input"]} 
-                                {...register("firstName", {
-                                    required: "First Name is required",
-                                    disabled: isPending,
-                                })}
-                            />
-                        </Container>
-                        {errors.firstName && <Span className="text-xs text-red-500 ml-1">{errors.firstName.message}</Span>}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <Container container="div" className={styling["inputContainer"]}>
-                            <TbUserEdit className={styling["icon"]} />
-                            <Input 
-                                type="text" 
-                                defaultStyling={false} 
-                                placeholder="Last Name" 
-                                className={styling["input"]} 
-                                {...register("lastName", {
-                                    required: "Last Name is required",
-                                    disabled: isPending,
-                                })}
-                            />
-                        </Container>
-                        {errors.lastName && <Span className="text-xs text-red-500 ml-1">{errors.lastName.message}</Span>}
-                    </div>
-                </div>
-
-                <div className="flex flex-col gap-1">
-                    <Container container="div" className={styling["inputContainer"]}>
-                        <TbUserFilled className={styling["icon"]} />
+                    <FormRow errorsField={errors.firstName} errorMessage={errors.firstName?.message}>
+                        <TbUserEdit className={styling["icon"]} />
                         <Input 
                             type="text" 
                             defaultStyling={false} 
-                            placeholder="Username" 
+                            placeholder="First Name" 
                             className={styling["input"]} 
-                            {...register("username", { 
-                                required: "Username is required",
+                            {...register("firstName", {
+                                required: "First Name is required",
                                 disabled: isPending,
-                                minLength: {
-                                    value: 5,
-                                    message: "Username must be at least 5 characters"
-                                },
-                                maxLength: {
-                                    value: 20,
-                                    message: "Username must be less or equal to 20 characters"
-                                }
                             })}
                         />
-                    </Container>
-                    {errors.username && <Span className="text-xs text-red-500 ml-1">{errors.username.message}</Span>}
+                    </FormRow>
+
+                    <FormRow errorsField={errors.lastName} errorMessage={errors.lastName?.message}>
+                        <TbUserEdit className={styling["icon"]} />
+                        <Input 
+                            type="text" 
+                            defaultStyling={false} 
+                            placeholder="Last Name" 
+                            className={styling["input"]} 
+                            {...register("lastName", {
+                                required: "Last Name is required",
+                                disabled: isPending,
+                            })}
+                        />
+                    </FormRow>
                 </div>
 
-                <div className="flex flex-col gap-1">
-                    <Container container="div" className={styling["inputContainer"]}>
-                        <TbMailFilled className={styling["icon"]} />
-                        <Input 
-                            type="email" 
-                            defaultStyling={false} 
-                            placeholder="Email Address" 
-                            className={styling["input"]}
-                            {...register("email", { 
-                                required: "Email is required",
-                                disabled: isPending,
-                                pattern: {
-                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                    message: "Invalid email address"
-                                }
+                <FormRow errorsField={errors.username} errorMessage={errors.username?.message}>
+                    <TbUserFilled className={styling["icon"]} />
+                    <Input 
+                        type="text" 
+                        defaultStyling={false} 
+                        placeholder="Username" 
+                        className={styling["input"]} 
+                        {...register("username", { 
+                            required: "Username is required",
+                            disabled: isPending,
+                            minLength: {
+                                value: 5,
+                                message: "Username must be at least 5 characters"
+                            },
+                            maxLength: {
+                                value: 20,
+                                message: "Username must be less or equal to 20 characters"
+                            }
+                        })}
+                    />
+                </FormRow>
+
+                <FormRow errorsField={errors.email} errorMessage={errors.email?.message}>
+                    <TbMailFilled className={styling["icon"]} />
+                    <Input 
+                        type="email" 
+                        defaultStyling={false} 
+                        placeholder="Email Address" 
+                        className={styling["input"]}
+                        {...register("email", { 
+                            required: "Email is required",
+                            disabled: isPending,
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Invalid email address"
+                            }
                         })} 
-                        />
-                    </Container>
-                    {errors.email && <Span className="text-xs text-red-500 ml-1">{errors.email.message}</Span>}
-                </div>
+                    />
+                </FormRow>
 
-                <div className="flex flex-col gap-1">
-                    <Container container="div" className={styling["inputContainer"]}>
-                        <TbLockFilled className={styling["icon"]} />
-                        <Input 
-                            type={showPassword ? "text" : "password"} 
-                            defaultStyling={false} 
-                            placeholder="Password" 
-                            className={styling["input"]} 
-                            {...register("password", { 
-                                required: "Password is required",
-                                disabled: isPending,
-                                minLength: {
-                                    value: 8,
-                                    message: "Password must be at least 8 characters"
+                <FormRow errorsField={errors.password} errorMessage={errors.password?.message}>
+                    <TbLockFilled className={styling["icon"]} />
+                    <Input 
+                        type={showPassword ? "text" : "password"} 
+                        defaultStyling={false} 
+                        placeholder="Password" 
+                        className={styling["input"]} 
+                        {...register("password", { 
+                            required: "Password is required",
+                            disabled: isPending,
+                            minLength: {
+                                value: 8,
+                                message: "Password must be at least 8 characters"
+                            }
+                        })}
+                    />
+                    <Button 
+                        variant="text" 
+                        onClick={handlePassword}
+                        className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                    >
+                        {showPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
+                    </Button>
+                </FormRow>
+
+                <FormRow errorsField={errors.confirmPassword} errorMessage={errors.confirmPassword?.message}>
+                    <TbLock className={styling["icon"]} />
+                    <Input 
+                        type={showConfirmPassword ? "text" : "password"} 
+                        defaultStyling={false} 
+                        placeholder="Confirm Password" 
+                        className={styling["input"]} 
+                        {...register("confirmPassword", { 
+                            required: "Confirm Password is required",
+                            disabled: isPending,
+                            validate: (val: string) => {
+                                if (watch('password') !== val) {
+                                    return "Your passwords do not match";
                                 }
-                            })}
-                        />
-                        <Button 
-                            variant="text" 
-                            onClick={handlePassword}
-                            className="p-1 hover:bg-slate-100 rounded-full transition-colors"
-                        >
-                            {showPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
-                        </Button>
-                    </Container>
-                    {errors.password && <Span className="text-xs text-red-500 ml-1">{errors.password.message}</Span>}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                    <Container container="div" className={styling["inputContainer"]}>
-                        <TbLock className={styling["icon"]} />
-                        <Input 
-                            type={showConfirmPassword ? "text" : "password"} 
-                            defaultStyling={false} 
-                            placeholder="Confirm Password" 
-                            className={styling["input"]} 
-                            {...register("confirmPassword", { 
-                                required: "Confirm Password is required",
-                                disabled: isPending,
-                                validate: (val: string) => {
-                                    if (watch('password') !== val) {
-                                      return "Your passwords do not match";
-                                    }
-                                },
-                            })}
-                        />
-                        <Button 
-                            variant="text" 
-                            onClick={handleConfirmPassword}
-                            className="p-1 hover:bg-slate-100 rounded-full transition-colors"
-                        >
-                            {showConfirmPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
-                        </Button>
-                    </Container>
-                    {errors.confirmPassword && <Span className="text-xs text-red-500 ml-1">{errors.confirmPassword.message}</Span>}
-                </div>
+                            },
+                        })}
+                    />
+                    <Button 
+                        variant="text" 
+                        onClick={handleConfirmPassword}
+                        className="p-1 hover:bg-slate-100 rounded-full transition-colors"
+                    >
+                        {showConfirmPassword ? <TbEyeOff className="text-zinc-400 h-4 w-4" /> : <TbEye className="text-zinc-400 h-4 w-4" />}
+                    </Button>
+                </FormRow>
             </div>
 
             <div className={"flex flex-col gap-6 mt-2"}>
@@ -247,3 +228,4 @@ export default function RegisterForm() {
         </form>
     )
 }
+
