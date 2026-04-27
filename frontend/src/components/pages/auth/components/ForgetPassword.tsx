@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 import Headings from "@/components/ui/Headings";
 import Container from "@/components/layout/Container";
 
-import RegisterIllustration from "@/assets/registration_illustration.png";
+import ForgetPasswordIllustration from "@/assets/forgot-password.svg";
 
 const MotionContainer = motion(Container);
 
@@ -32,8 +32,6 @@ export default function ForgetPassword() {
                 </Container>
                 {/* <LoginForm /> */}
             </motion.div>
-
-            {/* Illustration Section (Right in Login) */}
             <motion.div 
                 initial={{ x: direction === 1 ? xOffset : -xOffset, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -42,7 +40,7 @@ export default function ForgetPassword() {
                 className={"hidden md:flex md:w-2/5 lg:w-1/2 items-center justify-center p-12"}
             >
                 <img 
-                    src={RegisterIllustration} 
+                    src={ForgetPasswordIllustration} 
                     alt="Join us" 
                     className={"w-full max-w-[400px] h-auto object-contain drop-shadow-2xl"}
                 />
