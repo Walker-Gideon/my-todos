@@ -60,7 +60,7 @@ export default function LoginForm() {
             <FormRow errorsField={errors.email} errorMessage={errors.email?.message}>
                 <TbUserFilled className={styling["icon"]} />
                 <Input 
-                    type="text" 
+                    type="email" 
                     defaultStyling={false} 
                     placeholder="Email" 
                     className={styling["input"]} 
