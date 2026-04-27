@@ -22,10 +22,10 @@ export default function AuthLayout() {
                 <Button 
                     variant="text" 
                     ariaLabel="Back to sign in" 
-                    className={"absolute top-4 left-4 hover:border hover:border-primary hover:bg-primary/10 rounded-md px-2 py-1 transition-primary"}
+                    className="absolute top-4 left-4 p-2 rounded-full text-gray-600 hover:bg-white hover:text-primary hover:-translate-x-1 hover:shadow-sm transition-all duration-300"
                     onClick={() => navigate("/auth/sign-in")}
                 >
-                    <TbArrowNarrowLeft className="w-5 h-5" />
+                    <TbArrowNarrowLeft className="w-6 h-6" />
                 </Button>
             </Conditional>
             <AnimatePresence mode="wait">
