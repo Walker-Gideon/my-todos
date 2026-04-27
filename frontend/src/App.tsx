@@ -23,7 +23,7 @@ import Categories from "./components/pages/categories";
 import Register from "./components/pages/auth/register";
 import PublicRoute from "./components/utils/PublicRoute";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
-import ForgetPassword from "./components/pages/auth/components/ForgetPassword";
+import ForgetPassword from "./components/pages/auth/forget-password/ForgetPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
