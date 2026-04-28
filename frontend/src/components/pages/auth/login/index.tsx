@@ -26,7 +26,7 @@ export default function Login() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: direction === 1 ? -xOffset : xOffset, opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className={"w-full md:w-3/5 lg:w-1/2 p-6 md:p-0 flex flex-col justify-center"}
+                className={"w-full md:w-3/5 lg:w-1/2 flex flex-col justify-center"}
             >
                 <Container variant="header" className={"w-full mb-4"}>
                     <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Sign In</Headings>
