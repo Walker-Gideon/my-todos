@@ -18,7 +18,7 @@ export default function Register() {
         <MotionContainer 
             layoutId="auth-card"
             container="div" 
-            className={"flex flex-col md:flex-row"}
+            className={"flex flex-col md:flex-row gap-6 lg:gap-0"}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
             {/* Illustration Section (Left) */}
@@ -27,7 +27,7 @@ export default function Register() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: direction === 0 ? -xOffset : xOffset, opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className={"hidden md:flex md:w-2/5 lg:w-1/2 items-center justify-center p-12"}
+                className={"hidden md:flex md:w-2/5 lg:w-1/2 items-center justify-center lg:p-12"}
             >
                 <img 
                     src={RegisterIllustration} 
