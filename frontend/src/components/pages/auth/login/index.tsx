@@ -18,7 +18,7 @@ export default function Login() {
         <MotionContainer 
             layoutId="auth-card"
             container="div" 
-            className={"w-full max-w-md md:max-w-5xl md:w-[80%] flex flex-col md:flex-row mx-0 md:p-6 bg-white rounded-md shadow-2xl shadow-primary/5"}
+            className={"flex flex-col md:flex-row"}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
             <motion.div 
