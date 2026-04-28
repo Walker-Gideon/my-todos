@@ -19,7 +19,7 @@ export default function ForgetPassword() {
         <MotionContainer 
             layoutId="auth-card"
             container="div" 
-            className={"flex flex-col md:flex-row gap-6 lg:gap-0"}
+            className={"flex flex-col md:flex-row gap-8"}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
             <motion.div 
@@ -27,7 +27,7 @@ export default function ForgetPassword() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: direction === 1 ? -xOffset : xOffset, opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className={"w-full md:w-3/5 lg:w-1/2 flex flex-col justify-center"}
+                className={"w-full md:w-1/2 flex flex-col justify-center"}
             >
                 <Container variant="header" className={"w-full mb-4"}>
                     <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Forget Password</Headings>
@@ -40,12 +40,12 @@ export default function ForgetPassword() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: direction === 1 ? -xOffset : xOffset, opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className={"hidden md:flex md:w-2/5 lg:w-1/2 items-center justify-center lg:p-12"}
-            >
+                className={"hidden md:flex md:w-1/2 items-end justify-end"}
+            > 
                 <img 
                     src={ForgetPasswordIllustration} 
                     alt="Join us" 
-                    className={"w-full max-w-[400px] h-auto object-contain drop-shadow-2xl"}
+                    className={"w-full max-w-[400px] h-4/5 object-contain drop-shadow-2xl"}
                 />
             </motion.div>
         </MotionContainer>
