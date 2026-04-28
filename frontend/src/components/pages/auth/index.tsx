@@ -29,7 +29,9 @@ export default function AuthLayout() {
                 </Button>
             </Conditional>
             <AnimatePresence mode="wait">
-                <Outlet context={{ direction: currentIndex, pathname: location.pathname }} />
+                <Container variant="main" className={"w-full max-w-md md:max-w-5xl md:w-[80%] mx-0 md:p-6 bg-white rounded-md shadow-2xl shadow-primary/5"}>
+                    <Outlet context={{ direction: currentIndex, pathname: location.pathname }} />
+                </Container>
             </AnimatePresence>
         </Container>
     )
