@@ -102,5 +102,9 @@ I'll build the system so that the backend generates a secure reset token and **l
 
 ---
 
-**Shall I proceed with implementing these two features?** I can start with the "Remember Me" storage logic as it's a quick win for the current login workflow.
+#######
+Also define an expiry upfront. 1 hour is the industry standard. After that the token is invalid regardless.
+
+On the ResetPassword screen
+The token comes in via the URL query param. First thing that screen should do on load is validate that the token exists and hasn't expired — before the user types anything. If it's already invalid, show them immediately rather than letting them fill the form and fail on submit. Better UX, less wasted effort.
 */
