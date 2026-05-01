@@ -78,3 +78,42 @@ export const loginValidationSchema = {
     },
   },
 };
+
+export const forgetPasswordValidationSchema = {
+  email: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Email is required",
+    },
+    isEmail: {
+      errorMessage: "Email is invalid",
+    },
+  },
+};
+
+export const resetPasswordValidationSchema = {
+  token: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Token is required",
+    },
+  },
+  password: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Password is required",
+    },
+    isLength: {
+      options: {
+        min: 8,
+      },
+      errorMessage: "Password must be at least 8 characters long",
+    },
+  },
+};

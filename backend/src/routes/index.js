@@ -8,6 +8,8 @@ import registerRouter from "./register.js";
 import vitalTaskRouter from "./vitalTask.js";
 import dashboardRouter from "./dashboard.js";
 import categoriesRouter from "./categories.js";
+import resetPasswordRouter from "./resetPassword.js";
+import forgetPasswordRouter from "./forgetPassword.js";
 
 
 const router = Router();
@@ -29,5 +31,7 @@ router.use(vitalTaskRouter);
 router.use(categoriesRouter);
 router.use(settingsRouter);
 router.use(helpRouter);
+router.use(resetPasswordRouter);
+router.use(forgetPasswordRouter);
 
 export default router;
