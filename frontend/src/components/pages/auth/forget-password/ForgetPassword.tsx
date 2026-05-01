@@ -30,8 +30,8 @@ export default function ForgetPassword() {
                 className={"w-full md:w-1/2 flex flex-col justify-center"}
             >
                 <Container variant="header" className={"w-full mb-4"}>
-                    <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Forget Password</Headings>
-                    <Paragraph className={"text-dark text-sm mt-2"}>Enter your email address and we'll send you a link to reset your password.</Paragraph>
+                    <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Forgot Password</Headings>
+                    <Paragraph className={"text-dark text-sm mt-2"}>We'll email you a link to reset your password. Check your spam folder if it doesn't arrive within a few minutes.</Paragraph>
                 </Container>
                 <ForgetPasswordForm />
             </motion.div>
