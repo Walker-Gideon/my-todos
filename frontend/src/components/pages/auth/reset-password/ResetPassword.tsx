@@ -4,13 +4,13 @@ import { useOutletContext } from "react-router-dom";
 import Headings from "@/components/ui/Headings";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
-import ForgetPasswordForm from "./components/ForgetPasswordForm";
+import ResetPasswordForm from "./components/ResetPasswordForm";
 
 import ForgetPasswordIllustration from "@/assets/forgot-password.svg";
 
 const MotionContainer = motion(Container);
 
-export default function ForgetPassword() {
+export default function ResetPassword() {
     const { direction } = useOutletContext<{ direction: number }>();
     
     const xOffset = 50;
@@ -30,10 +30,10 @@ export default function ForgetPassword() {
                 className={"w-full md:w-1/2 flex flex-col justify-center"}
             >
                 <Container variant="header" className={"w-full mb-4"}>
-                    <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Forgot Password</Headings>
-                    <Paragraph className={"text-dark text-sm mt-2"}>We'll email you a link to reset your password. Check your spam folder if it doesn't arrive within a few minutes.</Paragraph>
+                    <Headings variant="h1" className={"text-dark text-2xl font-bold tracking-tight"}>Set New Password</Headings>
+                    <Paragraph className={"text-dark text-sm mt-2"}>Password must be at least 8 characters long.</Paragraph>
                 </Container>
-                <ForgetPasswordForm />
+                <ResetPasswordForm />
             </motion.div>
             <motion.div 
                 initial={{ x: direction === 1 ? xOffset : -xOffset, opacity: 0 }}
@@ -44,7 +44,7 @@ export default function ForgetPassword() {
             > 
                 <img 
                     src={ForgetPasswordIllustration} 
-                    alt="Join us" 
+                    alt="Reset Password" 
                     className={"w-full max-w-[400px] h-4/5 object-contain drop-shadow-2xl"}
                 />
             </motion.div>
