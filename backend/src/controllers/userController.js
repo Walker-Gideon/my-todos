@@ -79,7 +79,10 @@ export const loginUser = async (req, res) => {
 export const forgetPassword = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ 
+            success: false,
+            errors: errors.array() 
+        });
     }
 
     try {
@@ -94,7 +97,7 @@ export const forgetPassword = async (req, res) => {
         await user.save();
 
         // Send email with reset link
-        const resetUrl = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
+        const resetUrl = `${process.env.CLIENT_URL}/auth/reset-password?token=${resetToken}`;
         const message = `Hi ${user.firstName} ${user.lastName},\n\nYou requested a password reset. Click the link below to set a new password:\n\n${resetUrl}\n\nThis link expires in 1 hour.\n\nIf you didn't request this, you can safely ignore this email.`;
 
         try {
