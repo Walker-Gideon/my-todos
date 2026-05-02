@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form"
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { 
-    TbEye, 
-    TbEyeOff,
-    TbLockFilled
-} from "react-icons/tb";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { TbEye, TbEyeOff, TbLockFilled } from "react-icons/tb";
 
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import FormRow from "@/components/pages/auth/components/FormRow";
+
+import { useResetPassword } from "@/components/pages/auth/hooks/useResetPassword";
 
 type ResetPasswordInput = {
   password: string;
@@ -17,20 +14,15 @@ type ResetPasswordInput = {
 }
 
 export default function ResetPasswordForm() {
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
-    const token = searchParams.get("token"); // We'll get token from the URL e.g. /auth/reset-password?token=abc
-    
+    const { passwordReset, isPending } = useResetPassword();
     const { register, handleSubmit, watch, formState: { errors } } = useForm<ResetPasswordInput>();
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const onSubmit: SubmitHandler<ResetPasswordInput> = async (data) => {
-        // Will implement backend connection later
         await new Promise(resolve => setTimeout(resolve, 800));
-        console.log({ ...data, token });
-        // After successful reset, navigate to sign in
-        // navigate("/auth/sign-in");
+        passwordReset(data);
     }
 
     const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +46,8 @@ export default function ResetPasswordForm() {
                 <TbLockFilled className={styling["icon"]} />
                 <Input 
                     type={showPassword ? "text" : "password"} 
-                    defaultStyling={false} 
+                    defaultStyling={false}
+                    disabled={isPending}
                     placeholder="New Password" 
                     className={styling["input"]} 
                     {...register("password", { 
@@ -67,6 +60,7 @@ export default function ResetPasswordForm() {
                 />
                 <Button 
                     variant="text" 
+                    disabled={isPending}
                     aria-label={showPassword ? "Hide password" : "Show password"}
                     onClick={handlePassword}
                     className="p-1 hover:bg-slate-100 rounded-full transition-colors"
@@ -79,6 +73,7 @@ export default function ResetPasswordForm() {
                 <TbLockFilled className={styling["icon"]} />
                 <Input 
                     type={showConfirmPassword ? "text" : "password"} 
+                    disabled={isPending}
                     defaultStyling={false} 
                     placeholder="Confirm New Password" 
                     className={styling["input"]} 
@@ -93,6 +88,7 @@ export default function ResetPasswordForm() {
                 />
                 <Button 
                     variant="text" 
+                    disabled={isPending}
                     aria-label={showConfirmPassword ? "Hide password" : "Show password"}
                     onClick={handleConfirmPassword}
                     className="p-1 hover:bg-slate-100 rounded-full transition-colors"
@@ -105,9 +101,10 @@ export default function ResetPasswordForm() {
                 type="submit"
                 ariaLabel="Reset Password"
                 variant="primary"
+                disabled={isPending}
                 className={"w-full font-semibold shadow-lg py-3 mt-2"}
             >
-                Reset Password
+                {isPending ? "Resetting..." : "Reset Password"}
             </Button>
         </form>
     )
