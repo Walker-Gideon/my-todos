@@ -67,7 +67,11 @@ export const loginUser = async (req, res) => {
             token: generateToken(user._id, rememberMe)
         });
     } catch (error) {
-        res.status(500).json({ message: "Failed to login user", error: error.message });
+        res.status(500).json({ 
+            message: "Failed to login user", 
+            error: error.message,
+            ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+        });
     }
 }
 

@@ -11,6 +11,7 @@ export interface RegisterData {
 export interface LoginData {
     email: string;
     password: string;
+    rememberMe?: boolean;
 }
 
 export interface ForgetPasswordData {
@@ -40,13 +41,13 @@ export const registerUser = async ({ firstName, lastName, username, email, passw
     return response.json();
 }
 
-export const loginUser = async ({ email, password }: LoginData) => {
+export const loginUser = async ({ email, password, rememberMe }: LoginData) => {
     const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, rememberMe }),
     });
     if (!response.ok) {
         const err = await response.json();
