@@ -178,3 +178,23 @@ export const resetPassword = async (req, res) => {
         });
     }
 }
+
+/**
+ * @desc Get current user profile
+ * @route GET /api/auth/me
+ * @access Private
+ */
+export const getUserProfile = async (req, res) => {
+    try {
+        res.status(200).json({
+            success: true,
+            data: req.user
+        });
+    } catch (error) {
+        res.status(500).json({ 
+            success: false,
+            message: "Failed to get user profile",
+            ...(process.env.NODE_ENV === 'development' && { error: error.message })
+        });
+    }
+}
