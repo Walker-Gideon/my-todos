@@ -51,7 +51,7 @@ export const loginUser = async (req, res) => {
     }
 
     try {
-        const { email, password } = req.body;
+        const { email, password, rememberMe } = req.body;
         const user = await userModel.findOne({ email });
 
         if (!user || !(await user.matchPassword(password))) {
@@ -64,7 +64,7 @@ export const loginUser = async (req, res) => {
             lastName: user.lastName,
             username: user.username,
             email: user.email,
-            token: generateToken(user._id)
+            token: generateToken(user._id, rememberMe)
         });
     } catch (error) {
         res.status(500).json({ message: "Failed to login user", error: error.message });
