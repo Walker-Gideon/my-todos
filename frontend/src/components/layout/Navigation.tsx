@@ -11,12 +11,12 @@ import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 
+import { useLogout } from "@/components/hooks/useLogout";
 
 
 export default function Navigation({ show, onClick }: { show?: boolean, onClick?: () => void }) {
+    const { logout } = useLogout();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    function handleLogout() {}
 
     return (
         <Container 
@@ -41,7 +41,7 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                 <Container variant="div" className={"mt-auto pt-2 border-t border-white/10 overflow-hidden"}>
                     <Button 
                         ariaLabel="Logout"
-                        onClick={handleLogout} 
+                        onClick={() => logout()} 
                         className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm ${isSidebarOpen ? "justify-center" : "justify-start"}`}
                     >
                         <TbLogout size={20} className={"shrink-0"} />
