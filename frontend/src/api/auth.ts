@@ -111,3 +111,30 @@ export const resetPassword = async ({ token, password }: ResetPasswordData) => {
         throw error;
     }
 }
+
+export const getUserProfile = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+        const response = await fetch(`${BASE_URL}/api/auth/user-profile`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+
+        if (!response.ok) {
+            localStorage.removeItem('token');
+            return null;
+        }
+
+        return response.json();
+    } catch (error) {
+        if (error instanceof TypeError) {
+            throw new Error("Network error. Check your connection and try again.");
+        }
+        throw error;
+    }
+}

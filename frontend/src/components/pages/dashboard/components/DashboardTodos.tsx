@@ -1,5 +1,6 @@
 import { TbWifi0, TbPlus, TbClipboard } from "react-icons/tb";
 
+import SubHeading from "./SubHeading";
 import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
@@ -21,10 +22,7 @@ export default function DashboardTodos() {
         <>
             <Container variant="header" className={"w-full flex flex-col gap-2"}>
                 <Container variant="div" className={"w-full flex flex-row items-center justify-between"}>
-                    <Paragraph className={"flex items-center gap-1 text-lg text-gray"}> 
-                        <TbClipboard size={32} />
-                        <Span className={"font-regular text-secondary"}>To-Do</Span>
-                    </Paragraph>
+                    <SubHeading icon={<TbClipboard size={28} />} subheading={"To-Do"} />
                     <Button
                         variant="text"
                         ariaLabel="Add task"
