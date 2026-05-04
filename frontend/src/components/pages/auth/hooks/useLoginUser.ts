@@ -15,7 +15,7 @@ export const useLoginUser = () => {
             localStorage.setItem('token', data.token);
             updateGlobalUser(data);
             navigate('/dashboard');
-            toast.success("Login successfully");
+            toast.success("Logged in successfully");
         },
         onError: (error) => {
             toast.error(error.message);
