@@ -1,40 +1,29 @@
-import { TbClipboardCheck, TbClipboardData } from "react-icons/tb";
-
-import SubHeading from "./components/SubHeading";
 import Container from "@/components/layout/Container";
-import ShadowBox from "@/components/layout/ShadowBox";
 import DashboardTodos from "./components/DashboardTodos";
 import DashboardHeader from "./components/DashboardHeader";
+import DashboardStatus from "./components/DashboardStatus";
+import DashboardCompleted from "./components/DashboardCompleted";
 
 export default function Dashboard() {
-    /*
-    List of elements in the main:
-    - Header (Greeting, People, Invite button)
-    - Main content (Todos, Task Status, Completed Task)
-    */
-
-   // <DashboardMain />
     return (
-        <Container variant="main" className={"w-full h-full flex flex-col"}>
+        <Container
+            variant="main"
+            className={"w-full h-screen md:h-full flex flex-col min-h-0"}
+        >
             <DashboardHeader />
-            <Container variant="div" className={"w-full h-full flex flex-col-reverse md:flex-row flex-1 gap-4 p-4 primary-border bg-red-500"}>
-                <ShadowBox className={"px-6"}>
+            <Container
+                variant="div"
+                className={"w-full flex-1 flex flex-col-reverse md:flex-row justify-end md:justify-start gap-4 medium:p-4 medium:border medium:border-gray-300 min-h-0 overflow-y-auto"}
+            >
+                <div className="w-full flex-none md:flex-1 min-w-0 flex flex-col">
                     <DashboardTodos />
-                </ShadowBox>
-
-                <Container variant="div" className={"w-full flex flex-col gap-4 bg-green-500"}>
-                    <ShadowBox className={"px-6"}>
-                        <SubHeading icon={<TbClipboardData  size={28} />} subheading={"Task Status"} />
-
-                        <div className="flex items-center justify-between gap-2">
-                            <div className="w-20 h-20 rounded-full bg-primary" />
-                            <div className="w-20 h-20 rounded-full bg-primary" />
-                            <div className="w-20 h-20 rounded-full bg-primary" />
-                        </div>
-                    </ShadowBox>
-                    <ShadowBox className={"px-6 h-full"}>
-                        <SubHeading icon={<TbClipboardCheck size={28} />} subheading={"Completed Task"} />
-                    </ShadowBox>
+                </div>
+                <Container
+                    variant="div"
+                    className={"w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4"}
+                >
+                    <DashboardStatus />
+                    <DashboardCompleted />
                 </Container>
             </Container>
         </Container>
