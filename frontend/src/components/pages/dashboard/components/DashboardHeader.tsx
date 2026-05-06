@@ -12,7 +12,7 @@ export default function DashboardHeader() {
     const greeting = "Welcome back";
 
     return (
-        <Container variant="header" className={"w-full flex gap-4 md:gap-0 flex-col md:flex-row items-center md:justify-between mb-3 md:mb-2"}>
+        <Container variant="header" className={"w-full flex gap-4 md:gap-0 flex-col md:flex-row items-center md:justify-between mb-4 md:mb-2"}>
             <Container variant="div" className={"w-full md:flex-1 flex min-w-0 items-center flex-row gap-2 text-3xl"}>
                 <Paragraph className={"font-medium truncate"}>
                     {greeting}, <Span>{username}</Span>
