@@ -8,7 +8,7 @@ interface SubHeadingProps {
 
 export default function SubHeading({ icon, subheading }: SubHeadingProps) {
     return (
-        <Paragraph className={"flex items-center gap-1 text-base text-gray"}>
+        <Paragraph className={"flex items-center gap-1 text-[0.9rem] text-gray"}>
             {icon}
             <Span className={"font-regular text-secondary"}>{subheading}</Span>
         </Paragraph>

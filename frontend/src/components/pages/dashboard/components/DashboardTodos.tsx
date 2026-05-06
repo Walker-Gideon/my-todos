@@ -5,6 +5,8 @@ import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
+import ShadowBox from "@/components/layout/ShadowBox";
+import Card from "@/components/layout/Card";
 
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 
@@ -19,10 +21,10 @@ export default function DashboardTodos() {
     function handleAddTodo() {}
 
     return (
-        <>
+        <ShadowBox className={"px-4 md:px-6 flex flex-col max-h-none md:max-h-[400px]"}>
             <Container variant="header" className={"w-full flex flex-col gap-2"}>
                 <Container variant="div" className={"w-full flex flex-row items-center justify-between"}>
-                    <SubHeading icon={<TbClipboard size={28} />} subheading={"To-Do"} />
+                    <SubHeading icon={<TbClipboard size={24} />} subheading={"To-Do"} />
                     <Button
                         variant="text"
                         ariaLabel="Add task"
@@ -44,14 +46,18 @@ export default function DashboardTodos() {
                 </Container>
             </Container>
             <DashboardTodosList />
-        </>
+        </ShadowBox>
     )
 }
 
 function DashboardTodosList() {
     return (
-        <Container variant="main" className="w-full flex flex-col gap-4">
-            <Paragraph>Todos</Paragraph>
+        <Container variant="main" className="w-full mt-4 flex-none md:flex-1 flex flex-col gap-4 overflow-visible md:overflow-y-auto min-h-0">
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+            <Card />
         </Container>
     )
 }
