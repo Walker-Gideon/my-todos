@@ -68,43 +68,5 @@ body {
 import { motion } from "motion/react"
 */
 
-/* 
-Task to work on
-1. Remember me functionality (backend and frontend
-2. There should be a forget password page
-3. Register page functionality - Inprogress
-4. Agree to terms and condition logic (backend and frontend)
-
-NB 
-** Prevent user from going back to the auth page after they have sign in unless they logout 
-** Error messages are not displaying for when the input data are not right -done
-** Make password visisble/invisible -done
-*/
-
-/* 
-Edited App.tsx
-Viewed generateToken.js:1-10
-Viewed useLoginUser.ts:1-17
-
-I've reduced the padding in your `Toaster` configuration so the notifications look more compact and sleek.
-
-I'm now ready to move forward with the **Auth Enhancements** from your "Task to work on" list. 
-
-### Proposal for "Remember Me"
-Based on your earlier point about not wanting sensitive data in `localStorage`, here is a secure way to implement "Remember Me":
-
-*   **When Checked**: We store your login token in `localStorage` so you stay logged in even if you close the browser.
-*   **When Unchecked**: We store the token in `sessionStorage`. This means as soon as you close the browser tab, the token is deleted, and you'll be safely logged out.
-*   **No PII**: We won't store your email or password in `localStorage` at all, keeping things clean.
-
-### Proposal for "Forgot Password"
-I'll build the system so that the backend generates a secure reset token and **logs the link to the terminal** for now. This lets us build the whole UI and logic without needing to set up a real email server yet.
-
----
-
-#######
-Also define an expiry upfront. 1 hour is the industry standard. After that the token is invalid regardless.
-
-On the ResetPassword screen
-The token comes in via the URL query param. First thing that screen should do on load is validate that the token exists and hasn't expired — before the user types anything. If it's already invalid, show them immediately rather than letting them fill the form and fail on submit. Better UX, less wasted effort.
-*/
+/* space-y-6 min-h-0 flex-1 overflow-y-scroll h-[510px] p-6 */
+/* <main className="flex-1 min-h-0 overflow-y-auto" /> // takes remaining space, scrolls */

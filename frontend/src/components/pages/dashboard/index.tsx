@@ -8,19 +8,24 @@ export default function Dashboard() {
     return (
         <Container
             variant="main"
-            className={"w-full h-screen md:h-full flex flex-col min-h-0"}
+            className={"w-full h-full flex flex-col min-h-0"}
         >
             <DashboardHeader />
             <Container
                 variant="div"
-                className={"w-full flex-1 flex flex-col-reverse md:flex-row justify-end md:justify-start gap-4 medium:p-4 medium:border medium:border-gray-300 min-h-0 overflow-y-auto"}
+                className={"w-full flex-1 min-h-0 flex flex-col md:flex-row gap-4 medium:p-4 medium:border medium:border-gray-300 overflow-y-auto md:overflow-hidden"}
             >
-                <div className="w-full flex-none md:flex-1 min-w-0 flex flex-col">
+                <Container 
+                    variant="div" 
+                    // w-full md:flex-1 min-w-0 min-h-0 flex flex-col order-2 md:order-1
+                    className={"w-full flex-none md:flex-1 min-w-0 flex flex-col order-2 md:order-1"}
+                >
                     <DashboardTodos />
-                </div>
+                </Container>
                 <Container
                     variant="div"
-                    className={"w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4"}
+                    // w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4
+                    className={"w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4 order-1 md:order-2"}
                 >
                     <DashboardStatus />
                     <DashboardCompleted />
