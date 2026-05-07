@@ -27,12 +27,26 @@ export default function AppLayout() {
     }, []);
 
     return (
-        <Container container="div" className={"h-screen flex flex-col overflow-hidden"}>
-            <Header menuOpen={isMenuOpen} onMenuClick={handleMenu} />
+        <Container 
+            container="div" 
+            className={"h-screen flex flex-col overflow-hidden"}
+        >
+            <Header 
+                menuOpen={isMenuOpen} 
+                onMenuClick={handleMenu} 
+            />
 
-            <Container variant="div" className={"w-full flex-1 flex overflow-visible"}>
+            {/* w-full flex-1 flex overflow-visible */}
+            <Container 
+                variant="div" 
+                className={"w-full flex-1 flex min-h-0 overflow-hidden"}
+            >
                 <Navigation />
-                <Container variant="main" className={"flex-1 md:h-[98%] mx-4 md:mx-8 overflow-y-auto md:overflow-hidden"}>
+                {/* flex-1 md:h-[98%] mx-4 md:mx-8 overflow-y-auto md:overflow-hidden */}
+                <Container 
+                    variant="main" 
+                    className={"flex-1 min-h-0 mx-4 md:mx-8 overflow-y-auto md:overflow-hidden"}
+                >
                     <Outlet />
                 </Container>
             </Container>
