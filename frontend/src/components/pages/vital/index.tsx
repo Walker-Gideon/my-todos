@@ -1,17 +1,18 @@
 import Container from "@/components/layout/Container";
+import ShadowBox from "@/components/layout/ShadowBox";
 
 export default function VitalTask() {
     return (
         <Container 
             variant="main" 
-            className={"w-full min-h-0 grid grid-cols-2"}
+            className={"w-full h-full flex flex-row gap-4 min-h-0"}
         >
-            <Container variant="div">
+            <ShadowBox className={"w-full mb-2"}>
                 <p>Vital Task</p>
-            </Container>
-            <Container variant="div">
-                <p>Vital Task</p>
-            </Container>
+            </ShadowBox>
+            <ShadowBox className={"w-full mb-2 hidden md:flex"}>
+                <p>Vital Task display</p>
+            </ShadowBox>
         </Container>
     )
 }
