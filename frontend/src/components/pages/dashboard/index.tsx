@@ -1,10 +1,19 @@
 import Container from "@/components/layout/Container";
+import DashboardModal from "./components/DashboardModal";
 import DashboardTodos from "./components/DashboardTodos";
 import DashboardHeader from "./components/DashboardHeader";
 import DashboardStatus from "./components/DashboardStatus";
 import DashboardCompleted from "./components/DashboardCompleted";
 
+import { useState } from "react";
+
 export default function Dashboard() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    function handleModal() {
+        setIsModalOpen(!isModalOpen);
+        }
+
     return (
         <Container
             variant="main"
@@ -19,7 +28,7 @@ export default function Dashboard() {
                     variant="div" 
                     className={"w-full flex-none md:flex-1 min-w-0 flex flex-col order-2 md:order-1"}
                 >
-                    <DashboardTodos />
+                    <DashboardTodos onOpenModal={handleModal} />
                 </Container>
                 <Container
                     variant="div"
@@ -29,6 +38,8 @@ export default function Dashboard() {
                     <DashboardCompleted />
                 </Container>
             </Container>
+
+            <DashboardModal show={isModalOpen} onOpenModal={handleModal} />
         </Container>
     )
 }
