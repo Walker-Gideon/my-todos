@@ -3,6 +3,7 @@ import type { ButtonProps } from "./interfaces";
 export default function Button({ children, ariaLabel, type, className, disabled, variant, ...rest }: ButtonProps) {
     const defaultStyling = "text-sm transition-all duration-300 ease-in-out";
     const disabledStyling = "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary disabled:hover:text-col-white";
+    // px-8 bg-btn-col hover:text-white text-col-white px-4 py-3 rounded-md 
     
     if (variant === "primary") {
         return (

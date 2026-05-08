@@ -10,6 +10,7 @@ cursor-progress
     /* Font-style */
 
     /* Colors */
+    /* F24E1E */
     --color-primary: #FF9090;
     --color-secondary: #FF6767;
     --color-primary-hover: #e68282;
@@ -18,7 +19,8 @@ cursor-progress
     --color-dark: #212427;
     --color-blue: #3ABEFF;
     --color-gray: #A1A3AB;
-
+    
+    --color-btn-col: #F24E1E;
     --color-border-primary: #565454;
     /* --color-primary: #007bff; 
     --color-secondary: #6c757d;
