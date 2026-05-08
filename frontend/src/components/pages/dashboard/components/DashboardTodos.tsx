@@ -16,7 +16,7 @@ export default function DashboardTodos() {
     function handleAddTodo() {}
 
     return (
-        <ShadowBox className={"px-4 md:px-6 flex flex-col min-h-0 max-h-none md:max-h-[600px]"}>
+        <ShadowBox className={"px-4 md:px-6 flex flex-col min-h-0 max-h-[400px] md:max-h-none md:flex-1 mb-4 md:mb-0"}>
             <Container 
                 variant="header" 
                 className={"w-full flex flex-col gap-2"}
@@ -61,8 +61,7 @@ function DashboardTodosList() {
     return (
         <Container 
             variant="main" 
-            // w-full mt-4 flex-1 min-h-0 flex flex-col gap-4 overflow-y-auto
-            className={"w-full mt-4 flex-none md:flex-1 flex flex-col gap-4 overflow-visible md:overflow-y-auto"}
+            className={"w-full mt-4 flex-1 min-h-0 flex flex-col gap-4 overflow-y-auto"}
         >
             <Card />
             <Card />
