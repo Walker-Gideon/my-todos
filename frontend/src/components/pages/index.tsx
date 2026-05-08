@@ -1,6 +1,6 @@
+import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "motion/react";
-import { Outlet } from "react-router-dom";
 
 import Header from "@/components/layout/Header";
 import Backdrop from "@/components/layout/Backdrop";
@@ -36,13 +36,11 @@ export default function AppLayout() {
                 onMenuClick={handleMenu} 
             />
 
-            {/* w-full flex-1 flex overflow-visible */}
             <Container 
                 variant="div" 
                 className={"w-full flex-1 flex min-h-0 overflow-hidden"}
             >
                 <Navigation />
-                {/* flex-1 md:h-[98%] mx-4 md:mx-8 overflow-y-auto md:overflow-hidden */}
                 <Container 
                     variant="main" 
                     className={"flex-1 min-h-0 mx-4 md:mx-8 overflow-y-auto md:overflow-hidden"}
