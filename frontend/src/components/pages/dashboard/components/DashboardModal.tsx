@@ -18,9 +18,7 @@ const PRIORITIES = [
 export default function DashboardModal({ show, onOpenModal }: { show: boolean, onOpenModal: () => void }) {
     return (
         <Modal show={show} center={true}>
-            <form 
-                className={"py-6 px-10 bg-white md:min-w-2xl w-full rounded-md flex flex-col gap-4"}
-            >
+            <form className={"p-6 md:py-6 md:px-10 bg-white h-[85vh] md:h-auto w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible"}>
                 <Container 
                     variant="div" 
                     className={"w-full flex items-center justify-between"}
@@ -45,7 +43,7 @@ export default function DashboardModal({ show, onOpenModal }: { show: boolean, o
                 >
                     <Container 
                         variant="div" 
-                        className={"w-full md:w-3/4 space-y-4"}
+                        className={"w-full md:w-3/4 space-y-2 md:space-y-4"}
                     >
                         <Input 
                             id="task-title"
@@ -78,7 +76,7 @@ export default function DashboardModal({ show, onOpenModal }: { show: boolean, o
 
                             <Container
                                 variant="div"
-                                className={"flex items-center gap-4"}
+                                className={"flex flex-wrap items-center gap-4"}
                             >
                                 {PRIORITIES.map((priority) => (
                                     <Input 
@@ -114,7 +112,7 @@ export default function DashboardModal({ show, onOpenModal }: { show: boolean, o
 
                     <Container 
                         variant="div" 
-                        className={"w-full md:w-1/4 flex items-end justify-end"}
+                        className={"w-full medium:w-1/3 flex md:items-end md:justify-end"}
                     >
                         <Container 
                             variant="div" 
