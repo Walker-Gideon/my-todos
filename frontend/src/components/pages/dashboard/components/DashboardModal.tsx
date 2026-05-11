@@ -1,104 +1,94 @@
+import { TbCloudUpload } from "react-icons/tb";
 import { GoDotFill } from "react-icons/go";
 
+import Button from "@/components/ui/Button";
 import Modal from "@/components/layout/Modal";
 import Input from "@/components/layout/Input";
+import Paragraph from "@/components/ui/Paragraph";
 import TextArea from "@/components/layout/TextArea";
 import Container from "@/components/layout/Container";
+import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
-import Button from "@/components/ui/Button";
 
-export default function DashboardModal({ show, onOpenModal }: { show: boolean, onOpenModal: () => void }) {
+const PRIORITIES = [
+    { id: "extreme", label: "Extreme", color: "var(--color-red)" },
+    { id: "moderate", label: "Moderate", color: "var(--color-blue)" },
+    { id: "low", label: "Low", color: "var(--color-green)" },
+];
+
+export default function DashboardModal({ show, onCloseModal }: { show: boolean, onCloseModal: () => void }) {
     return (
         <Modal show={show} center={true}>
-            <form 
-                className={"p-6 bg-white md:min-w-2xl w-full rounded-xl flex flex-col gap-6"}
-            >
+            <form className={"p-6 md:py-6 md:px-10 bg-white h-[85vh] md:h-auto w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible"}>
                 <Container 
                     variant="div" 
                     className={"w-full flex items-center justify-between"}
                 >
-                    <SecondaryHeading fristWord="Add New" secondWord="Task" />
-                    <Button 
-                        variant="text" 
-                        ariaLabel="Go Back" 
-                        onClick={onOpenModal}
-                        className={"whitespace-nowrap text-sm underline-offset-4 underline decoration-dark decoration-2"}
-                    >
-                        Go Back
-                    </Button>
+                    <SecondaryHeading fristWord="Add New Ta" secondWord="sk" />
+                    <ModalBackButton onClick={onCloseModal} />
                 </Container>
                 
                 <Container 
                     variant="div" 
-                    className={"w-full flex flex-col gap-4 border border-gray-300 p-4"}
+                    className={"w-full flex flex-col md:flex-row gap-4 border border-gray-300 p-4"}
                 >
-                    <Input 
-                        id="task-title"
-                        type="text"
-                        label="Title"
-                        name="taskTitle"
-                        value=""
-                        onChange={() => {}}
-                    />
-                    <Input 
-                        id="due-date"
-                        type="date"
-                        label="Date"
-                        name="dueDate"
-                        value=""
-                        onChange={() => {}}
-                    />
-
                     <Container 
                         variant="div" 
-                        className={"w-full"}
+                        className={"w-full md:w-3/4 space-y-2 md:space-y-4"}
                     >
-                        <p className={"text-sm text-dark font-semibold"}>Priority</p>
+                        <Input 
+                            id="task-title"
+                            type="text"
+                            label="Title"
+                            name="taskTitle"
+                            value=""
+                            onChange={() => {}}
+                        />
+                        <Input 
+                            id="due-date"
+                            type="date"
+                            label="Date"
+                            name="dueDate"
+                            value=""
+                            onChange={() => {}}
+                        />
 
-                        <Container
-                            variant="div"
-                            className={"flex items-center gap-4"}
+                        {/* Priority Container */}
+                        <Container 
+                            variant="div" 
+                            className={"w-full"}
                         >
-                            <Input 
-                                id="extreme"
-                                type="checkbox"
-                                label={<span className="flex items-center gap-1">
-                                    <GoDotFill size={14} className="text-[#F21E1E]" /> Extreme
-                                </span>}
-                                name="priority"
-                                value="extreme"
-                                onChange={() => {}}
-                                priority={true}
-                            />
-                            <Input 
-                                id="moderate"
-                                type="checkbox"
-                                label={<span className="flex items-center gap-1">
-                                    <GoDotFill size={14} className="text-[#3ABEFF]" /> Moderate
-                                </span>}
-                                name="priority"
-                                value="moderate"
-                                onChange={() => {}}
-                                priority={true}
-                            />
-                            <Input 
-                                id="low"
-                                type="checkbox"
-                                label={<span className="flex items-center gap-1">
-                                    <GoDotFill size={14} className="text-[#05A301]" /> Low
-                                </span>}
-                                name="priority"
-                                value="low"
-                                onChange={() => {}}
-                                priority={true}
-                            />
-                        </Container>
-                    </Container>
+                            <Paragraph 
+                                variant="small" 
+                                className={"text-dark font-semibold mb-1"}
+                            >
+                                Priority
+                            </Paragraph>
 
-                    <Container 
-                        variant="div" 
-                        className={"w-full flex flex-col md:flex-row gap-4"}
-                    >
+                            <Container
+                                variant="div"
+                                className={"flex flex-wrap items-center gap-4"}
+                            >
+                                {PRIORITIES.map((priority) => (
+                                    <Input 
+                                        key={priority.id}
+                                        id={priority.id}
+                                        type="checkbox"
+                                        label={
+                                            <span className={"flex items-center gap-1"}>
+                                                <GoDotFill size={14} style={{ color: priority.color }} /> {priority.label}
+                                            </span>
+                                        }
+                                        name="priority"
+                                        value={priority.id}
+                                        onChange={() => {}}
+                                        priority={true}
+                                        style={{ accentColor: priority.color }}
+                                    />
+                                ))}
+                            </Container>
+                        </Container>
+
                         <TextArea 
                             id="description"
                             label="Description"
@@ -109,14 +99,45 @@ export default function DashboardModal({ show, onOpenModal }: { show: boolean, o
                             onChange={() => {}}
                             className={"resize-none"}
                         />
-                        <div className="w-full md:w-1/3">
-                            <p className="text-sm text-dark font-semibold mb-1">Upload image</p>
-                            <div className="w-full h-34 rounded-md bg-border-primary" />
-                        </div>
+                    </Container>
+
+                    <Container 
+                        variant="div" 
+                        className={"w-full medium:w-1/3 flex md:items-end md:justify-end"}
+                    >
+                        <Container 
+                            variant="div" 
+                            className={"w-full"}
+                        >
+                            <Paragraph 
+                                variant="small" 
+                                className={"text-dark font-semibold mb-1"}
+                            >
+                                Upload image
+                            </Paragraph>
+                            
+                            <label
+                                htmlFor="image"
+                                className={"w-full flex flex-col items-center justify-center gap-1 rounded-md border border-gray-300 h-34 cursor-pointer hover:bg-gray-50 transition-colors"}
+                            >
+                                <TbCloudUpload className={"text-gray-400"} size={28} />
+                                <Paragraph className={"text-gray-400 uppercase font-bold text-[10px]"}>Click to upload</Paragraph>
+                                <input 
+                                    type="file"
+                                    id="image"
+                                    name="image"
+                                    accept="image/*"
+                                    className="hidden"
+                                />
+                            </label>
+                        </Container>
                     </Container>
                 </Container>
 
-                <Container variant="div" className="w-full flex gap-3 justify-start">
+                <Container 
+                    variant="div" 
+                    className={"w-full flex gap-3 justify-start"}
+                >
                     <Button 
                         type="submit"
                         ariaLabel="Create task" 

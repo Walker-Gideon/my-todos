@@ -7,7 +7,30 @@ import Container from "@/components/layout/Container";
 
 import { useUserProfile } from "@/components/hooks/useUserProfile";
 
-export default function DashboardHeader() {
+const PEOPLE = [
+    {
+        id: 1,
+        alt: "username1",
+        imageUrl: ""
+    },
+    {
+        id: 2,
+        alt: "username2",
+        imageUrl: ""
+    },
+    {
+        id: 3,
+        alt: "username3",
+        imageUrl: ""
+    },
+    {
+        id: 4,
+        alt: "username4",
+        imageUrl: ""
+    },
+];
+
+export default function DashboardHeader({ onOpenInviteModal }: { onOpenInviteModal: () => void }) {
     const { username } = useUserProfile();
     const greeting = "Welcome back";
 
@@ -20,12 +43,22 @@ export default function DashboardHeader() {
                 <Span>👋</Span>
             </Container>
 
-            <Container variant="div" className={"w-full md:w-auto flex items-center justify-between md:justify-end flex-row gap-2"}>
-                <Paragraph>People</Paragraph>
+            <Container variant="div" className={"w-full md:w-auto flex items-center justify-between md:justify-end flex-row gap-3"}>
+                <Container variant="div" className={"flex items-center gap-1"}>
+                    {PEOPLE.map((person) => (
+                        <img 
+                            key={person.id}
+                            src={person.imageUrl}
+                            alt={person.alt}
+                            className={"w-9 h-9 rounded-md bg-gray-300"}
+                        />
+                    ))}
+                </Container>
                 <Button 
                     variant="outline"
                     ariaLabel="Invite people to join the task"
-                    className={"flex items-center gap-2 border border-primary text-secondary font-medium hover:bg-secondary/10 hover:text-secondary transition-primary"}
+                    className={"flex items-center gap-2 border border-primary text-secondary font-medium"}
+                    onClick={onOpenInviteModal}
                 >
                     <TbUsersPlus className={"w-4 h-4"} />
                     <Span>Invite</Span>

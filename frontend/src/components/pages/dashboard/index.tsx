@@ -1,25 +1,31 @@
+import { useState } from "react";
+
 import Container from "@/components/layout/Container";
 import DashboardModal from "./components/DashboardModal";
 import DashboardTodos from "./components/DashboardTodos";
 import DashboardHeader from "./components/DashboardHeader";
 import DashboardStatus from "./components/DashboardStatus";
 import DashboardCompleted from "./components/DashboardCompleted";
-
-import { useState } from "react";
+import DashboardInviteModal from "./components/DashboardInviteModal";
 
 export default function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
     function handleModal() {
         setIsModalOpen(!isModalOpen);
-        }
+    }
+
+    function handleInviteModal() {
+        setIsInviteModalOpen(!isInviteModalOpen);
+    }
 
     return (
         <Container
             variant="main"
             className={"w-full h-full flex flex-col min-h-0"}
         >
-            <DashboardHeader />
+            <DashboardHeader onOpenInviteModal={handleInviteModal} />
             <Container
                 variant="div"
                 className={"w-full flex-1 min-h-0 flex flex-col md:flex-row gap-4 medium:p-4 md:border md:border-gray-300 overflow-y-auto md:overflow-hidden"}
@@ -39,7 +45,8 @@ export default function Dashboard() {
                 </Container>
             </Container>
 
-            <DashboardModal show={isModalOpen} onOpenModal={handleModal} />
+            <DashboardModal show={isModalOpen} onCloseModal={handleModal} />
+            <DashboardInviteModal show={isInviteModalOpen} onCloseModal={handleInviteModal} />
         </Container>
     )
 }

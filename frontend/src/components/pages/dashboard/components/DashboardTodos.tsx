@@ -1,4 +1,4 @@
-import { TbWifi0, TbPlus, TbClipboard } from "react-icons/tb";
+import { TbPlus, TbClipboard } from "react-icons/tb";
 
 import SubHeading from "./SubHeading";
 import Span from "@/components/ui/Span";
@@ -40,9 +40,9 @@ function DashboardTodosHeader({ onOpenModal }: { onOpenModal: () => void }) {
                     variant="text"
                     ariaLabel="Add task"
                     onClick={onOpenModal}
-                    className={"w-auto flex items-center gap-1 font-regular text-gray hover:text-secondary transition-primary"}
+                    className={"group w-auto flex items-center gap-1 font-regular text-gray hover:text-secondary transition-primary"}
                 >
-                    <TbPlus className={"w-4 h-4 text-secondary"} />
+                    <TbPlus className={"w-4 h-4 group-hover:rounded-full group-hover:bg-secondary group-hover:text-col-white transition-primary text-secondary"} />
                     <Span>Add task</Span>
                 </Button>
             </Container>

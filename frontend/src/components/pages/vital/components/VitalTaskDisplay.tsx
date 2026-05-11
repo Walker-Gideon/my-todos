@@ -6,7 +6,7 @@ import Card from "@/components/layout/Card";
 
 export default function VitalTaskContent() {
     return (
-        <ShadowBox className={"w-full mb-2 medium:px-8"}>
+        <ShadowBox className={"w-full md:w-2/5 mb-2 medium:px-8"}>
             <SecondaryHeading fristWord="Vital" secondWord="Task" />
 
             <Container
