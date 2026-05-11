@@ -1,11 +1,11 @@
+import { useState } from "react";
+
 import Container from "@/components/layout/Container";
 import DashboardModal from "./components/DashboardModal";
 import DashboardTodos from "./components/DashboardTodos";
 import DashboardHeader from "./components/DashboardHeader";
 import DashboardStatus from "./components/DashboardStatus";
 import DashboardCompleted from "./components/DashboardCompleted";
-
-import { useState } from "react";
 
 export default function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
