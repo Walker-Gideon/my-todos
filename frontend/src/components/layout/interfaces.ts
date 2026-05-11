@@ -25,6 +25,7 @@ export interface InputProps {
     placeholder?: string;
     disabled?: boolean;
     priority?: boolean;
+    style?: React.CSSProperties;
 }
 
 export interface TextAreaProps extends React.HTMLAttributes<HTMLTextAreaElement> {
