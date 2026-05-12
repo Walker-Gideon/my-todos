@@ -8,26 +8,10 @@ import Container from "@/components/layout/Container";
 import { useUserProfile } from "@/components/hooks/useUserProfile";
 
 const PEOPLE = [
-    {
-        id: 1,
-        alt: "username1",
-        imageUrl: ""
-    },
-    {
-        id: 2,
-        alt: "username2",
-        imageUrl: ""
-    },
-    {
-        id: 3,
-        alt: "username3",
-        imageUrl: ""
-    },
-    {
-        id: 4,
-        alt: "username4",
-        imageUrl: ""
-    },
+    {id: 1, alt: "username1", imageUrl: ""},
+    {id: 2, alt: "username2", imageUrl: ""},
+    {id: 3, alt: "username3", imageUrl: ""},
+    {id: 4, alt: "username4", imageUrl: ""},
 ];
 
 export default function DashboardHeader({ onOpenInviteModal }: { onOpenInviteModal: () => void }) {
