@@ -1,7 +1,7 @@
 import Button from "@/components/ui/Button";
-import Modal from "@/components/layout/Modal";
 import Input from "@/components/layout/Input";
 import Paragraph from "@/components/ui/Paragraph";
+import Backdrop from "@/components/layout/Backdrop";
 import Container from "@/components/layout/Container";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
@@ -15,7 +15,7 @@ const MEMBERS = [
 
 export default function DashboardInviteModal({ show, onCloseModal }: { show: boolean, onCloseModal: () => void }) {
     return (
-        <Modal show={show} center={true}>
+        <Backdrop show={show} center={true}>
             <form className={"p-6 md:py-6 md:px-10 bg-white h-auto max-h-[90vh] md:max-h-none w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible shadow-2xl"}>
                 <Container variant="div" className={"w-full flex items-center justify-between"}>
                     <SecondaryHeading fristWord="Send an invi" secondWord="te to a new member" />
@@ -95,6 +95,6 @@ export default function DashboardInviteModal({ show, onCloseModal }: { show: boo
                     </Container>
                 </Container>
             </form>
-        </Modal>
+        </Backdrop>
     )
 }
