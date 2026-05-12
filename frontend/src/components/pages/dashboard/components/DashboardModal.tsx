@@ -19,7 +19,7 @@ const PRIORITIES = [
 export default function DashboardModal({ show, onCloseModal }: { show: boolean, onCloseModal: () => void }) {
     return (
         <Modal show={show} center={true}>
-            <form className={"p-6 md:py-6 md:px-10 bg-white h-[85vh] md:h-auto w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible"}>
+            <form className={"p-6 md:py-6 md:px-10 bg-white h-auto max-h-[90vh] md:max-h-none w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible shadow-2xl"}>
                 <Container 
                     variant="div" 
                     className={"w-full flex items-center justify-between"}
