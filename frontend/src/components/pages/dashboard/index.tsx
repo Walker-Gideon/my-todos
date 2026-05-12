@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import Container from "@/components/layout/Container";
-import DashboardModal from "./components/DashboardModal";
 import DashboardTodos from "./components/DashboardTodos";
 import DashboardHeader from "./components/DashboardHeader";
 import DashboardStatus from "./components/DashboardStatus";
 import DashboardCompleted from "./components/DashboardCompleted";
+import CreateTaskModal from "@/components/layout/CreateTaskModal";
 import DashboardInviteModal from "./components/DashboardInviteModal";
 
 export default function Dashboard() {
@@ -45,8 +45,16 @@ export default function Dashboard() {
                 </Container>
             </Container>
 
-            <DashboardModal show={isModalOpen} onCloseModal={handleModal} />
-            <DashboardInviteModal show={isInviteModalOpen} onCloseModal={handleInviteModal} />
+            <CreateTaskModal 
+                show={isModalOpen} 
+                onCloseModal={handleModal} 
+                fristWord="Add New Ta"
+                secondWord="sk"
+            />
+            <DashboardInviteModal 
+                show={isInviteModalOpen} 
+                onCloseModal={handleInviteModal} 
+            />
         </Container>
     )
 }
