@@ -21,7 +21,7 @@ export default function Header({ menuOpen, onMenuClick }: { menuOpen: boolean, o
         inputContainer: "w-full flex items-center border border-white rounded-md text-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 shadow-md shadow-primary/50 transition-all",
         input: "w-full focus:outline-none p-1.5 px-3 bg-transparent",
         icon: "text-col-white bg-primary p-1.5 rounded-md",
-        iconSize: "w-5 h-5"
+        iconSize: "w-5 h-5 group-hover:scale-80 transition-all duration-300"
     }
 
     // I just add shrink-0 so if any changes check it, its not part of the design
@@ -41,7 +41,7 @@ export default function Header({ menuOpen, onMenuClick }: { menuOpen: boolean, o
                     <Button 
                         ariaLabel={menuOpen ? "Close Menu" : "Open Menu"}
                         onClick={onMenuClick} 
-                        className={`${styling["icon"]} md:hidden`}
+                        className={`${styling["icon"]} md:hidden group`}
                     >
                         <TbMenu2 size={20} />
                     </Button>
@@ -115,7 +115,7 @@ function SearchBar({ styling }: { styling: any }) {
             <Button 
                 type="submit" 
                 ariaLabel="Search query"
-                className={styling["icon"]}
+                className={`${styling["icon"]} group`}
             >
                 <TbSearch className={styling["iconSize"]} />
             </Button>
@@ -131,13 +131,13 @@ function NotificationAndDate({ styling }: { styling: any }) {
         >
             <Button 
                 ariaLabel="Notifications"
-                className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}
+                className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
             >
                 <TbBell className={styling["iconSize"]} />
             </Button>
             <Button 
                 ariaLabel="Calendar"
-                className={`shadow-lg shadow-primary/50 ${styling["icon"]}`}
+                className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
             >
                 <TbCalendarWeek className={styling["iconSize"]} />
             </Button>
