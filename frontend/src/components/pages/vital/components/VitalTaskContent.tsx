@@ -1,9 +1,9 @@
-import ShadowBox from "@/components/layout/ShadowBox";
+import CardContent from "@/components/layout/CardContent";
 
 export default function VitalTaskContent() {
     return (
-        <ShadowBox className={"w-full md:w-3/5 mb-2 hidden md:flex"}>
-            <p>Vital Task display</p>
-        </ShadowBox>
+        <>
+            <CardContent className={"hidden md:flex"} />
+        </>
     )
 }
