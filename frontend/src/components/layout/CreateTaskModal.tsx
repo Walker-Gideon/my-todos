@@ -1,9 +1,9 @@
-import { TbCloudUpload } from "react-icons/tb";
 import { GoDotFill } from "react-icons/go";
+import { TbCloudUpload } from "react-icons/tb";
 
+import Input from "./Input";
+import Backdrop from "./Backdrop";
 import Button from "@/components/ui/Button";
-import Modal from "@/components/layout/Modal";
-import Input from "@/components/layout/Input";
 import Paragraph from "@/components/ui/Paragraph";
 import TextArea from "@/components/layout/TextArea";
 import Container from "@/components/layout/Container";
@@ -16,15 +16,18 @@ const PRIORITIES = [
     { id: "low", label: "Low", color: "var(--color-green)" },
 ];
 
-export default function DashboardModal({ show, onCloseModal }: { show: boolean, onCloseModal: () => void }) {
+export default function CreateTaskModal({ show, onCloseModal, fristWord, secondWord }: { show: boolean, onCloseModal: () => void, fristWord: string, secondWord: string }) {
     return (
-        <Modal show={show} center={true}>
-            <form className={"p-6 md:py-6 md:px-10 bg-white h-[85vh] md:h-auto w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible"}>
+        <Backdrop show={show} center={true}>
+            <form className={"p-6 md:py-6 md:px-10 bg-white h-auto max-h-[90vh] md:max-h-none w-[95vw] md:w-full md:min-w-xl rounded-md flex flex-col gap-4 overflow-y-auto md:overflow-visible shadow-2xl"}>
                 <Container 
                     variant="div" 
                     className={"w-full flex items-center justify-between"}
                 >
-                    <SecondaryHeading fristWord="Add New Ta" secondWord="sk" />
+                    <SecondaryHeading 
+                        fristWord={fristWord} 
+                        secondWord={secondWord} 
+                    />
                     <ModalBackButton onClick={onCloseModal} />
                 </Container>
                 
@@ -147,6 +150,6 @@ export default function DashboardModal({ show, onCloseModal }: { show: boolean, 
                     </Button>
                 </Container>
             </form>
-        </Modal>
+        </Backdrop>
     )
 }

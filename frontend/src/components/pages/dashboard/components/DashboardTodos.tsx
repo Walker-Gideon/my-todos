@@ -6,6 +6,8 @@ import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 import ShadowBox from "@/components/layout/ShadowBox";
+import Conditional from "@/components/layout/Conditional";
+import Information from "@/components/layout/Information";
 
 import Card from "@/components/layout/Card";
 
@@ -13,7 +15,7 @@ import { useDateFormat } from "@/components/hooks/useDateFormat";
 
 export default function DashboardTodos({ onOpenModal }: { onOpenModal: () => void }) {
     return (
-        <ShadowBox className={"px-4 md:px-6 flex flex-col min-h-0 max-h-[400px] md:max-h-none md:flex-1 mb-4 md:mb-0"}>
+        <ShadowBox className={"px-4 md:px-6 flex flex-col min-h-0 max-h-[500px] md:max-h-none md:flex-1 mb-4 md:mb-0"}>
             <DashboardTodosHeader onOpenModal={onOpenModal} />
             <DashboardTodosList />
         </ShadowBox>
@@ -68,11 +70,16 @@ function DashboardTodosList() {
             variant="main" 
             className={"w-full mt-4 flex-1 min-h-0 flex flex-col gap-4 overflow-y-auto"}
         >
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Conditional condition={false}>  
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card /> 
+            </Conditional>
+            <Conditional condition={true}>
+                <Information />
+            </Conditional>
         </Container>
     )
 }

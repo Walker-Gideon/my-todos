@@ -18,8 +18,8 @@ export const navItems = [
         icon: RxExclamationMark, 
     },
     { 
-        name: "Tasks", 
-        href: "/tasks",
+        name: "My Task", 
+        href: "/my-task",
         icon: TbClipboardCheck, 
     },
     { 

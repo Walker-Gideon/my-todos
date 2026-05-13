@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { NavLink } from "react-router-dom";
 import type { IconType } from "react-icons";
@@ -19,6 +19,23 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
     const { logout } = useLogout();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+    useEffect(() => {
+        const handleResize = () => {
+            const width = window.innerWidth;
+            if (width >= 768 && width <= 900) {
+                setIsSidebarOpen(true);
+            } 
+            else if (width > 900) {
+                setIsSidebarOpen(false);
+            }
+        };
+    
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
     return (
         <Container 
             variant="aside" 
@@ -29,7 +46,7 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                 exit: { x: "-100%" },
                 transition: { type: "spring", damping: 25, stiffness: 200 }
             } : {})}
-            className={`fixed md:relative flex flex-col h-screen md:h-full bg-primary text-col-white ${isSidebarOpen ? "md:w-15 p-2" : "w-72 midmax:w-64 p-3 medium:p-4"} shadow-sidebar border-r border-r-primary rounded-r-md md:transition-all md:duration-300 md:ease-in-out ${show ? "z-50" : "hidden md:flex"}`}
+            className={`fixed md:relative flex flex-col h-screen md:h-full bg-primary text-col-white ${isSidebarOpen ? "md:w-15 p-2" : "w-64 p-3 medium:p-4"} shadow-sidebar border-r border-r-primary rounded-r-md md:transition-all md:duration-300 md:ease-in-out ${show ? "z-50" : "hidden md:flex"}`}
             onClick={(e) => e.stopPropagation()}
         >
             <Profile openSidebar={isSidebarOpen} onOpenSidebar={setIsSidebarOpen} />
@@ -39,11 +56,11 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                         <NavItems key={item.name} icon={item.icon} name={item.name} href={item.href} openSidebar={isSidebarOpen} onClick={onClick} />
                     ))}
                 </Container>
-                <Container variant="div" className={"mt-auto pt-2 border-t border-white/10 overflow-hidden"}>
+                <Container variant="div" className={"mt-auto pt-2 border-t border-white/10"}>
                     <Button 
                         ariaLabel="Logout"
                         onClick={() => logout()} 
-                        className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm ${isSidebarOpen ? "justify-center" : "justify-start"}`}
+                        className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm group relative ${isSidebarOpen ? "justify-center" : "justify-start"}`}
                     >
                         <TbLogout size={20} className={"shrink-0"} />
                         <Span 
@@ -51,6 +68,12 @@ export default function Navigation({ show, onClick }: { show?: boolean, onClick?
                         >
                             Logout
                         </Span>
+
+                        {isSidebarOpen && (
+                            <div className={"absolute left-full ml-4 px-3 py-1.5 bg-dark text-white text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-x-1 pointer-events-none transition-all duration-200 whitespace-nowrap z-[60] shadow-xl border border-white/10 after:content-[''] after:absolute after:right-full after:top-1/2 after:-translate-y-1/2 after:border-8 after:border-y-transparent after:border-l-transparent after:border-r-dark"}>
+                                Logout
+                            </div>
+                        )}
                     </Button>
                 </Container>
             </Container>
@@ -66,7 +89,7 @@ function Profile({openSidebar, onOpenSidebar}: {openSidebar: boolean, onOpenSide
             <Button 
                 ariaLabel={openSidebar ? "Close Sidebar" : "Open Sidebar"}
                 onClick={() => onOpenSidebar(!openSidebar)}
-                className={`hidden md:block transition-all duration-300 ${openSidebar ? "w-full flex items-center justify-center px-2 mt-1 mb-3" : "absolute right-4"}`}
+                className={`hidden midmax:block transition-all duration-300 ${openSidebar ? "w-full flex items-center justify-center px-2 mt-1 mb-3" : "absolute right-4"}`}
             >
                 <TbLayoutSidebar size={24} className={openSidebar ? "" : "opacity-70 hover:opacity-100"} />
             </Button>
@@ -103,7 +126,7 @@ function NavItems({ name, icon: Icon, href, openSidebar, onClick }: { name: stri
             end
             onClick={onClick}   
             className={({ isActive }) =>
-              `flex items-center gap-3 p-2 rounded-md transition-all duration-300 group ${openSidebar ? "justify-center" : "justify-start"} ${
+              `flex items-center gap-3 p-2 rounded-md transition-all duration-300 group relative ${openSidebar ? "justify-center" : "justify-start"} ${
                 isActive 
                   ? "bg-white text-primary shadow-lg shadow-white/10" 
                   : "text-white hover:text-white hover:bg-white/5"
@@ -112,6 +135,12 @@ function NavItems({ name, icon: Icon, href, openSidebar, onClick }: { name: stri
         >
             <Icon size={20} className={`shrink-0`} />
             <Span className={`font-medium ${openSidebar ? "hidden" : "block"}`}>{name}</Span>
+
+            {openSidebar && (
+                <div className={"absolute left-full ml-4 px-3 py-1.5 bg-dark text-white text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-x-1 pointer-events-none transition-all duration-200 whitespace-nowrap z-[60] shadow-xl border border-white/10 after:content-[''] after:absolute after:right-full after:top-1/2 after:-translate-y-1/2 after:border-8 after:border-y-transparent after:border-l-transparent after:border-r-dark"}>
+                    {name}
+                </div>
+            )}
         </NavLink>
     )
 }
