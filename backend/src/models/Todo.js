@@ -8,15 +8,25 @@ const todoSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     description: {
         type: String,
         required: false
     },
+    dueDate: {
+        type: Date,
+        required: false
+    },
     priority: {
-        type: String,
-        enum: ["extreme", "moderate", "low"],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Priority",
+        required: true
+    },
+    status: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Status",
         required: true
     },
     image: {
@@ -31,6 +41,6 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-}, { timestamps: true })
+}, { timestamps: true });
 
 export default mongoose.model("Todo", todoSchema);
