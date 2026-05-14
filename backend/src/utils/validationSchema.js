@@ -117,3 +117,41 @@ export const resetPasswordValidationSchema = {
     },
   },
 };
+
+export const createTodoValidationSchema = {
+  title: {
+    isString: {
+      errorMessage: "Title must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Title is required",
+    },
+    trim: true,
+  },
+  dueDate: {
+    optional: true,
+    isISO8601: {
+      errorMessage: "Due date must be a valid date (YYYY-MM-DD)",
+    },
+  },
+  description: {
+    optional: true,
+    isString: {
+      errorMessage: "Description must be a string",
+    },
+  },
+  image: {
+    optional: true,
+    isURL: {
+      errorMessage: "Image must be a valid URL",
+    },
+  },
+  priority: {
+    notEmpty: {
+      errorMessage: "Priority is required",
+    },
+    isMongoId: {
+      errorMessage: "Priority must be a valid ID",
+    },
+  },
+};
