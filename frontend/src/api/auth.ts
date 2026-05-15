@@ -23,7 +23,6 @@ export interface ResetPasswordData {
     password: string;
 }
 
-
 export const registerUser = async ({ firstName, lastName, username, email, password }: RegisterData) => {
     const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
