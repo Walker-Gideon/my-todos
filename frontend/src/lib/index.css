@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Icons used is TB */
+/* import { TbMenu2 } from "react-icons/tb"; 
+rounded-xl
+cursor-progress
+*/
+
+@theme {
+    /* Font-style */
+
+    /* Colors */
+    /* F24E1E */
+    --color-primary: #FF9090;
+    --color-secondary: #FF6767;
+    --color-primary-hover: #e68282;
+    --color-col-white: #F8F9FB;
+    --color-col-white-2: #F8F8F8; 
+    --color-dark: #212427;
+    --color-blue: #3ABEFF;
+    --color-red: #F21E1E;
+    --color-green: #05A301;
+    --color-gray: #A1A3AB;
+    
+    --color-btn-col: #F24E1E;
+    --color-border-primary: #565454;
+    /* --color-primary: #007bff; 
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40; */
+
+    --shadow-sidebar: 12px 0 15px -3px rgba(0, 0, 0, 0.12), 4px 0 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Break-points */
+  --breakpoint-smallest: 300px;
+  --breakpoint-sm: 325px;
+  --breakpoint-medium: 650px;
+  --breakpoint-md: 768px;
+  --breakpoint-mid: 850px;
+  --breakpoint-midmax: 900px;
+  --breakpoint-lg: 1024px;
+}
+
+@layer components {
+  .iconSize {
+    @apply w-5 h-5;
+  }
+
+  .transition-primary {
+    @apply transition-all duration-300 ease-in-out;
+  } 
+
+  .primary-border {
+    @apply border border-gray-300;
+  }
+}
+
+
+body {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+/* 
+import { motion } from "motion/react"
+*/
+
+/* space-y-6 min-h-0 flex-1 overflow-y-scroll h-[510px] p-6 */
+/* <main className="flex-1 min-h-0 overflow-y-auto" /> // takes remaining space, scrolls */
