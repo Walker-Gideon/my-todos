@@ -1,17 +1,20 @@
 import toast from "react-hot-toast";
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { createTodo, type TaskData} from '@/api/todos';
 
 export const useCreateTask = () => {
-    const { mutate: isCreating, isPending } = useMutation({
+    const queryClient = useQueryClient();
+
+    const { mutate: createTask, isPending } = useMutation({
         mutationFn: (data: TaskData) => createTodo(data),
-        onSuccess: (data) => {
+        onSuccess: () => {
             toast.success("Todo task created successfully");
+            queryClient.invalidateQueries({ queryKey: ['todos'] });
         },
-        onError: (error) => {
+        onError: (error: Error) => {
             toast.error(error.message);
         }
     })
-    return { isCreating, isPending };
+    return { createTask, isPending };
 }
