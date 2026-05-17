@@ -9,6 +9,7 @@ export interface Priority {
 export interface Status {
     _id: string;
     label: string;
+    color: string;
     isCompleted: boolean;
 }
 
@@ -146,4 +147,4 @@ export const getPriorities = async () => {
         throw new Error('Failed to fetch priorities');
     }
     return response.json();
-}
+}

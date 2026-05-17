@@ -1,7 +1,7 @@
 import Container from "./Container";
 import Paragraph from "@/components/ui/Paragraph";
 
-export default function Information({ value = "No tasks yet", height = "120", className }: { value?: string, height?: string, className?: string }) {
+export default function Information({ value = "No tasks yet", height = "full", className }: { value?: string, height?: string, className?: string }) {
     return (
         <Container 
             variant="div" 
@@ -9,7 +9,7 @@ export default function Information({ value = "No tasks yet", height = "120", cl
         >
             <Paragraph 
                 variant="small" 
-                className={"text-gray flex items-center justify-center gap-1"}
+                className={"text-gray-500 flex items-center justify-center gap-1"}
             >
                 {value}
             </Paragraph>
