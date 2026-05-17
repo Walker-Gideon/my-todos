@@ -142,9 +142,6 @@ export const createTodoValidationSchema = {
   },
   image: {
     optional: true,
-    isURL: {
-      errorMessage: "Image must be a valid URL",
-    },
   },
   priority: {
     notEmpty: {
