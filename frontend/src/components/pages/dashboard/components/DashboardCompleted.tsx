@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TbClipboardCheck } from "react-icons/tb";
 
 import SubHeading from "./SubHeading";
@@ -6,12 +7,20 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import Container from "@/components/layout/Container";
 import Conditional from "@/components/layout/Conditional";
 import Information from "@/components/layout/Information";
+import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 
-import { useGetCompletedTodos } from "@/components/hooks/useGetCompletedTodos";
 import type { Task } from "@/api/todos";
+import { useUpdateTask } from "@/components/hooks/useUpdateTask";
+import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
+import { useGetCompletedTodos } from "@/components/hooks/useGetCompletedTodos";
 
 export default function DashboardCompleted() {
+    const { updateTask } = useUpdateTask();
+    const { deleteTodo, isPending } = useDeleteTodo();
     const { completedTodos, isLoading, error } = useGetCompletedTodos();
+    
+    const [isDeleteTitle, setIsDeleteTitle] = useState("");
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
 
     return (
         <ShadowBox
@@ -38,9 +47,41 @@ export default function DashboardCompleted() {
                 
                 <Conditional condition={!!completedTodos && completedTodos.length > 0}>
                     {completedTodos?.map((task: Task) => (
-                        <Card key={task._id} task={task} />
+                        <Card 
+                            key={task._id} 
+                            task={task} 
+                            onEdit={(id) => {}}
+                            onDelete={(title, id) => {
+                                setIsDeleteModalOpen(id);
+                                setIsDeleteTitle(title);
+                            }}
+                            onUndo={(id) => {
+                                updateTask({
+                                    id,
+                                    data: { completed: false }
+                                });
+                            }}
+                        />
                     ))}
                 </Conditional>
+
+                <ConfirmDelete
+                    resourceName={isDeleteTitle}
+                    onConfirm={() => {
+                        deleteTodo(isDeleteModalOpen, {
+                            onSuccess: () => {
+                                setIsDeleteModalOpen("");
+                                setIsDeleteTitle("");
+                            }
+                        });
+                    }}
+                    onCloseModal={() => {
+                        setIsDeleteModalOpen("");
+                        setIsDeleteTitle("");
+                    }}
+                    disabled={isPending}
+                    show={!!isDeleteModalOpen}
+                />
             </Container>
         </ShadowBox>
     )
