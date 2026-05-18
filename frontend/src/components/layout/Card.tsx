@@ -1,12 +1,19 @@
-import { TbCircle, TbDots, TbCircleCheck } from "react-icons/tb";
+import { TbCircle, TbCircleCheck, TbPencil, TbTrash } from "react-icons/tb";
 
+import Menus from "./Menu";
 import Container from "./Container";
-import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 
 import type { Task } from "@/api/todos";
 
-export default function Card({ task }: { task: Task }) {
+interface TaskProps {
+    task: Task;
+    onEdit: () => void;
+    onDelete: () => void;
+    onComplete: () => void;
+}
+
+export default function Card({ task, onEdit, onDelete, onComplete }: TaskProps) {
     return (
         <Container 
             variant="div" 
@@ -27,14 +34,23 @@ export default function Card({ task }: { task: Task }) {
                     )}
                     <Paragraph className={"truncate min-w-0 text-xl font-bold text-dark"}>{task.title}</Paragraph>
                 </Container>
-                <Button
-                    variant="text"
-                    ariaLabel="More options"
-                    className={"shrink-0"}
-                    onClick={() => { }}
-                >
-                    <TbDots />
-                </Button>
+                <Menus>
+                    <Menus.Toggle />
+                    <Menus.Lists>
+                        <Menus.Buttons onClick={onEdit}>
+                            <TbPencil />
+                            Edit
+                        </Menus.Buttons>
+                        <Menus.Buttons onClick={onDelete}>
+                            <TbTrash />
+                            Delete
+                        </Menus.Buttons>
+                        <Menus.Buttons onClick={onComplete}>
+                            <TbCircleCheck />
+                            Mark as Completed
+                        </Menus.Buttons>
+                    </Menus.Lists>
+                </Menus>
             </Container>
 
             <Container 
