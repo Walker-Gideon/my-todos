@@ -15,6 +15,7 @@ import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 import type { Task } from "@/api/todos";
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
+import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
 export default function DashboardTodos({ onOpenModal }: { onOpenModal: () => void }) {
@@ -69,18 +70,15 @@ function DashboardTodosHeader({ onOpenModal }: { onOpenModal: () => void }) {
 }
 
 function DashboardTodosList() {
+    const { updateTask } = useUpdateTask();
     const { deleteTodo, isPending } = useDeleteTodo();
     const { todos, isLoading, error } = useGetTodosTask();
-
-    // const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
+    
     const [isDeleteTitle, setIsDeleteTitle] = useState("");
-    // const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
 
     if (isLoading) return <Information value="Loading tasks..." />;
     if (error) return <Information value="Error while loading tasks." />;
-
-    console.log("todos", todos);
 
     return (
         <Container 
@@ -101,7 +99,12 @@ function DashboardTodosList() {
                             setIsDeleteModalOpen(id);
                             setIsDeleteTitle(title)
                         }}
-                        onComplete={(id) => {}}
+                        onComplete={(id) => {
+                            updateTask({
+                                id,
+                                data: { completed: true }
+                            })
+                        }}
                     />
                 ))}
             </Conditional>
@@ -126,4 +129,3 @@ function DashboardTodosList() {
         </Container>
     )
 }
-
