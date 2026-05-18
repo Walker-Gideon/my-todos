@@ -45,7 +45,7 @@ export default function Dashboard() {
                 </Container>
             </Container>
 
-            <CreateTaskModal 
+            <CreateTaskModal
                 show={isModalOpen} 
                 onCloseModal={handleModal} 
                 fristWord="Add New Ta"
