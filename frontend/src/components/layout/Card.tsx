@@ -8,9 +8,9 @@ import type { Task } from "@/api/todos";
 
 interface TaskProps {
     task: Task;
-    onEdit: () => void;
-    onDelete: () => void;
-    onComplete: () => void;
+    onEdit: (id: string) => void;
+    onComplete: (id: string) => void;
+    onDelete: (title: string, id: string) => void;
 }
 
 export default function Card({ task, onEdit, onDelete, onComplete }: TaskProps) {
@@ -37,15 +37,15 @@ export default function Card({ task, onEdit, onDelete, onComplete }: TaskProps) 
                 <Menus>
                     <Menus.Toggle />
                     <Menus.Lists>
-                        <Menus.Buttons onClick={onEdit}>
+                        <Menus.Buttons onClick={() => onEdit(task._id)}>
                             <TbPencil />
                             Edit
                         </Menus.Buttons>
-                        <Menus.Buttons onClick={onDelete}>
+                        <Menus.Buttons onClick={() => onDelete(task.title, task._id)}>
                             <TbTrash />
                             Delete
                         </Menus.Buttons>
-                        <Menus.Buttons onClick={onComplete}>
+                        <Menus.Buttons onClick={() => onComplete(task._id)}>
                             <TbCircleCheck />
                             Mark as Completed
                         </Menus.Buttons>
