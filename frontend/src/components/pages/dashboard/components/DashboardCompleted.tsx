@@ -14,7 +14,7 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useGetCompletedTodos } from "@/components/hooks/useGetCompletedTodos";
 
-export default function DashboardCompleted() {
+export default function DashboardCompleted({ onEditTask }: { onEditTask: (task: Task) => void }) {
     const { updateTask } = useUpdateTask();
     const { deleteTodo, isPending } = useDeleteTodo();
     const { completedTodos, isLoading, error } = useGetCompletedTodos();
@@ -50,7 +50,7 @@ export default function DashboardCompleted() {
                         <Card 
                             key={task._id} 
                             task={task} 
-                            onEdit={(id) => {}}
+                            onEdit={() => onEditTask(task)}
                             onDelete={(title, id) => {
                                 setIsDeleteModalOpen(id);
                                 setIsDeleteTitle(title);
