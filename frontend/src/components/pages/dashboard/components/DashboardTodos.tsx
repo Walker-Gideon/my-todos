@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { TbPlus, TbClipboard } from "react-icons/tb";
 
-import SubHeading from "./SubHeading";
 import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Card from "@/components/layout/Card";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 import ShadowBox from "@/components/layout/ShadowBox";
+import SubHeading from "@/components/layout/SubHeading";
 import Conditional from "@/components/layout/Conditional";
 import Information from "@/components/layout/Information";
 import ConfirmDelete from "@/components/layout/ConfirmedDelete";

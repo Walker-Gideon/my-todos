@@ -1,7 +1,7 @@
 import { TbClipboardData } from "react-icons/tb";
 
-import SubHeading from "./SubHeading";
 import ShadowBox from "@/components/layout/ShadowBox";
+import SubHeading from "@/components/layout/SubHeading";
 
 export default function DashboardStatus() {
     return (
