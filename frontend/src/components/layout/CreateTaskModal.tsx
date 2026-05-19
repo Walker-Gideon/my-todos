@@ -14,8 +14,9 @@ import ModalBackButton from "./ModalBackButton";
 import SecondaryHeading from "./SecondaryHeading";
 import Paragraph from "@/components/ui/Paragraph";
 
-import type { Priority } from "@/api/todos";
+import type { Priority, Task } from "@/api/todos";
 import { useCreateTask } from "@/components/hooks/useCreateTask";
+import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetPriorities } from "@/components/hooks/useGetPriorities";
 
 type FormValues = {
@@ -26,9 +27,18 @@ type FormValues = {
     image?: FileList;
 };
 
-export default function CreateTaskModal({ show, onCloseModal, fristWord, secondWord }: { show: boolean, onCloseModal: () => void, fristWord: string, secondWord: string }) {
+interface TaskModalProps {
+    show: boolean;
+    onCloseModal: () => void;
+    fristWord: string;     
+    secondWord: string;    
+    taskToEdit?: Task | null; 
+}
+
+export default function CreateTaskModal({ show, onCloseModal, fristWord, secondWord, taskToEdit }: TaskModalProps) {
     const { priorities } = useGetPriorities();
     const { createTask, isPending } = useCreateTask();
+    const { updateTask, isPending: isUpdating } = useUpdateTask();
     const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<FormValues>({
         defaultValues: {
             taskTitle: "",
@@ -40,6 +50,12 @@ export default function CreateTaskModal({ show, onCloseModal, fristWord, secondW
 
     const firstErrorKey = Object.keys(errors)[0] as keyof FormValues | undefined;
     const summaryError = firstErrorKey ? (errors[firstErrorKey]?.message || `${firstErrorKey} is invalid`) : null;
+    const sortedPriorities = priorities ? [...priorities].sort((a, b) => {
+        const order = ["extreme", "moderate", "low"];
+        const indexA = order.indexOf(a.label.toLowerCase());
+        const indexB = order.indexOf(b.label.toLowerCase());
+        return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
+    }) : [];
 
     const imageFile = watch('image');
     const [preview, setPreview] = useState<string | null>(null);
@@ -55,12 +71,35 @@ export default function CreateTaskModal({ show, onCloseModal, fristWord, secondW
                 reader.readAsDataURL(file);
             }
         } else {
+            if (!taskToEdit) {
+                setPreview(null);
+            }
+        }
+    }, [imageFile, taskToEdit]);
+
+    useEffect(() => {
+        if (taskToEdit) {
+            reset({
+                taskTitle: taskToEdit.title,
+                dueDate: taskToEdit.dueDate ? new Date(taskToEdit.dueDate).toISOString().split('T')[0] : "",
+                priority: (taskToEdit.priority as any)?._id || (taskToEdit.priority as any) || "",
+                description: taskToEdit.description || "",
+            });
+            setPreview(taskToEdit.image || null); 
+        } else {
+            reset({
+                taskTitle: "",
+                dueDate: "",
+                priority: "",
+                description: "",
+            });
             setPreview(null);
         }
-    }, [imageFile]);
+    }, [taskToEdit, reset]);
+
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
-        let imageBase64 = "";
+        let imageBase64 = preview || "";
         
         if (data.image && data.image.length > 0) {
             const file = data.image[0];
@@ -71,21 +110,36 @@ export default function CreateTaskModal({ show, onCloseModal, fristWord, secondW
             });
         }
 
-        createTask({
+        const taskData = {
             title: data.taskTitle,
             dueDate: data.dueDate,
             priority: data.priority,
             description: data.description,
             image: imageBase64,
-            status: undefined,
-            isVital: false
-        }, {
-            onSuccess: () => {
-                onCloseModal();
-                reset();
-                setPreview(null);
-            }
-        });
+            status: taskToEdit ? taskToEdit.status._id : undefined,
+            isVital: taskToEdit ? taskToEdit.isVital : false,
+        };
+
+        if (taskToEdit) {
+            updateTask({
+                id: taskToEdit._id,
+                data: taskData
+            }, {
+                onSuccess: () => {
+                    onCloseModal();
+                    reset();
+                    setPreview(null);
+                }
+            });
+        } else {
+            createTask(taskData, {
+                onSuccess: () => {
+                    onCloseModal();
+                    reset();
+                    setPreview(null);
+                }
+            });
+        }
     };
 
     return (
@@ -178,7 +232,7 @@ export default function CreateTaskModal({ show, onCloseModal, fristWord, secondW
                                 variant="div"
                                 className={"flex flex-wrap items-center gap-4"}
                             >
-                                {priorities?.map((priority: Priority) => (
+                                {sortedPriorities.map((priority: Priority) => (
                                     <FormRow key={priority._id}>
                                         <Input 
                                             id={priority._id}
@@ -285,10 +339,10 @@ export default function CreateTaskModal({ show, onCloseModal, fristWord, secondW
                     <Button 
                         type="submit"
                         ariaLabel="Create task" 
-                        disabled={isPending}
+                        disabled={taskToEdit ? isUpdating : isPending}
                         className={"px-8 bg-btn-col hover:text-white text-col-white px-4 py-3 rounded-md"}
                     >
-                        {isPending ? "Creating..." : "Done"}
+                         {taskToEdit ? (isUpdating ? "Updating..." : "Update Task") : (isPending ? "Creating..." : "Done")}
                     </Button>
                 </Container>
             </form>
