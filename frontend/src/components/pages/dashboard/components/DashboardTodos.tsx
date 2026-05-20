@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { TbPlus, TbClipboard } from "react-icons/tb";
 
-import SubHeading from "./SubHeading";
 import Span from "@/components/ui/Span";
 import Button from "@/components/ui/Button";
 import Card from "@/components/layout/Card";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 import ShadowBox from "@/components/layout/ShadowBox";
+import SubHeading from "@/components/layout/SubHeading";
 import Conditional from "@/components/layout/Conditional";
 import Information from "@/components/layout/Information";
 import ConfirmDelete from "@/components/layout/ConfirmedDelete";
@@ -18,11 +18,11 @@ import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-export default function DashboardTodos({ onOpenModal }: { onOpenModal: () => void }) {
+export default function DashboardTodos({ onOpenModal, onEditTask }: { onOpenModal: () => void, onEditTask: (task: Task) => void }) {
     return (
         <ShadowBox className={"px-4 md:px-6 flex flex-col min-h-[300px] max-h-[500px] md:min-h-0 md:max-h-none md:flex-1 mb-4 md:mb-0"}>
             <DashboardTodosHeader onOpenModal={onOpenModal} />
-            <DashboardTodosList />
+            <DashboardTodosList onEditTask={onEditTask} />
         </ShadowBox>
     )
 }
@@ -69,7 +69,7 @@ function DashboardTodosHeader({ onOpenModal }: { onOpenModal: () => void }) {
     )
 }
 
-function DashboardTodosList() {
+function DashboardTodosList({ onEditTask }: { onEditTask: (task: Task) => void }) {
     const { updateTask } = useUpdateTask();
     const { deleteTodo, isPending } = useDeleteTodo();
     const { todos, isLoading, error } = useGetTodosTask();
@@ -94,7 +94,7 @@ function DashboardTodosList() {
                     <Card
                         key={task._id}
                         task={task}
-                        onEdit={(id) => {}}
+                        onEdit={() => onEditTask(task)}
                         onDelete={(title, id) => {
                             setIsDeleteModalOpen(id);
                             setIsDeleteTitle(title)

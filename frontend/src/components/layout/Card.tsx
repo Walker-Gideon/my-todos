@@ -16,7 +16,6 @@ interface TaskProps {
 }
 
 export default function Card({ task, onEdit, onDelete, onComplete, onUndo }: TaskProps) {
-    console.log(task)
     return (
         <Container 
             variant="div" 

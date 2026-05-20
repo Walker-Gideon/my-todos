@@ -8,12 +8,26 @@ import DashboardCompleted from "./components/DashboardCompleted";
 import CreateTaskModal from "@/components/layout/CreateTaskModal";
 import DashboardInviteModal from "./components/DashboardInviteModal";
 
+import type { Task } from "@/api/todos";
+
 export default function Dashboard() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
 
     function handleModal() {
+        setTaskToEdit(null);
         setIsModalOpen(!isModalOpen);
+    }
+
+    function handleCloseModal() {
+        setTaskToEdit(null);
+        setIsModalOpen(false);
+    }
+
+    function handleOpenEditModal(task: Task) {
+        setTaskToEdit(task);
+        setIsModalOpen(true);
     }
 
     function handleInviteModal() {
@@ -34,22 +48,23 @@ export default function Dashboard() {
                     variant="div" 
                     className={"w-full flex-none md:flex-1 min-w-0 flex flex-col order-2 md:order-1"}
                 >
-                    <DashboardTodos onOpenModal={handleModal} />
+                    <DashboardTodos onOpenModal={handleModal} onEditTask={handleOpenEditModal} />
                 </Container>
                 <Container
                     variant="div"
                     className={"w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4 order-1 md:order-2"}
                 >
                     <DashboardStatus />
-                    <DashboardCompleted />
+                    <DashboardCompleted onEditTask={handleOpenEditModal} />
                 </Container>
             </Container>
 
             <CreateTaskModal
                 show={isModalOpen} 
-                onCloseModal={handleModal} 
-                fristWord="Add New Ta"
+                onCloseModal={handleCloseModal} 
+                fristWord={taskToEdit ? "Edit Ta" : "Add New Ta"}
                 secondWord="sk"
+                taskToEdit={taskToEdit}
             />
             <DashboardInviteModal 
                 show={isInviteModalOpen} 
@@ -58,3 +73,4 @@ export default function Dashboard() {
         </Container>
     )
 }
+
