@@ -19,7 +19,7 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
 interface DashboardTodosProps {
-  isContentId: (id: string | null) => void;
+  isContentId: (id: string) => void;
   onOpenModal: () => void;
   onEditTask: (task: Task) => void;
   onContentOpen: (open: boolean) => void;
@@ -94,8 +94,8 @@ function DashboardTodosList({
   onContentOpen,
 }: {
   onEditTask: (task: Task) => void;
+  isContentId: (id: string) => void;
   onContentOpen: (open: boolean) => void;
-  isContentId: (id: string | null) => void;
 }) {
   const { updateTask } = useUpdateTask();
   const { deleteTodo, isPending } = useDeleteTodo();
@@ -125,7 +125,7 @@ function DashboardTodosList({
             task={task}
             onContentOpen={onContentOpen}
             onEdit={() => onEditTask(task)}
-            isContentId={(id) => isContentId(id)}
+            isContentId={(id: string) => isContentId(id)}
             onDelete={(title, id) => {
               setIsDeleteModalOpen(id);
               setIsDeleteTitle(title);

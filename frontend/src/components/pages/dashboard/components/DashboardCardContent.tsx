@@ -1,13 +1,21 @@
 import CardContent from "@/components/layout/CardContent";
 
-export default function DashboardCardContent({
-  onContentOpen,
-}: {
+interface DashboardCardContentProps {
+  contentId: string;
   onContentOpen: (open: boolean) => void;
-}) {
+}
+
+export default function DashboardCardContent({
+  contentId,
+  onContentOpen,
+}: DashboardCardContentProps) {
   return (
     <>
-      <CardContent board={true} onContentOpen={onContentOpen} />
+      <CardContent
+        board={true}
+        contentId={contentId}
+        onContentOpen={onContentOpen}
+      />
     </>
   );
 }
