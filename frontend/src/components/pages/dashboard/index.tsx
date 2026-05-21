@@ -14,12 +14,10 @@ import type { Task } from "@/api/todos";
 
 export default function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [contentId, setContentId] = useState<string>("");
   const [isContentOpen, setIsContentOpen] = useState(false);
-  const [contentId, setContentId] = useState<string | null>(null);
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
-
-  console.log("🚀 ~ file: index.tsx:17 ~ Dashboard ~ contentId:", contentId);
 
   function handleModal() {
     setTaskToEdit(null);
