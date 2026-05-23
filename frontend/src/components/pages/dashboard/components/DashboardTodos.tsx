@@ -104,6 +104,20 @@ function DashboardTodosList({
   const [isDeleteTitle, setIsDeleteTitle] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
 
+  function handelConfirmDelete() {
+    deleteTodo(isDeleteModalOpen, {
+      onSuccess: () => {
+        setIsDeleteModalOpen("");
+        setIsDeleteTitle("");
+      },
+    });
+  }
+
+  function handelCloseDeleteModal() {
+    setIsDeleteModalOpen("");
+    setIsDeleteTitle("");
+  }
+
   if (isLoading) return <Information value="Loading tasks..." />;
   if (error) return <Information value="Error while loading tasks." />;
 
@@ -141,21 +155,11 @@ function DashboardTodosList({
       </Conditional>
 
       <ConfirmDelete
-        resourceName={isDeleteTitle}
-        onConfirm={() => {
-          deleteTodo(isDeleteModalOpen, {
-            onSuccess: () => {
-              setIsDeleteModalOpen("");
-              setIsDeleteTitle("");
-            },
-          });
-        }}
-        onCloseModal={() => {
-          setIsDeleteModalOpen("");
-          setIsDeleteTitle("");
-        }}
         disabled={isPending}
         show={!!isDeleteModalOpen}
+        resourceName={isDeleteTitle}
+        onConfirm={handelConfirmDelete}
+        onCloseModal={handelCloseDeleteModal}
       />
     </Container>
   );
