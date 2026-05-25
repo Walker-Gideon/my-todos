@@ -21,6 +21,7 @@ interface CardContentProps {
   board?: boolean;
   className?: string;
   contentId?: string;
+  onEditTask?: (task: Task) => void;
   onContentOpen?: (open: boolean) => void;
 }
 
@@ -33,6 +34,7 @@ export default function CardContent({
   board,
   className,
   contentId,
+  onEditTask,
   onContentOpen,
 }: CardContentProps) {
   const { updateTask } = useUpdateTask();
@@ -49,6 +51,10 @@ export default function CardContent({
       id,
       data: { isVital: true },
     });
+  }
+
+  function handleEditTask(){
+    onEditTask?.(task);
   }
 
   function handelDeleteModal() {
@@ -159,6 +165,7 @@ export default function CardContent({
             </Button>
             <Button
               ariaLabel="Edit Task"
+              onClick={handleEditTask}
               className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
             >
               <LiaEdit className={styling["iconSize"]} />

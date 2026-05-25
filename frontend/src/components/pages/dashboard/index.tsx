@@ -77,6 +77,7 @@ export default function Dashboard() {
         <DashboardCardContent
           contentId={contentId}
           onContentOpen={setIsContentOpen}
+          onEditTask={handleOpenEditModal}
         />
       </Conditional>
 
