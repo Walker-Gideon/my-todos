@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 import { LiaEdit } from "react-icons/lia";
 import { MdDelete } from "react-icons/md";
 import { RxExclamationMark } from "react-icons/rx";
@@ -18,7 +20,7 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
 interface DashboardCardContentProps {
-  contentId: string;
+  contentId?: string;
   onEditTask: (task: Task) => void;
   onContentOpen: (open: boolean) => void;
 }
@@ -29,7 +31,7 @@ interface CardContentStyling {
 }
 
 export default function DashboardCardContent({
-  contentId,
+  contentId: propContentId,
   onEditTask,
   onContentOpen,
 }: DashboardCardContentProps) {
@@ -37,7 +39,10 @@ export default function DashboardCardContent({
   const { todos, isLoading } = useGetTodosTask();
   const { deleteTodo, isPending } = useDeleteTodo();
 
+  const [searchParams] = useSearchParams();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
+
+  const contentId = propContentId || searchParams.get("task") || "";
   const task = todos?.find((t: Task) => t._id === contentId) || null;
 
   function handleMarkAsVital(id: string) {
