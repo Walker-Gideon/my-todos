@@ -19,7 +19,7 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
 interface DashboardTodosProps {
-  isContentId: (id: string) => void;
+  onIsContentId: (id: string) => void;
   onOpenModal: () => void;
   onEditTask: (task: Task) => void;
   onContentOpen: (open: boolean) => void;
@@ -27,7 +27,7 @@ interface DashboardTodosProps {
 
 export default function DashboardTodos({
   onEditTask,
-  isContentId,
+  onIsContentId,
   onOpenModal,
   onContentOpen,
 }: DashboardTodosProps) {
@@ -40,7 +40,7 @@ export default function DashboardTodos({
       <DashboardTodosHeader onOpenModal={onOpenModal} />
       <DashboardTodosList
         onEditTask={onEditTask}
-        isContentId={isContentId}
+        onIsContentId={onIsContentId}
         onContentOpen={onContentOpen}
       />
     </ShadowBox>
@@ -90,11 +90,11 @@ function DashboardTodosHeader({ onOpenModal }: { onOpenModal: () => void }) {
 
 function DashboardTodosList({
   onEditTask,
-  isContentId,
+  onIsContentId,
   onContentOpen,
 }: {
   onEditTask: (task: Task) => void;
-  isContentId: (id: string) => void;
+  onIsContentId: (id: string) => void;
   onContentOpen: (open: boolean) => void;
 }) {
   const { updateTask } = useUpdateTask();
@@ -139,7 +139,7 @@ function DashboardTodosList({
             task={task}
             onContentOpen={onContentOpen}
             onEdit={() => onEditTask(task)}
-            isContentId={(id: string) => isContentId(id)}
+            onIsContentId={(id: string) => onIsContentId(id)}
             onDelete={(title, id) => {
               setIsDeleteModalOpen(id);
               setIsDeleteTitle(title);

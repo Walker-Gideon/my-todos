@@ -12,7 +12,7 @@ interface TaskProps {
   onEdit: (id: string) => void;
   onUndo?: (id: string) => void;
   onComplete?: (id: string) => void;
-  isContentId: (id: string) => void;
+  onIsContentId: (id: string) => void;
   onContentOpen: (open: boolean) => void;
   onDelete: (title: string, id: string) => void;
 }
@@ -23,12 +23,12 @@ export default function Card({
   onEdit,
   onDelete,
   onComplete,
-  isContentId,
+  onIsContentId,
   onContentOpen,
 }: TaskProps) {
   function handleContentOpen() {
     onContentOpen(true);
-    isContentId(task._id);
+    onIsContentId(task._id);
   }
 
   return (
