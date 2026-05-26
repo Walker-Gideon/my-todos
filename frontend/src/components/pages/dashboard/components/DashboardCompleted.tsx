@@ -62,6 +62,7 @@ export default function DashboardCompleted({ onEditTask }: { onEditTask: (task: 
                                     data: { completed: false }
                                 });
                             }}
+                            undoText="completion"
                         />
                     ))}
                 </Conditional>
