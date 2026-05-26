@@ -12,8 +12,8 @@ interface TaskProps {
   onEdit: (id: string) => void;
   onUndo?: (id: string) => void;
   onComplete?: (id: string) => void;
-  onIsContentId: (id: string) => void;
-  onContentOpen: (open: boolean) => void;
+  onIsContentId?: (id: string) => void;
+  onContentOpen?: (open: boolean) => void;
   onDelete: (title: string, id: string) => void;
 }
 
