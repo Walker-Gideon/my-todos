@@ -1,9 +1,18 @@
 import Container from "./Container";
 
-export default function ShadowBox({ children, className }: { children: React.ReactNode, className?: string }) {
-    return (
-        <Container variant="div" className={`w-full bg-white shadow-lg rounded-xl p-4 primary-border ${className}`}>
-            {children}
-        </Container>
-    )
+interface ShadowBoxProps {
+  border?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}
+
+export default function ShadowBox({ border, children, className }: ShadowBoxProps) {
+  return (
+    <Container
+      variant="div"
+      className={`w-full bg-white rounded-xl p-4 ${border && "primary-border shadow-lg"} ${className}`}
+    >
+      {children}
+    </Container>
+  );
 }

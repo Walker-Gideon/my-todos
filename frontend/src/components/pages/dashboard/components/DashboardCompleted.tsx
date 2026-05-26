@@ -24,7 +24,8 @@ export default function DashboardCompleted({ onEditTask }: { onEditTask: (task: 
 
     return (
         <ShadowBox
-            className={"px-4 md:px-6 flex flex-col min-h-[300px] max-h-[500px] md:min-h-0 md:max-h-none md:flex-1 mb-4 md:mb-0"}
+            border={true}
+            className={"px-4 md:px-6 flex flex-col min-h-120 max-h-120 md:min-h-30 md:max-h-none md:flex-1 mb-4 md:mb-0"}
         >
             <SubHeading
                 icon={<TbClipboardCheck size={24} />}
@@ -61,6 +62,7 @@ export default function DashboardCompleted({ onEditTask }: { onEditTask: (task: 
                                     data: { completed: false }
                                 });
                             }}
+                            undoText="completion"
                         />
                     ))}
                 </Conditional>

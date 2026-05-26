@@ -58,7 +58,7 @@ export default function Dashboard() {
   }
 
   return (
-    <Container variant="main" className={"w-full h-full flex flex-col min-h-0"}>
+    <Container variant="main" className={"w-full h-full flex flex-col min-h-0 md:max-h-120"}>
       <Conditional condition={!isContentOpen}>
         <DashboardHeader onOpenInviteModal={handleInviteModal} />
         <Container

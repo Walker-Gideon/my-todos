@@ -9,11 +9,12 @@ import type { Task } from "@/api/todos";
 
 interface TaskProps {
   task: Task;
+  undoText?: string;
   onEdit: (id: string) => void;
   onUndo?: (id: string) => void;
   onComplete?: (id: string) => void;
-  onIsContentId: (id: string) => void;
-  onContentOpen: (open: boolean) => void;
+  onIsContentId?: (id: string) => void;
+  onContentOpen?: (open: boolean) => void;
   onDelete: (title: string, id: string) => void;
 }
 
@@ -22,6 +23,7 @@ export default function Card({
   onUndo,
   onEdit,
   onDelete,
+  undoText,
   onComplete,
   onIsContentId,
   onContentOpen,
@@ -76,16 +78,16 @@ export default function Card({
               <TbTrash />
               Delete
             </Menus.Buttons>
-            <Conditional condition={task.completed === false}>
+            <Conditional condition={task.completed === false && task.isVital === false}>
               <Menus.Buttons onClick={() => onComplete && onComplete(task._id)}>
                 <TbCircleCheck />
                 Mark as Completed
               </Menus.Buttons>
             </Conditional>
-            <Conditional condition={task.completed === true}>
+            <Conditional condition={task.completed === true || task.isVital === true}>
               <Menus.Buttons onClick={() => onUndo && onUndo(task._id)}>
                 <TbCircle />
-                Undo completion
+                Undo {undoText}
               </Menus.Buttons>
             </Conditional>
           </Menus.Lists>
