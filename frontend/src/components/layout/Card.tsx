@@ -10,6 +10,7 @@ import type { Task } from "@/api/todos";
 interface TaskProps {
   task: Task;
   undoText?: string;
+  isSelected?: boolean;
   onEdit: (id: string) => void;
   onUndo?: (id: string) => void;
   onComplete?: (id: string) => void;
@@ -24,6 +25,7 @@ export default function Card({
   onEdit,
   onDelete,
   undoText,
+  isSelected,
   onComplete,
   onIsContentId,
   onContentOpen,
@@ -37,7 +39,7 @@ export default function Card({
     <Container
       variant="div"
       className={
-        "flex flex-col gap-4 border border-gray-400 rounded-2xl px-4 py-2"
+        `flex flex-col gap-4 border border-gray-400 rounded-2xl px-4 py-2 ${isSelected ? "bg-gray" : ""}`
       }
     >
       <Container
