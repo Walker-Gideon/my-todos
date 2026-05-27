@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { ImImage } from "react-icons/im";
 import { LiaEdit } from "react-icons/lia";
 import { MdDelete } from "react-icons/md";
 import { RxExclamationMark } from "react-icons/rx";
@@ -100,11 +101,18 @@ export default function DashboardCardContent({
             variant="div"
             className={"flex flex-row items-center gap-2 w-full md:w-1/3"}
           >
-            <img
-              src={task.image}
-              alt={task.title}
-              className={"w-full object-cover border border-gray-400 rounded-xl h-40"}
-            />
+            {task.image === "" ? (
+              <Container
+                variant="div"className={"w-full h-30 border border-gray-400 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"}>
+                <ImImage className={"w-20 h-30"} />
+              </Container>
+            ) : (
+              <img
+                src={task.image}
+                alt={task.image === "" ? "No Image" : task.title}
+                className={"w-full object-cover border border-gray-400 rounded-xl h-40"}
+              />
+            )}
           </Container>
           <Container
             variant="div"
