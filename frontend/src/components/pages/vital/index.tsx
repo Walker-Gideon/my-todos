@@ -1,50 +1,21 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-
 import Container from "@/components/layout/Container";
 import VitalTaskDisplay from "./components/VitalTaskDisplay";
 import VitalTaskContent from "./components/VitalTaskContent";
 import CreateTaskModal from "@/components/layout/CreateTaskModal";
 
-import type { Task } from "@/api/todos";
+import { useTaskParams } from "@/components/hooks/useTaskParams";
 
 export default function VitalTask() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
-
-
-    const contentId = searchParams.get("task") || "";
-    const isContentOpen = !!contentId;
-
-    function handleIsContentId(id: string) {
-        const newParams = new URLSearchParams(searchParams);
-        
-        if (id) {
-            newParams.set("task", id);
-        } else {
-            newParams.delete("task");
-        }
-        
-        setSearchParams(newParams);
-    }
-
-    function handleIsContentOpen(open: boolean) {
-        if (!open) {
-            searchParams.delete("task");
-            setSearchParams(searchParams);
-        }
-    }
-
-    function handleOpenEditModal(task: Task) {
-        setTaskToEdit(task);
-        setIsModalOpen(true);
-    }
-
-    function handleCloseModal() {
-        setTaskToEdit(null);
-        setIsModalOpen(false);
-    }
+    const { 
+        isModalOpen,
+        taskToEdit,
+        contentId,
+        isContentOpen,
+        handleIsContentId,
+        handleIsContentOpen,
+        handleOpenEditModal,
+        handleCloseModal, 
+    } = useTaskParams();
 
     return (
         <Container 
