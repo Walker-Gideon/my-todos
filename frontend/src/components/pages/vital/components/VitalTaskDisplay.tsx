@@ -62,10 +62,9 @@ function VitalTaskLists({ ...rest }: VitalTaskDisplayPropa) {
             return t
         }
     })
-    // min-h-130 max-h-125
 
     return (
-        <ShadowBox border={true} className={"px-4 md:px-6 flex flex-col min-h-160 md:min-h-120 md:max-h-none mb-4 md:mb-0"}>
+        <ShadowBox border={true} className={"px-4 md:px-6 flex flex-col min-h-120 max-h-160 md:min-h-120 md:max-h-none md:h-full mb-4 md:mb-0"}>
             <SecondaryHeading fristWord="Vital" secondWord=" Task" />
             <Container 
                 variant="main" 
