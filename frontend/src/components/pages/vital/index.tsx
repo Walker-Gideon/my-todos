@@ -18,12 +18,15 @@ export default function VitalTask() {
     const isContentOpen = !!contentId;
 
     function handleIsContentId(id: string) {
+        const newParams = new URLSearchParams(searchParams);
+        
         if (id) {
-            searchParams.set("task", id);
+            newParams.set("task", id);
         } else {
-            searchParams.delete("task");
+            newParams.delete("task");
         }
-        setSearchParams(searchParams);
+        
+        setSearchParams(newParams);
     }
 
     function handleIsContentOpen(open: boolean) {
