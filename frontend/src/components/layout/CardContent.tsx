@@ -16,10 +16,11 @@ import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 import type { Task } from "@/api/todos";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
-import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
+
 
 interface CardContentProps {
-  contentId?: string;
+  task: Task | null;
+  isLoading: boolean;
   className?: string;
   onEditTask?: (task: Task) => void;
   onContentOpen?: (open: boolean) => void;
@@ -31,20 +32,16 @@ interface CardContentStyling {
 }
 
 export default function CardContent({
-  contentId,
+  task,
+  isLoading,
   className,
   onEditTask,
   onContentOpen,
 }: CardContentProps) {
   const { updateTask } = useUpdateTask();
-  const { todos, isLoading } = useGetTodosTask();
   const { deleteTodo, isPending } = useDeleteTodo();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
-
-  const task = todos?.find((t: Task) => t._id === contentId) || null;
-
-  console.log(task)
 
   function handleMarkAsVital(id: string) {
     updateTask({
@@ -54,11 +51,15 @@ export default function CardContent({
   }
 
   function handleEditTask(){
-    onEditTask?.(task);
+    if(task) {
+      onEditTask?.(task);
+    }
   }
 
   function handelDeleteModal() {
-    setIsDeleteModalOpen(task._id);
+    if(task?._id) {
+      setIsDeleteModalOpen(task._id);
+    }
   }
 
   function handelConfirmDelete() {

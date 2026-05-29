@@ -35,7 +35,6 @@ export default function VitalTask() {
                 onEditTask={handleOpenEditModal}
                 onContentOpen={handleIsContentOpen} 
             />
-            
             <CreateTaskModal 
                 secondWord="sk"
                 fristWord="Edit Ta"
