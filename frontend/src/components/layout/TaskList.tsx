@@ -13,7 +13,7 @@ import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface TaskListProp {
+interface TaskListProps {
     todosTasks: Task[];
     contentId: string;
     fristWord: string;
@@ -24,7 +24,7 @@ interface TaskListProp {
     onContentOpen: (open: boolean) => void;
 }
 
-export default function TaskList({ todosTasks, fristWord, secondWord, ...rest }: TaskListProp) {
+export default function TaskList({ todosTasks, fristWord, secondWord, ...rest }: TaskListProps) {
     const { contentId, onIsContentId, onContentOpen, onOpenEditModal } = rest;
 
     const { updateTask } = useUpdateTask();

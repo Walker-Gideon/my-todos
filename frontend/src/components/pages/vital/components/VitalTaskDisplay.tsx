@@ -5,7 +5,7 @@ import TaskList from "@/components/layout/TaskList";
 import type { Task } from "@/api/todos";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface VitalTaskDisplayProp {
+interface VitalTaskDisplayProps {
     contentId: string;
     isPanelOpen?: boolean;
     onIsContentId: (id: string) => void;
@@ -13,7 +13,7 @@ interface VitalTaskDisplayProp {
     onContentOpen: (open: boolean) => void;
 }
 
-export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisplayProp) {
+export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisplayProps) {
     const { todos } = useGetTodosTask();
     const vitalTodos = todos?.filter((t: Task)=>{
         if(t.isVital===true){

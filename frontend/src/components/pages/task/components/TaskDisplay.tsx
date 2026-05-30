@@ -5,7 +5,7 @@ import TaskList from "@/components/layout/TaskList";
 import type { Task } from "@/api/todos";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface TaskDisplayProp {
+interface TaskDisplayProps {
     contentId: string;
     isPanelOpen?: boolean;
     onIsContentId: (id: string) => void;
@@ -13,7 +13,7 @@ interface TaskDisplayProp {
     onContentOpen: (open: boolean) => void;
 }
 
-export default function TaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProp) {
+export default function TaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProps) {
     const { todos } = useGetTodosTask();
     const taskTodos = todos?.filter((t: Task)=>{
         if(t.isVital===false && t.completed===false){
