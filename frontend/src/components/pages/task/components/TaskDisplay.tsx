@@ -3,15 +3,9 @@ import { motion, AnimatePresence } from "motion/react";
 import TaskList from "@/components/layout/TaskList";
 
 import type { Task } from "@/api/todos";
+import type { TaskDisplayProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface TaskDisplayProps {
-    contentId: string;
-    isPanelOpen?: boolean;
-    onIsContentId: (id: string) => void;
-    onOpenEditModal: (task: Task) => void;
-    onContentOpen: (open: boolean) => void;
-}
 
 export default function TaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProps) {
     const { todos } = useGetTodosTask();
