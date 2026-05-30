@@ -3,14 +3,9 @@ import { motion, AnimatePresence } from "motion/react";
 import CardContent from "@/components/layout/CardContent";
 
 import type { Task } from "@/api/todos";
+import type { TaskContentProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface TaskContentProps {
-    contentId: string;
-    isPanelOpen: boolean;
-    onEditTask: (task: Task) => void;
-    onContentOpen: (open: boolean) => void;
-}
 
 export default function TaskContent({isPanelOpen, ...rest}: TaskContentProps) {
     const { todos, isLoading } = useGetTodosTask();
@@ -27,7 +22,6 @@ export default function TaskContent({isPanelOpen, ...rest}: TaskContentProps) {
                     isLoading={isLoading}
                 />
             </div>
-
             <AnimatePresence>
                 {isPanelOpen && (
                     <motion.div
