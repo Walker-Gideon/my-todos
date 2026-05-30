@@ -3,16 +3,10 @@ import { motion, AnimatePresence } from "motion/react";
 import CardContent from "@/components/layout/CardContent";
 
 import type { Task } from "@/api/todos";
+import type { TaskContentProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface VitalTaskContentProps {
-    contentId: string;
-    isPanelOpen: boolean;
-    onEditTask: (task: Task) => void;
-    onContentOpen: (open: boolean) => void;
-}
-
-export default function VitalTaskContent({isPanelOpen, ...rest}: VitalTaskContentProps) {
+export default function VitalTaskContent({isPanelOpen, ...rest}: TaskContentProps) {
     const { todos, isLoading } = useGetTodosTask();
     const { contentId, onEditTask, onContentOpen } = rest;
 
@@ -20,7 +14,6 @@ export default function VitalTaskContent({isPanelOpen, ...rest}: VitalTaskConten
 
     return (
         <>
-            {/* Desktop view */}
             <div className="hidden md:flex md:w-3/5">
                 <CardContent 
                     task={task} 
@@ -28,8 +21,6 @@ export default function VitalTaskContent({isPanelOpen, ...rest}: VitalTaskConten
                     {...rest} 
                 />
             </div>
-
-            {/* Mobile view */}
             <AnimatePresence>
                 {isPanelOpen && (
                     <motion.div
