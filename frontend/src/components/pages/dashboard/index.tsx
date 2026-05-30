@@ -22,13 +22,27 @@ export default function Dashboard() {
   const contentId = searchParams.get("task") || "";
   const isContentOpen = !!contentId;
 
-  function handleIsContentId(id: string) {
-    if (id) {
-      searchParams.set("task", id);
-    } else {
-      searchParams.delete("task");
+  /*
+    function handleIsContentId(id: string) {
+        if (id) {
+            searchParams.set("task", id);
+        } else {
+            searchParams.delete("task");
+        }
+        setSearchParams(searchParams);
     }
-    setSearchParams(searchParams);
+        */
+
+  function handleIsContentId(id: string) {
+    const newParams = new URLSearchParams(searchParams);
+    
+    if (id) {
+        newParams.set("task", id);
+    } else {
+        newParams.delete("task");
+    }
+    
+    setSearchParams(newParams);
   }
 
   function handleIsContentOpen(open: boolean) {

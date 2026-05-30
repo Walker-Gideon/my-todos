@@ -7,11 +7,11 @@ interface ShadowBoxProps {
 }
 
 export default function ShadowBox({ border, children, className }: ShadowBoxProps) {
-  // rounded-xl
+  // rounded-xl bg-white
   return (
     <Container
       variant="div"
-      className={`w-full bg-white p-4 ${border && "primary-border shadow-lg rounded-xl"} ${className}`}
+      className={`w-full p-4 ${border && "primary-border shadow-lg rounded-xl"} ${className}`}
     >
       {children}
     </Container>

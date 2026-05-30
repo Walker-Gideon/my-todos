@@ -1,52 +1,26 @@
-import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
-
 import Container from "@/components/layout/Container";
 import VitalTaskDisplay from "./components/VitalTaskDisplay";
 import VitalTaskContent from "./components/VitalTaskContent";
 import CreateTaskModal from "@/components/layout/CreateTaskModal";
 
-import type { Task } from "@/api/todos";
+import { useTaskParams } from "@/components/hooks/useTaskParams";
 
 export default function VitalTask() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [taskToEdit, setTaskToEdit] = useState<Task | null>(null);
-
-
-    const contentId = searchParams.get("task") || "";
-    const isContentOpen = !!contentId;
-
-    function handleIsContentId(id: string) {
-        if (id) {
-            searchParams.set("task", id);
-        } else {
-            searchParams.delete("task");
-        }
-        setSearchParams(searchParams);
-    }
-
-    function handleIsContentOpen(open: boolean) {
-        if (!open) {
-            searchParams.delete("task");
-            setSearchParams(searchParams);
-        }
-    }
-
-    function handleOpenEditModal(task: Task) {
-        setTaskToEdit(task);
-        setIsModalOpen(true);
-    }
-
-    function handleCloseModal() {
-        setTaskToEdit(null);
-        setIsModalOpen(false);
-    }
+    const { 
+        isModalOpen,
+        taskToEdit,
+        contentId,
+        isContentOpen,
+        handleIsContentId,
+        handleIsContentOpen,
+        handleOpenEditModal,
+        handleCloseModal, 
+    } = useTaskParams();
 
     return (
         <Container 
             variant="main" 
-            className={"w-full h-full flex flex-col md:flex-row gap-4 min-h-0 md:max-h-120 overflow-y-auto md:overflow-hidden"}
+            className={"w-full h-full flex flex-col md:flex-row gap-4 min-h-0 overflow-y-auto md:overflow-hidden"}
         >
             <VitalTaskDisplay 
                 contentId={contentId}
@@ -61,7 +35,6 @@ export default function VitalTask() {
                 onEditTask={handleOpenEditModal}
                 onContentOpen={handleIsContentOpen} 
             />
-            
             <CreateTaskModal 
                 secondWord="sk"
                 fristWord="Edit Ta"

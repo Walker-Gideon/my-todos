@@ -16,10 +16,11 @@ import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 import type { Task } from "@/api/todos";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
-import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
+
 
 interface CardContentProps {
-  contentId?: string;
+  task: Task | null;
+  isLoading: boolean;
   className?: string;
   onEditTask?: (task: Task) => void;
   onContentOpen?: (open: boolean) => void;
@@ -31,20 +32,16 @@ interface CardContentStyling {
 }
 
 export default function CardContent({
-  contentId,
+  task,
+  isLoading,
   className,
   onEditTask,
   onContentOpen,
 }: CardContentProps) {
   const { updateTask } = useUpdateTask();
-  const { todos, isLoading } = useGetTodosTask();
   const { deleteTodo, isPending } = useDeleteTodo();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
-
-  const task = todos?.find((t: Task) => t._id === contentId) || null;
-
-  console.log(task)
 
   function handleMarkAsVital(id: string) {
     updateTask({
@@ -54,11 +51,15 @@ export default function CardContent({
   }
 
   function handleEditTask(){
-    onEditTask?.(task);
+    if(task) {
+      onEditTask?.(task);
+    }
   }
 
   function handelDeleteModal() {
-    setIsDeleteModalOpen(task._id);
+    if(task?._id) {
+      setIsDeleteModalOpen(task._id);
+    }
   }
 
   function handelConfirmDelete() {
@@ -78,8 +79,6 @@ export default function CardContent({
     icon: "text-col-white bg-primary p-1.5 rounded-md",
     iconSize: "w-5 h-5 group-hover:scale-80 transition-all duration-300",
   };
-
-  // min-h-130 max-h-170
 
   return (
     <>
@@ -109,7 +108,7 @@ export default function CardContent({
                 {task.image === "" ? (
                   <Container
                     variant="div"className={"w-full h-30 border border-gray-400 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"}>
-                    <ImImage className={"w-20 h-30"} />
+                    <ImImage className={"w-15 h-10"} />
                   </Container>
                 ) : (
                   <img

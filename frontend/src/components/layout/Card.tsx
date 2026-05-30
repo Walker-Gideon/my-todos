@@ -35,6 +35,11 @@ export default function Card({
     onIsContentId(task._id);
   }
 
+  function handleIsTaskChange() {
+    onUndo(task._id)
+    if (isSelected) onContentOpen(false);
+  }
+
   return (
     <Container
       variant="div"
@@ -87,7 +92,7 @@ export default function Card({
               </Menus.Buttons>
             </Conditional>
             <Conditional condition={task.completed === true || task.isVital === true}>
-              <Menus.Buttons onClick={() => onUndo && onUndo(task._id)}>
+              <Menus.Buttons onClick={handleIsTaskChange}>
                 <TbCircle />
                 Undo {undoText}
               </Menus.Buttons>
