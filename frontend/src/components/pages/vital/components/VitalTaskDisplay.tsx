@@ -3,17 +3,10 @@ import { motion, AnimatePresence } from "motion/react";
 import TaskList from "@/components/layout/TaskList";
 
 import type { Task } from "@/api/todos";
+import type { TaskDisplayProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface VitalTaskDisplayProps {
-    contentId: string;
-    isPanelOpen?: boolean;
-    onIsContentId: (id: string) => void;
-    onOpenEditModal: (task: Task) => void;
-    onContentOpen: (open: boolean) => void;
-}
-
-export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisplayProps) {
+export default function VitalTaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProps) {
     const { todos } = useGetTodosTask();
     const vitalTodos = todos?.filter((t: Task)=>{
         if(t.isVital===true){
