@@ -9,7 +9,7 @@ export default function Categories() {
     return (
         <ShadowBox border={true} className={"px-4 md:px-6 flex flex-col min-h-120 max-h-160 md:min-h-120 md:max-h-none md:h-full mb-4 md:mb-0"}>
             <Container variant="div">
-                <SecondaryHeading fristWord={"Task"} secondWord={" Categories"} />
+                <SecondaryHeading fristWord={"Task"} secondWord={"Categories"} />
                 <Button 
                     ariaLabel="Add Category" 
                     onClick={() => { }}
