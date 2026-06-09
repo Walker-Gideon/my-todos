@@ -10,7 +10,7 @@ const statusRows = [
 
 export default function CategoryStatus() {
   return (
-    <Container variant="div" className={"flex flex-col min-h-0 md:flex-1"}>
+    <Container variant="div" className={"flex flex-col "}>
       <CategoryHeaders heading="Status" onOpenModal={() => {}} />
       <CategoryTable
         headers={["SN", "Task Status", "Action"]}
