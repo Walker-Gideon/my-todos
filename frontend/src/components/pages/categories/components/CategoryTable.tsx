@@ -21,7 +21,7 @@ export default function CategoryTable({
   return (
     <Container
       variant="div"
-      className="w-full primary-border shadow-lg rounded-xl"
+      className="w-full primary-border shadow-lg rounded-xl min-h-0 max-h-120 md:min-h-30 md:max-h-none md:flex-1"
     >
       <div className={"overflow-x-auto"}>
         <table className={"w-full text-left text-sm"}>
