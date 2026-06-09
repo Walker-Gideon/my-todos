@@ -1,17 +1,21 @@
-import Button from "@/components/ui/Button";
+import CategoryTable from "./CategoryTable";
 import Container from "@/components/layout/Container";
-import ShadowBox from "@/components/layout/ShadowBox";
 import CategoryHeaders from "@/components/pages/categories/components/CategoryHeaders";
 
+const statusRows = [
+  { id: 1, name: "Completed" },
+  { id: 2, name: "In Progress" },
+  { id: 3, name: "Not Started" },
+];
 
 export default function CategoryStatus() {
-    //min-h-120 max-h-160 md:min-h-120 md:max-h-none md:h-full mb-4 md:mb-0
-    return (
-        <Container variant="div">
-            <CategoryHeaders heading="Status" onOpenModal={() => {}} />
-            <ShadowBox border={true} className={"px-4 md:px-6 flex flex-col"}>
-                <p>Tesk Status here</p>
-            </ShadowBox>
-        </Container>
-    )
+  return (
+    <Container variant="div" className={"flex flex-col min-h-0 md:flex-1"}>
+      <CategoryHeaders heading="Status" onOpenModal={() => {}} />
+      <CategoryTable
+        headers={["SN", "Task Status", "Action"]}
+        statusRows={statusRows}
+      />
+    </Container>
+  );
 }
