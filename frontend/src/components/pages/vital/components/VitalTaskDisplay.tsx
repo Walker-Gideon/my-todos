@@ -3,17 +3,10 @@ import { motion, AnimatePresence } from "motion/react";
 import TaskList from "@/components/layout/TaskList";
 
 import type { Task } from "@/api/todos";
+import type { TaskDisplayProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface VitalTaskDisplayPropa {
-    contentId: string;
-    isPanelOpen?: boolean;
-    onIsContentId: (id: string) => void;
-    onOpenEditModal: (task: Task) => void;
-    onContentOpen: (open: boolean) => void;
-}
-
-export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisplayPropa) {
+export default function VitalTaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProps) {
     const { todos } = useGetTodosTask();
     const vitalTodos = todos?.filter((t: Task)=>{
         if(t.isVital===true){
@@ -24,7 +17,7 @@ export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisp
     return (
         <>
             <div className="hidden md:flex md:w-2/5 h-full">
-                <TaskList todosTasks={vitalTodos} {...rest} />
+                <TaskList fristWord="Vital" secondWord=" Task" todosTasks={vitalTodos} {...rest} />
             </div>
         
             <AnimatePresence>
@@ -37,7 +30,7 @@ export default function VitalTaskDisplay({ isPanelOpen, ...rest }: VitalTaskDisp
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className={"md:hidden w-full md:w-2/5"}
                     >
-                        <TaskList todosTasks={vitalTodos} {...rest} />
+                        <TaskList fristWord="Vital" secondWord=" Task" todosTasks={vitalTodos} {...rest} />
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -6,7 +6,8 @@ import type { Task } from "@/api/todos";
 import type { TaskContentProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-export default function VitalTaskContent({isPanelOpen, ...rest}: TaskContentProps) {
+
+export default function TaskContent({isPanelOpen, ...rest}: TaskContentProps) {
     const { todos, isLoading } = useGetTodosTask();
     const { contentId, onEditTask, onContentOpen } = rest;
 
@@ -15,10 +16,10 @@ export default function VitalTaskContent({isPanelOpen, ...rest}: TaskContentProp
     return (
         <>
             <div className="hidden md:flex md:w-3/5">
-                <CardContent 
-                    task={task} 
-                    isLoading={isLoading} 
-                    {...rest} 
+                <CardContent
+                    {...rest}
+                    task={task}
+                    isLoading={isLoading}
                 />
             </div>
             <AnimatePresence>
@@ -32,8 +33,8 @@ export default function VitalTaskContent({isPanelOpen, ...rest}: TaskContentProp
                         className="fixed inset-0 z-50 bg-white md:hidden"
                     >
                         <CardContent 
-                            task={task} 
-                            isLoading={isLoading} 
+                            task={task}
+                            isLoading={isLoading}
                             onEditTask={onEditTask}
                             onContentOpen={onContentOpen}
                         />

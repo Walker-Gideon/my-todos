@@ -13,16 +13,18 @@ import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
-interface TaskListProp {
+interface TaskListProps {
     todosTasks: Task[];
     contentId: string;
+    fristWord: string;
+    secondWord: string;
     isPanelOpen?: boolean;
     onIsContentId: (id: string) => void;
     onOpenEditModal: (task: Task) => void;
     onContentOpen: (open: boolean) => void;
 }
 
-export default function TaskList({ todosTasks, ...rest }: TaskListProp) {
+export default function TaskList({ todosTasks, fristWord, secondWord, ...rest }: TaskListProps) {
     const { contentId, onIsContentId, onContentOpen, onOpenEditModal } = rest;
 
     const { updateTask } = useUpdateTask();
@@ -32,11 +34,9 @@ export default function TaskList({ todosTasks, ...rest }: TaskListProp) {
     const [isDeleteTitle, setIsDeleteTitle] = useState("");
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
 
-    
-
     return (
         <ShadowBox border={true} className={"px-4 md:px-6 flex flex-col min-h-120 max-h-160 md:min-h-120 md:max-h-none md:h-full mb-4 md:mb-0"}>
-            <SecondaryHeading fristWord="Vital" secondWord=" Task" />
+            <SecondaryHeading fristWord={fristWord} secondWord={secondWord} />
             <Container 
                 variant="main" 
                 className={"w-full mt-4 flex-1 min-h-0 flex flex-col gap-4 overflow-y-auto"}

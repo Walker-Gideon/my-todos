@@ -1,31 +1,40 @@
-import ShadowBox from "@/components/layout/ShadowBox";
-import Container from "@/components/layout/Container";
-import Conditional from "@/components/layout/Conditional";
-import Information from "@/components/layout/Information";
-import SecondaryHeading from "@/components/layout/SecondaryHeading";
+import { motion, AnimatePresence } from "motion/react";
 
-import Card from "@/components/layout/Card";
+import TaskList from "@/components/layout/TaskList";
 
-export default function TaskDisplay() {
+import type { Task } from "@/api/todos";
+import type { TaskDisplayProps } from "@/components/pages/interface";
+import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
+
+
+export default function TaskDisplay({ isPanelOpen, ...rest }: TaskDisplayProps) {
+    const { todos } = useGetTodosTask();
+    const taskTodos = todos?.filter((t: Task)=>{
+        if(t.isVital===false && t.completed===false){
+            return t
+        }
+    })
+
     return (
-        <ShadowBox className={"px-4 md:px-6 flex flex-col w-full md:w-2/5 min-h-0 max-h-[500px] md:max-h-none mb-4 md:mb-0"}>
-            <SecondaryHeading fristWord="My" secondWord=" Tasks" />
-
-            <Container 
-                variant="main" 
-                className={"w-full mt-4 flex-1 min-h-0 flex flex-col gap-4 overflow-y-auto"}
-            >
-                <Conditional condition={false}>  
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card /> 
-                </Conditional>
-                <Conditional condition={true}>
-                    <Information />
-                </Conditional>
-            </Container>
-        </ShadowBox>
+        <>
+            <div className="hidden md:flex md:w-2/5 h-full">
+                <TaskList fristWord="My" secondWord=" Tasks" todosTasks={taskTodos} {...rest} />
+            </div>
+        
+            <AnimatePresence>
+                {!isPanelOpen && (
+                    <motion.div
+                        key="display"
+                        initial={{ x: 0 }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "-100%" }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className={"md:hidden w-full md:w-2/5"}
+                    >
+                        <TaskList fristWord="My" secondWord=" Tasks" todosTasks={taskTodos} {...rest} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     )
 }

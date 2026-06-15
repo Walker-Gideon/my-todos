@@ -1,30 +1,25 @@
 @import "tailwindcss";
 
-/* Icons used is TB */
-/* import { TbMenu2 } from "react-icons/tb"; 
-rounded-xl
-cursor-progress
-*/
-
 @theme {
-    /* Font-style */
+  /* Font-style */
 
-    /* Colors */
-    /* F24E1E */
-    --color-primary: #FF9090;
-    --color-secondary: #FF6767;
-    --color-primary-hover: #e68282;
-    --color-col-white: #F8F9FB;
-    --color-col-white-2: #F8F8F8; 
-    --color-dark: #212427;
-    --color-blue: #3ABEFF;
-    --color-red: #F21E1E;
-    --color-green: #05A301;
-    --color-gray: #A1A3AB;
-    
-    --color-btn-col: #F24E1E;
-    --color-border-primary: #565454;
-    /* --color-primary: #007bff; 
+  /* Colors */
+  /* F24E1E */
+  --color-primary: #ff9090;
+  --color-secondary: #ff6767;
+  --color-primary-hover: #e68282;
+  --color-col-white: #f8f9fb;
+  --color-col-white-2: #f8f8f8;
+  --color-dark: #212427;
+  --color-blue: #3abeff;
+  --color-red: #f21e1e;
+  --color-green: #05a301;
+  --color-gray: #a1a3ab;
+  --color-gray-overlay: #747474;
+
+  --color-btn-col: #f24e1e;
+  --color-border-primary: #565454;
+  /* --color-primary: #007bff; 
     --color-secondary: #6c757d;
     --color-success: #28a745;
     --color-danger: #dc3545;
@@ -33,9 +28,10 @@ cursor-progress
     --color-light: #f8f9fa;
     --color-dark: #343a40; */
 
-    --shadow-sidebar: 12px 0 15px -3px rgba(0, 0, 0, 0.12), 4px 0 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-sidebar:
+    12px 0 15px -3px rgba(0, 0, 0, 0.12), 4px 0 6px -2px rgba(0, 0, 0, 0.05);
 
-    /* Break-points */
+  /* Break-points */
   --breakpoint-smallest: 300px;
   --breakpoint-sm: 325px;
   --breakpoint-medium: 650px;
@@ -52,13 +48,16 @@ cursor-progress
 
   .transition-primary {
     @apply transition-all duration-300 ease-in-out;
-  } 
+  }
 
   .primary-border {
     @apply border border-gray-300;
   }
-}
 
+  .button-secondary-styling {
+    @apply px-4 py-2 rounded-md border border-btn-col bg-btn-col hover:bg-btn-col/80 text-col-white;
+  }
+}
 
 body {
   font-family: "Outfit", sans-serif;
@@ -67,10 +66,14 @@ body {
   font-style: normal;
 }
 
-
 /* 
 import { motion } from "motion/react"
 */
 
 /* space-y-6 min-h-0 flex-1 overflow-y-scroll h-[510px] p-6 */
 /* <main className="flex-1 min-h-0 overflow-y-auto" /> // takes remaining space, scrolls */
+
+/* BUGS To fix */
+/* 1. There is a buy base on the "undoTask prop in the Card component and it is displaying in the DashboardTodos base on when the card it being marked as isVital is True but you realize that there the isVital 
+
+2. Make the Create and Edit modal submit button disabled unless the fields are filled and on the edit the fields should have the task data */
