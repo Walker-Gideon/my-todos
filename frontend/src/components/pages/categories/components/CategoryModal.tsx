@@ -17,6 +17,7 @@ export default function CategoryModal({ category, onClose }: { category: string,
                 variant="div" 
                 className={"w-full flex items-center justify-between mb-4"}
             >
+                {/* When the user is in the edit mode, the firstword should be "Edit" */}
                 <SecondaryHeading fristWord={"Add"} secondWord={`Task ${category}`} />
                 <ModalBackButton onClick={onClose} />
             </Container>
@@ -32,6 +33,7 @@ export default function CategoryModal({ category, onClose }: { category: string,
                         />
                     </Container>
                     <Container variant="div" className={"mt-6 flex flex-row gap-4"}>
+                        {/* In the edit mode the button text should be "Update" */}
                         <Button
                             type="submit"
                             ariaLabel={`Create ${category}`}
