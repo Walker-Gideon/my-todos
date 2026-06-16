@@ -5,7 +5,7 @@ import CategoryPriority from "./CategoryPriority";
 import Container from "@/components/layout/Container";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
-import { useCategoryContext } from "../context/CategoryContext";
+import { useCategoryContext } from "../hooks/useCategoryContext";
 
 export default function CategoryContainer({
   setIsOpenCreateCategory,
@@ -15,14 +15,8 @@ export default function CategoryContainer({
   const { activeCategoryModal, setActiveCategoryModal } = useCategoryContext();
 
   return (
-    <Container
-      variant="main"
-      className={"flex flex-col h-full min-h-0"}
-    >
-      <Container
-        variant="div"
-        className={"w-full mb-6"}
-      >
+    <Container variant="main" className={"flex flex-col h-full min-h-0"}>
+      <Container variant="div" className={"w-full mb-6"}>
         <SecondaryHeading fristWord={"Task"} secondWord={"Categories"} />
         <Button
           ariaLabel="Add Category"
@@ -41,7 +35,12 @@ export default function CategoryContainer({
         <CategoryStatus />
         <CategoryPriority />
       </Container>
-      {activeCategoryModal && (<CategoryModal category={activeCategoryModal} onClose={() => setActiveCategoryModal(null)} />)}
+      {activeCategoryModal && (
+        <CategoryModal
+          category={activeCategoryModal}
+          onClose={() => setActiveCategoryModal(null)}
+        />
+      )}
     </Container>
   );
 }

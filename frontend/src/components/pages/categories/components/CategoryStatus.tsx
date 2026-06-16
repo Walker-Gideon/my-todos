@@ -2,7 +2,7 @@ import CategoryTable from "./CategoryTable";
 import Container from "@/components/layout/Container";
 import CategoryHeaders from "@/components/pages/categories/components/CategoryHeaders";
 
-import { useCategoryContext } from "../context/CategoryContext";
+import { useCategoryContext } from "../hooks/useCategoryContext";
 
 const STATUS_ROWS = [
   { id: 1, name: "Completed" },
@@ -12,10 +12,13 @@ const STATUS_ROWS = [
 
 export default function CategoryStatus() {
   const { setActiveCategoryModal } = useCategoryContext();
-  
+
   return (
     <Container variant="div" className={"flex flex-col "}>
-      <CategoryHeaders heading="Status" onOpenModal={() => setActiveCategoryModal("Status")} />
+      <CategoryHeaders
+        heading="Status"
+        onOpenModal={() => setActiveCategoryModal("Status")}
+      />
       <CategoryTable
         headers={["SN", "Task Status", "Action"]}
         statusRows={STATUS_ROWS}
