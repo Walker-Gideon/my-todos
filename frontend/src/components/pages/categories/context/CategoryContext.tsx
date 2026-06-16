@@ -1,18 +1,20 @@
 import React from "react";
+import type { CategoryContextType } from "./CategoryContext.types";
 
-// context/CategoryContext.tsx
-const CategoryContext = React.createContext(null);
+const CategoryContext = React.createContext<CategoryContextType | null>(null);
 
-export function CategoryProvider({ children }) {
-  const [activeCategoryModal, setActiveCategoryModal] = React.useState(null);
+export function CategoryProvider({ children }: { children: React.ReactNode }) {
+  const [activeCategoryModal, setActiveCategoryModal] = React.useState<
+    string | null
+  >(null);
 
   return (
-    <CategoryContext.Provider value={{ activeCategoryModal, setActiveCategoryModal }}>
+    <CategoryContext.Provider
+      value={{ activeCategoryModal, setActiveCategoryModal }}
+    >
       {children}
     </CategoryContext.Provider>
   );
 }
 
-export function useCategoryContext() {
-  return React.useContext(CategoryContext);
-}
+export { CategoryContext };
