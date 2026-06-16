@@ -20,7 +20,7 @@ export default function CreateCategory({ onClose }: { onClose: () => void }) {
           name="category-name"
           type="text"
           id="category-name"
-          className={"w-100"}
+          className={"w-80 md:w-100"}
         />
       </Container>
       <Container variant="div" className={"mt-6 flex flex-row gap-4"}>
