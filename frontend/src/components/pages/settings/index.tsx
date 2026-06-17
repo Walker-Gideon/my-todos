@@ -1,69 +1,55 @@
-import { TbLogout } from "react-icons/tb";
+import React from "react";
+import { AnimatePresence, motion } from "motion/react";
 
-import Span from "@/components/ui/Span";
-import Button from "@/components/ui/Button";
-import Paragraph from "@/components/ui/Paragraph";
+import SettingsMain from "./components/SettingsMain";
 import ShadowBox from "@/components/layout/ShadowBox";
-import Container from "@/components/layout/Container";
-import SecondaryHeading from "@/components/layout/SecondaryHeading";
-
-import { useUserProfile } from "@/components/hooks/useUserProfile";
+import AccountSettings from "./components/AccountSettings";
+import ProfileSettings from "./components/ProfileSettings";
 
 export default function Settings() {
-    return (
-        <ShadowBox
-            className={
-                "px-1 md:px-6 flex flex-col h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl md:mb-4 mb-0"
-            }
-        >
-            <Container
-                variant="div"
-                className={"w-full mb-8"}
-            >
-                <SecondaryHeading fristWord={"Settings"} />
-            </Container>
-            <Profile />
-            <Container
-                variant="div"
-                className={"flex flex-col gap-4"}
-            >
-                <Button
-                    variant={"outline"}
-                >
-                    Profile
-                </Button>
-                <Button
-                    variant={"outline"}
-                >
-                    Account
-                </Button>
-                <Button
-                    variant={"outline"}
-                >
-                    <TbLogout />
-                    Log out
-                </Button>
-            </Container>
-        </ShadowBox>
-    )
-}
+  const [activeSetting, setActiveSetting] = React.useState<
+    "profile" | "account" | null
+  >(null);
 
-function Profile() {
-    const { name, capName, email } = useUserProfile();
-    return (
-        <Container
-            variant="div"
-            className={"mb-8 flex flex-col md:flex-row items-center gap-2 md:gap-4"}
-        >
-            <Container variant="div" className={"flex shrink-0"}>
-                <Span className={`rounded-full bg-dark flex items-center justify-center text-white font-bold w-30 h-30 text-3xl`}>
-                    {capName}
-                </Span>
-            </Container>
-            <Container variant="div" className={"flex flex-col items-center justify-center md:items-start md:justify-start"}>
-                <Paragraph className={"text-2xl font-semibold leading-none truncate"}>{name}</Paragraph>
-                <Paragraph className={"leading-none truncate"}>{email}</Paragraph>
-            </Container>
-        </Container>
-    )
+  function handleClose() {
+    setActiveSetting(null);
+  }
+
+  return (
+    <ShadowBox
+      //   border={true}
+      className={
+        "px-1 md:px-6 md:py-4 flex flex-col h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl md:mb-4 mb-0"
+      }
+    >
+      <AnimatePresence mode="wait">
+        {activeSetting ? (
+          <motion.div
+            key={`${activeSetting}`}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="h-full w-full"
+          >
+            {activeSetting === "profile" && <ProfileSettings />}
+            {activeSetting === "account" && (
+              <AccountSettings onClose={handleClose} />
+            )}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="settings-list"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="h-full w-full py-8 md:py-0"
+          >
+            <SettingsMain onOpenSetting={setActiveSetting} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </ShadowBox>
+  );
 }
