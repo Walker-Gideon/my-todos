@@ -14,7 +14,7 @@ export default function CategoryStatus() {
   const { setActiveCategoryModal } = useCategoryContext();
 
   return (
-    <Container variant="div" className={"flex flex-col "}>
+    <Container variant="div" className={"flex flex-col"}>
       <CategoryHeaders
         heading="Status"
         onOpenModal={() => setActiveCategoryModal("Status")}
