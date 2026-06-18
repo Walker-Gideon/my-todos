@@ -3,12 +3,12 @@ import { AnimatePresence, motion } from "motion/react";
 
 import SettingsMain from "./components/SettingsMain";
 import ShadowBox from "@/components/layout/ShadowBox";
-import AccountSettings from "./components/AccountSettings";
+import PasswordSettings from "./components/PasswordSettings";
 import ProfileSettings from "./components/ProfileSettings";
 
 export default function Settings() {
   const [activeSetting, setActiveSetting] = React.useState<
-    "profile" | "account" | null
+    "profile" | "password" | null
   >(null);
 
   function handleClose() {
@@ -17,10 +17,10 @@ export default function Settings() {
 
   return (
     <ShadowBox
-      //   border={true}
-      className={
-        "px-1 md:px-6 md:py-4 flex flex-col h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl md:mb-4 mb-0"
-      }
+      className="px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl overflow-hidden"
+      // className={
+      //   "px-1 md:px-6 md:py-4 flex flex-col h-full min-h-0  "
+      // }
     >
       <AnimatePresence mode="wait">
         {activeSetting ? (
@@ -30,11 +30,13 @@ export default function Settings() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="h-full w-full"
+            className="h-full min-h-0 w-full flex-1"
           >
-            {activeSetting === "profile" && <ProfileSettings />}
-            {activeSetting === "account" && (
-              <AccountSettings onClose={handleClose} />
+            {activeSetting === "profile" && (
+              <ProfileSettings onClose={handleClose} />
+            )}
+            {activeSetting === "password" && (
+              <PasswordSettings onClose={handleClose} />
             )}
           </motion.div>
         ) : (

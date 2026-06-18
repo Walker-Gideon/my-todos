@@ -12,7 +12,7 @@ import { useLogout } from "@/components/hooks/useLogout";
 export default function SettingsMain({
   onOpenSetting,
 }: {
-  onOpenSetting: (value: "profile" | "account" | null) => void;
+  onOpenSetting: (value: "profile" | "password" | null) => void;
 }) {
   const { logout } = useLogout();
 
@@ -44,7 +44,7 @@ export default function SettingsMain({
         </Button>
         <Button
           ariaLabel="View Account"
-          onClick={() => onOpenSetting("account")}
+          onClick={() => onOpenSetting("password")}
           className={`${styling} button-secondary-styling`}
         >
           <Span className={`${styling} gap-2`}>
