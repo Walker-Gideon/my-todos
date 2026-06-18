@@ -10,7 +10,7 @@ export default function Profile({ primary = true }: { primary?: boolean }) {
   return (
     <Container
       variant="div"
-      className={`mb-8 flex md:flex-row items-center gap-2 md:gap-4 ${primary ? "flex-col" : "flex-row"}`}
+      className={`my-8 flex md:flex-row items-center gap-2 md:gap-4 ${primary ? "flex-col" : "flex-row"}`}
     >
       <Container variant="div" className={"flex shrink-0"}>
         <Span
