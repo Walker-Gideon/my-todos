@@ -17,10 +17,9 @@ export default function Settings() {
 
   return (
     <ShadowBox
-      className="px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl overflow-hidden"
-      // className={
-      //   "px-1 md:px-6 md:py-4 flex flex-col h-full min-h-0  "
-      // }
+      className={
+        "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl"
+      }
     >
       <AnimatePresence mode="wait">
         {activeSetting ? (
@@ -30,7 +29,7 @@ export default function Settings() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="h-full min-h-0 w-full flex-1"
+            className={"h-full min-h-0 w-full flex-1"}
           >
             {activeSetting === "profile" && (
               <ProfileSettings onClose={handleClose} />
@@ -46,7 +45,7 @@ export default function Settings() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="h-full w-full py-8 md:py-0"
+            className={"h-full w-full py-8 md:py-0"}
           >
             <SettingsMain onOpenSetting={setActiveSetting} />
           </motion.div>
