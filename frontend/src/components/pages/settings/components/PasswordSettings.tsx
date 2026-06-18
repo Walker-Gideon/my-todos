@@ -77,11 +77,14 @@ export default function PasswordSettings({ onClose }: { onClose: () => void }) {
               })}
             />
           </Container>
-          <Container variant="div" className={"mt-6 flex flex-row gap-4"}>
+          <Container
+            variant="div"
+            className={"mt-6 flex flex-row items-center gap-2 md:gap-4"}
+          >
             <Button
               type="submit"
               ariaLabel="Update password"
-              className={"px-8 button-secondary-styling"}
+              className={"px-8 button-secondary-styling whitespace-nowrap"}
             >
               Update Password
             </Button>
