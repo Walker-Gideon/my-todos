@@ -78,7 +78,10 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               })}
             />
           </Container>
-          <Container variant="div" className={"mt-6 flex flex-row gap-4"}>
+          <Container
+            variant="div"
+            className={"mt-6 flex flex-row gap-2 md:gap-4"}
+          >
             <Button
               type="submit"
               ariaLabel="Save changes"
