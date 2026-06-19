@@ -18,7 +18,7 @@ export default function Settings() {
   return (
     <ShadowBox
       className={
-        "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl"
+        "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl md:shadow-lg"
       }
     >
       <AnimatePresence mode="wait">

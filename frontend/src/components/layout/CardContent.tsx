@@ -72,7 +72,7 @@ export default function CardContent({
   return (
     <>
       <ShadowBox
-        className={`p-4 flex flex-col w-full h-full space-y-4 md:border md:border-gray-300 md:rounded-xl ${className}`}
+        className={`p-4 flex flex-col w-full h-full space-y-4 md:border md:border-gray-300 md:rounded-xl md:shadow-lg ${className}`}
       >
         <Conditional condition={!task && !isLoading}>
           <Information value="Select a task to view..." />

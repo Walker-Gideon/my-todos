@@ -42,7 +42,7 @@ export default function TaskList({
   return (
     <ShadowBox
       className={
-        "px-1 md:p-4 flex flex-col h-full md:border md:border-gray-300 md:rounded-xl"
+        "px-1 md:p-4 flex flex-col h-full md:border md:border-gray-300 md:rounded-xl md:shadow-lg"
       }
     >
       <SecondaryHeading fristWord={fristWord} secondWord={secondWord} />
