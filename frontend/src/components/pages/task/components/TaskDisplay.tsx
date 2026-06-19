@@ -20,7 +20,7 @@ export default function TaskDisplay({
 
   return (
     <>
-      <Container variant="div" className="hidden md:flex md:w-2/5 h-full">
+      <Container variant="div" className={"hidden md:flex md:w-2/5 h-full"}>
         <TaskList
           fristWord="My"
           secondWord=" Tasks"
