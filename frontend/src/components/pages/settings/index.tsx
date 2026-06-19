@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import SettingsMain from "./components/SettingsMain";
@@ -7,7 +7,7 @@ import PasswordSettings from "./components/PasswordSettings";
 import ProfileSettings from "./components/ProfileSettings";
 
 export default function Settings() {
-  const [activeSetting, setActiveSetting] = React.useState<
+  const [activeSetting, setActiveSetting] = useState<
     "profile" | "password" | null
   >(null);
 
