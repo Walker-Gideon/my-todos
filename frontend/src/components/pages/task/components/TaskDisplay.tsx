@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 
+import Container from "@/components/layout/Container";
 import TaskList from "@/components/layout/TaskList";
 
 import type { Task } from "@/api/todos";
@@ -19,14 +20,14 @@ export default function TaskDisplay({
 
   return (
     <>
-      <div className="hidden md:flex md:w-2/5 h-full">
+      <Container variant="div" className="hidden md:flex md:w-2/5 h-full">
         <TaskList
           fristWord="My"
           secondWord=" Tasks"
           todosTasks={taskTodos}
           {...rest}
         />
-      </div>
+      </Container>
 
       <AnimatePresence>
         {!isPanelOpen && (
@@ -36,7 +37,7 @@ export default function TaskDisplay({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={"md:hidden w-full md:w-2/5 flex h-full min-h-0"}
+            className={"md:hidden w-full md:w-2/5 flex flex-1 h-full"}
           >
             <TaskList
               fristWord="My"
