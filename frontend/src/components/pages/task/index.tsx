@@ -22,7 +22,7 @@ export default function Task() {
     <AnimationWraper>
       <Container
         variant="main"
-        className={"w-full h-full min-h-0 flex flex-col md:flex-row gap-4"}
+        className={"w-full h-full min-h-0 flex flex-1 md:gap-4"}
       >
         <TaskDisplay
           contentId={contentId}
