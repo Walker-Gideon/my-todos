@@ -8,22 +8,21 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
-type AccountData = {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
+type ProfileData = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
 };
 
-export default function ProfileSettings({ onClose }: { onClose: () => void }) {
+export default function PasswordSettings({ onClose }: { onClose: () => void }) {
   const {
     register,
     handleSubmit,
     // watch,
     formState: { errors },
-  } = useForm<AccountData>();
+  } = useForm<ProfileData>();
 
-  const onSubmit: SubmitHandler<AccountData> = async (data) => {
+  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log(data);
   };
@@ -34,7 +33,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
         variant="div"
         className={"w-full flex items-center justify-between"}
       >
-        <SecondaryHeading fristWord={"Account"} secondWord={"Information"} />
+        <SecondaryHeading fristWord={"Change"} secondWord={"Password"} />
         <ModalBackButton onClick={onClose} />
       </Container>
       <Profile primary={false} />
@@ -46,51 +45,51 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
           >
             <Input
               type="text"
-              id="first-name"
-              label="First Name"
-              error={!!errors.firstName}
-              message={errors.firstName?.message}
-              {...register("firstName", {
-                required: "First Name is required",
+              id="current-password"
+              label="Current Password"
+              error={!!errors.currentPassword}
+              message={errors.currentPassword?.message}
+              {...register("currentPassword", {
+                required: "Current Password is required",
                 // disabled: isPending,
               })}
             />
             <Input
               type="text"
-              id="last-name"
-              label="Last Name"
-              error={!!errors.lastName}
-              message={errors.lastName?.message}
-              {...register("lastName", {
-                required: "Last Name is required",
+              id="new-password"
+              label="New Password"
+              error={!!errors.newPassword}
+              message={errors.newPassword?.message}
+              {...register("newPassword", {
+                required: "New Password is required",
                 // disabled: isPending,
               })}
             />
             <Input
-              type="email"
-              id="email"
-              label="Email Address"
-              error={!!errors.email}
-              message={errors.email?.message}
-              {...register("email", {
-                required: "Email is required",
+              type="text"
+              id="confirm-password"
+              label="Confirm Password"
+              error={!!errors.confirmPassword}
+              message={errors.confirmPassword?.message}
+              {...register("confirmPassword", {
+                required: "Confirm Password is required",
                 // disabled: isPending,
               })}
             />
           </Container>
           <Container
             variant="div"
-            className={"mt-6 flex flex-row gap-2 md:gap-4"}
+            className={"mt-6 flex flex-row items-center gap-2 md:gap-4"}
           >
             <Button
               type="submit"
-              ariaLabel="Save changes"
-              className={"px-8 button-secondary-styling"}
+              ariaLabel="Update password"
+              className={"px-8 button-secondary-styling whitespace-nowrap"}
             >
-              Save Changes
+              Update Password
             </Button>
             <Button
-              ariaLabel="Cancel and close profile settings"
+              ariaLabel="Cancel and close password settings"
               className={"px-8 button-secondary-styling"}
               onClick={onClose}
             >

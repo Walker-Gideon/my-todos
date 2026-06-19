@@ -29,7 +29,7 @@ export default function CategoryContainer({
       <Container
         variant="div"
         className={
-          "mt-8 flex flex-1 flex-col space-y-10 min-h-0 overflow-y-auto"
+          "mt-8 pb-4 flex flex-1 flex-col space-y-10 min-h-0 overflow-y-auto"
         }
       >
         <CategoryStatus />

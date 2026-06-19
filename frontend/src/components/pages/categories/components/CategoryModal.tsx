@@ -1,3 +1,5 @@
+import { useForm, type SubmitHandler } from "react-hook-form";
+
 import Button from "@/components/ui/Button";
 import Input from "@/components/layout/Input";
 import Backdrop from "@/components/layout/Backdrop";
@@ -6,6 +8,10 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
+type CategoryModalData = {
+  title: string;
+};
+
 export default function CategoryModal({
   category,
   onClose,
@@ -13,6 +19,18 @@ export default function CategoryModal({
   category: string;
   onClose: () => void;
 }) {
+  const {
+    register,
+    handleSubmit,
+    // watch,
+    formState: { errors },
+  } = useForm<CategoryModalData>();
+
+  const onSubmit: SubmitHandler<CategoryModalData> = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    console.log(data);
+  };
+
   return (
     <Backdrop show={true} center={true}>
       <Container
@@ -29,15 +47,20 @@ export default function CategoryModal({
           <SecondaryHeading fristWord={"Add"} secondWord={`Task ${category}`} />
           <ModalBackButton onClick={onClose} />
         </Container>
-        <ShadowBox className={"flex-1 border primary-border"}>
-          <form className={"min-h-80"}>
+        <ShadowBox className={"flex-1 p-4 border primary-border"}>
+          <form onSubmit={handleSubmit(onSubmit)} className={"min-h-80"}>
             <Container variant="div" className={"w-full flex flex-row gap-4"}>
               <Input
-                label={`Task ${category} Title`}
-                name={`${category.toLowerCase()}-title`}
                 type="text"
                 id={`${category.toLowerCase()}-title`}
+                label={`Task ${category} Title`}
                 className={"w-70 md:w-100"}
+                error={!!errors.title}
+                message={errors.title?.message}
+                {...register("title", {
+                  required: `${category} title is required`,
+                  // disabled: isPending,
+                })}
               />
             </Container>
             <Container variant="div" className={"mt-6 flex flex-row gap-4"}>

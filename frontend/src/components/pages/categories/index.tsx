@@ -14,7 +14,7 @@ export default function Categories() {
     <CategoryProvider>
       <ShadowBox
         className={
-          "px-1 md:px-6 flex flex-col h-full min-h-0 md:border md:border-gray-300 md:shadow-lg md:rounded-xl md:mb-4 mb-0"
+          "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl"
         }
       >
         <AnimatePresence mode="wait">
@@ -25,7 +25,7 @@ export default function Categories() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
-              className="h-full w-full"
+              className={"h-full w-full"}
             >
               <CreateCategory onClose={() => setIsOpenCreateCategory(false)} />
             </motion.div>
@@ -36,9 +36,11 @@ export default function Categories() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 8 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
-              className="h-full w-full"
+              className={"h-full w-full"}
             >
-              <CategoryContainer setIsOpenCreateCategory={setIsOpenCreateCategory} />
+              <CategoryContainer
+                setIsOpenCreateCategory={setIsOpenCreateCategory}
+              />
             </motion.div>
           )}
         </AnimatePresence>
