@@ -15,8 +15,6 @@ import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 
 import type { Task } from "@/api/todos";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
-import { useUpdateTask } from "@/components/hooks/useUpdateTask";
-
 
 interface CardContentProps {
   task: Task | null;
@@ -38,26 +36,17 @@ export default function CardContent({
   onEditTask,
   onContentOpen,
 }: CardContentProps) {
-  const { updateTask } = useUpdateTask();
   const { deleteTodo, isPending } = useDeleteTodo();
-
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
 
-  function handleMarkAsVital(id: string) {
-    updateTask({
-      id,
-      data: { isVital: true },
-    });
-  }
-
-  function handleEditTask(){
-    if(task) {
+  function handleEditTask() {
+    if (task) {
       onEditTask?.(task);
     }
   }
 
   function handelDeleteModal() {
-    if(task?._id) {
+    if (task?._id) {
       setIsDeleteModalOpen(task._id);
     }
   }
@@ -83,7 +72,7 @@ export default function CardContent({
   return (
     <>
       <ShadowBox
-        className={`px-4 md:px-6 flex flex-col w-full h-full md:min-h-120 md:max-h-none mb-4 md:mb-0 space-y-4 md:border md:border-gray-300 md:rounded-xl ${className}`}
+        className={`p-4 flex flex-col w-full h-full space-y-4 md:border md:border-gray-300 md:rounded-xl md:shadow-lg ${className}`}
       >
         <Conditional condition={!task && !isLoading}>
           <Information value="Select a task to view..." />
@@ -95,7 +84,10 @@ export default function CardContent({
         {!isLoading && task && (
           <>
             {/* header content */}
-            <Container variant="header" className={"w-full flex flex-col md:flex-row gap-4"}>
+            <Container
+              variant="header"
+              className={"w-full flex flex-col md:flex-row gap-4"}
+            >
               <TitleAndAction
                 title={task.title}
                 onContentOpen={onContentOpen}
@@ -107,7 +99,11 @@ export default function CardContent({
               >
                 {task.image === "" ? (
                   <Container
-                    variant="div"className={"w-full h-30 border border-gray-400 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"}>
+                    variant="div"
+                    className={
+                      "w-full h-30 border border-gray-400 text-gray-400 flex items-center justify-center rounded-xl"
+                    }
+                  >
                     <ImImage className={"w-15 h-10"} />
                   </Container>
                 ) : (
@@ -126,7 +122,9 @@ export default function CardContent({
                   className={
                     "text-dark text-xl font-semibold truncate min-w-0 w-70 hidden md:flex"
                   }
-                >{task?.title}</Paragraph>
+                >
+                  {task?.title}
+                </Paragraph>
                 <Paragraph variant="small" className={"flex flex-row gap-1"}>
                   <Span>Priority:</Span>
                   <Span style={{ color: task?.priority.color }}>
@@ -178,15 +176,6 @@ export default function CardContent({
               >
                 <LiaEdit className={styling["iconSize"]} />
               </Button>
-              {/* <Conditional condition={board}>
-                <Button
-                  ariaLabel="Vital Task"
-                  // onClick={() => handleMarkAsVital(task._id)}
-                  className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
-                >
-                  <RxExclamationMark className={styling["iconSize"]} />
-                </Button>
-              </Conditional> */}
             </Container>
           </>
         )}
@@ -211,15 +200,19 @@ function TitleAndAction({
 }: {
   title: string;
   className?: string;
-  onContentOpen: (open: boolean) => void;
+  onContentOpen?: (open: boolean) => void;
 }) {
   return (
     <Container
       variant="header"
       className={`w-full flex items-center justify-between ${className}`}
     >
-      <Paragraph className={"text-dark text-xl font-semibold truncate min-w-0 w-70"}>{title}</Paragraph>
-      <ModalBackButton onClick={() => onContentOpen(false)} />
+      <Paragraph
+        className={"text-dark text-xl font-semibold truncate min-w-0 w-70"}
+      >
+        {title}
+      </Paragraph>
+      <ModalBackButton onClick={() => onContentOpen && onContentOpen(false)} />
     </Container>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import ShadowBox from "@/components/layout/ShadowBox";
@@ -8,13 +8,13 @@ import CategoryContainer from "./components/CategoryContainer";
 import { CategoryProvider } from "./context/CategoryContext";
 
 export default function Categories() {
-  const [isOpenCreateCategory, setIsOpenCreateCategory] = React.useState(false);
+  const [isOpenCreateCategory, setIsOpenCreateCategory] = useState(false);
 
   return (
     <CategoryProvider>
       <ShadowBox
         className={
-          "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl"
+          "px-1 md:p-4 h-full min-h-0 md:border md:border-gray-300 md:rounded-xl md:shadow-lg"
         }
       >
         <AnimatePresence mode="wait">

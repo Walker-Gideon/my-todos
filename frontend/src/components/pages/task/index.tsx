@@ -1,6 +1,5 @@
 import TaskDisplay from "./components/TaskDisplay";
 import TaskContent from "./components/TaskContent";
-import Container from "@/components/layout/Container";
 import CreateTaskModal from "@/components/layout/CreateTaskModal";
 import AnimationWraper from "@/components/layout/AnimationWraper";
 
@@ -19,32 +18,27 @@ export default function Task() {
   } = useTaskParams();
 
   return (
-    <AnimationWraper>
-      <Container
-        variant="main"
-        className={"w-full h-full min-h-0 flex flex-col md:flex-row gap-4"}
-      >
-        <TaskDisplay
-          contentId={contentId}
-          isPanelOpen={isContentOpen}
-          onIsContentId={handleIsContentId}
-          onContentOpen={handleIsContentOpen}
-          onOpenEditModal={handleOpenEditModal}
-        />
-        <TaskContent
-          contentId={contentId}
-          isPanelOpen={isContentOpen}
-          onEditTask={handleOpenEditModal}
-          onContentOpen={handleIsContentOpen}
-        />
-        <CreateTaskModal
-          secondWord="sk"
-          fristWord="Edit Ta"
-          show={isModalOpen}
-          taskToEdit={taskToEdit}
-          onCloseModal={handleCloseModal}
-        />
-      </Container>
+    <AnimationWraper className={"w-full h-full min-h-0 flex flex-1 md:gap-4"}>
+      <TaskDisplay
+        contentId={contentId}
+        isPanelOpen={isContentOpen}
+        onIsContentId={handleIsContentId}
+        onContentOpen={handleIsContentOpen}
+        onOpenEditModal={handleOpenEditModal}
+      />
+      <TaskContent
+        contentId={contentId}
+        isPanelOpen={isContentOpen}
+        onEditTask={handleOpenEditModal}
+        onContentOpen={handleIsContentOpen}
+      />
+      <CreateTaskModal
+        secondWord="sk"
+        fristWord="Edit Ta"
+        show={isModalOpen}
+        taskToEdit={taskToEdit}
+        onCloseModal={handleCloseModal}
+      />
     </AnimationWraper>
   );
 }

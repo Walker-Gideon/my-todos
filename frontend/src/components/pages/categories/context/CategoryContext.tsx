@@ -1,12 +1,12 @@
-import React from "react";
+import { useState, createContext } from "react";
 import type { CategoryContextType } from "./CategoryContext.types";
 
-const CategoryContext = React.createContext<CategoryContextType | null>(null);
+const CategoryContext = createContext<CategoryContextType | null>(null);
 
 export function CategoryProvider({ children }: { children: React.ReactNode }) {
-  const [activeCategoryModal, setActiveCategoryModal] = React.useState<
-    string | null
-  >(null);
+  const [activeCategoryModal, setActiveCategoryModal] = useState<string | null>(
+    null,
+  );
 
   return (
     <CategoryContext.Provider
