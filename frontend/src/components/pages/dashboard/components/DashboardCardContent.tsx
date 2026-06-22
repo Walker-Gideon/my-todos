@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
 
 import { ImImage } from "react-icons/im";
 import { LiaEdit } from "react-icons/lia";
@@ -53,7 +55,7 @@ export default function DashboardCardContent({
     });
   }
 
-  function handleEditTask(){
+  function handleEditTask() {
     onEditTask?.(task);
   }
 
@@ -80,22 +82,34 @@ export default function DashboardCardContent({
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.22, ease: "easeOut" }}
+      className={cn(
+        "fixed inset-0 z-40 bg-white h-full min-h-0",
+        "md:static md:inset-auto md:z-auto md:flex md:bg-transparent",
+      )}
+    >
       <Conditional condition={isLoading}>
         <Information value="Loading..." />
       </Conditional>
       <Container
         variant="div"
         className={
-          "md:px-4 md:px-6 md:py-4 flex flex-col w-full min-h-130 md:min-h-120 max-h-120 md:max-h-none mb-4 md:mb-0 space-y-4 md:border md:border-gray-300"
+          "p-4 flex flex-1 flex-col w-full h-full min-h-0 space-y-4 md:border md:border-gray-300 md:shadow-lg md:rounded-xl"
         }
       >
         {/* header content */}
-        <Container variant="header" className={"w-full flex flex-col md:flex-row gap-4"}>
-          <TitleAndAction 
-            title={task.title} 
-            onContentOpen={onContentOpen} 
-            className={"md:hidden w-full"} 
+        <Container
+          variant="header"
+          className={"w-full flex flex-col md:flex-row gap-4"}
+        >
+          <TitleAndAction
+            title={task.title}
+            onContentOpen={onContentOpen}
+            className={"md:hidden w-full"}
           />
           <Container
             variant="div"
@@ -103,14 +117,20 @@ export default function DashboardCardContent({
           >
             {task.image === "" ? (
               <Container
-                variant="div"className={"w-full h-30 border border-gray-400 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"}>
+                variant="div"
+                className={
+                  "w-full h-40 md:h-3 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"
+                }
+              >
                 <ImImage className={"w-20 h-30"} />
               </Container>
             ) : (
               <img
                 src={task.image}
                 alt={task.image === "" ? "No Image" : task.title}
-                className={"w-full object-cover border border-gray-400 rounded-xl h-40"}
+                className={
+                  "w-full object-cover border border-gray-400 rounded-xl h-40"
+                }
               />
             )}
           </Container>
@@ -118,10 +138,10 @@ export default function DashboardCardContent({
             variant="div"
             className={`w-full text-base flex flex-wrap md:flex-col items-center md:items-start gap-1 md:gap-0 space-x-4 md:space-x-0 md:space-y-2`}
           >
-            <TitleAndAction 
-              title={task.title} 
-              onContentOpen={onContentOpen} 
-              className={"hidden md:flex w-full"} 
+            <TitleAndAction
+              title={task.title}
+              onContentOpen={onContentOpen}
+              className={"hidden md:flex w-full"}
             />
             <Paragraph variant="small" className={"flex flex-row gap-1"}>
               <Span>Priority:</Span>
@@ -133,7 +153,7 @@ export default function DashboardCardContent({
               <Span>Status:</Span>
               <Span style={{ color: task?.status.color }}>
                 {task?.status.label}
-            </Span>
+              </Span>
             </Paragraph>
             <Paragraph className={"text-xs text-gray"}>
               {`Created on: ${new Date(task.createdAt).toLocaleDateString()}`}
@@ -158,7 +178,9 @@ export default function DashboardCardContent({
         {/* footer */}
         <Container
           variant="footer"
-          className={"w-full flex flex-row items-end justify-end gap-3 mb-2 md:mb-0"}
+          className={
+            "w-full flex flex-row items-end justify-end gap-3 mb-2 md:mb-0"
+          }
         >
           <Button
             ariaLabel="Delete Task"
@@ -181,7 +203,7 @@ export default function DashboardCardContent({
           >
             <RxExclamationMark className={styling["iconSize"]} />
           </Button>
-        </Container> 
+        </Container>
       </Container>
       <ConfirmDelete
         disabled={isPending}
@@ -190,7 +212,8 @@ export default function DashboardCardContent({
         onConfirm={handelConfirmDelete}
         onCloseModal={handelCloseDeleteModal}
       />
-    </>
+      {/* </Container> */}
+    </motion.div>
   );
 }
 
@@ -208,7 +231,11 @@ function TitleAndAction({
       variant="header"
       className={`w-full flex items-center justify-between ${className}`}
     >
-      <Paragraph className={"text-dark text-xl font-semibold truncate min-w-0 w-70"}>{title}</Paragraph>
+      <Paragraph
+        className={"text-dark text-xl font-semibold truncate min-w-0 w-70"}
+      >
+        {title}
+      </Paragraph>
       <ModalBackButton onClick={() => onContentOpen(false)} />
     </Container>
   );
