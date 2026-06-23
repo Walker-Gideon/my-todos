@@ -1,9 +1,6 @@
-import { 
-    TbBell, 
-    TbMenu2, 
-    TbSearch, 
-    TbCalendarWeek 
-} from "react-icons/tb";
+import { useState } from "react";
+import { SlActionUndo } from "react-icons/sl";
+import { TbBell, TbMenu2, TbSearch, TbCalendarWeek } from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
 import Input from "@/components/ui/Input";
@@ -12,135 +9,245 @@ import Headings from "@/components/ui/Headings";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 
+type StylingProps = {
+  inputContainer: string;
+  input: string;
+  icon: string;
+  iconSize: string;
+};
+
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 
-export default function Header({ menuOpen, onMenuClick }: { menuOpen: boolean, onMenuClick: () => void }) {
-    const { dayInWords, day, monthInWords, year } = useDateFormat();
+export default function Header({
+  menuOpen,
+  onMenuClick,
+}: {
+  menuOpen: boolean;
+  onMenuClick: () => void;
+}) {
+  const [openModal, setOpenModal] = useState<
+    "notification" | "calendar" | null
+  >(null);
 
-    const styling = {
-        inputContainer: "w-full flex items-center border border-white rounded-md text-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 shadow-md shadow-primary/50 transition-all",
-        input: "w-full focus:outline-none p-1.5 px-3 bg-transparent",
-        icon: "text-col-white bg-primary p-1.5 rounded-md",
-        iconSize: "w-5 h-5 group-hover:scale-80 transition-all duration-300"
-    }
+  const { dayInWords, day, monthInWords, year } = useDateFormat();
 
-    // I just add shrink-0 so if any changes check it, its not part of the design
-    return (
-        <Container 
-            variant="header" 
-            className={"w-full md:h-20 bg-col-white-2 mb-6 md:mb-7 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shrink-0 shadow-md shadow-primary/50"}
-        >
-            <Container 
-                variant="div" 
-                className={"w-full flex items-center justify-between gap-4 lg:space-x-32"}
-            >
-                <Container 
-                    variant="div" 
-                    className={"flex items-center gap-4"}
-                >
-                    <Button 
-                        ariaLabel={menuOpen ? "Close Menu" : "Open Menu"}
-                        onClick={onMenuClick} 
-                        className={`${styling["icon"]} md:hidden group`}
-                    >
-                        <TbMenu2 size={20} />
-                    </Button>
-                    <Headings 
-                        variant="h1" 
-                        className={"flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl"}
-                    >
-                        {/* The words will come from the nav button that is either Dashboard pr To-do and they are split into two */}
-                        <Span className={"text-primary"}>Dash</Span>
-                        <Span className={"text-dark"}>board</Span>
-                    </Headings>
-                </Container>
+  const styling = {
+    inputContainer:
+      "w-full flex items-center border border-white rounded-md text-sm hover:border-primary focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/20 shadow-md shadow-primary/50 transition-all",
+    input: "w-full focus:outline-none p-1.5 px-3 bg-transparent",
+    icon: "text-col-white bg-primary p-1.5 rounded-md",
+    iconSize: "w-5 h-5 group-hover:scale-80 transition-all duration-300",
+  };
 
-                <Container 
-                    variant="div" 
-                    className={"flex items-center justify-between md:w-full h-full gap-4 lg:space-x-16"}
-                >
-                    <Container 
-                        variant="div" 
-                        className={"w-full hidden md:block"}
-                    >
-                        <SearchBar styling={styling} />
-                    </Container>
-
-                    <Container 
-                        variant="div" 
-                        className={"flex items-center gap-4 md:space-x-8 shrink-0"}
-                    >
-                        <NotificationAndDate styling={styling} />
-                    
-                        <Container 
-                            variant="div" 
-                            className={"hidden medium:flex flex-col items-center justify-center"}
-                        >
-                            <Paragraph
-                                variant="large"
-                                className={"font-medium text-dark"}
-                            >
-                                {dayInWords}
-                            </Paragraph>
-                            <Paragraph 
-                                variant="small" 
-                                className={"font-medium text-blue"}
-                            >
-                                {day}/{monthInWords}/{year}
-                            </Paragraph>
-                        </Container>
-                    </Container>
-                </Container>
-            </Container>
-
-            <Container 
-                variant="div" 
-                className={"md:hidden mt-6"}
-            >
-                <SearchBar styling={styling} />
-            </Container>
+  // I just add shrink-0 so if any changes check it, its not part of the design
+  return (
+    <Container
+      variant="header"
+      className={
+        "relative w-full md:h-20 bg-col-white-2 mb-6 md:mb-7 py-4 px-4 md:px-8 max-w-screen-2xl mx-auto shrink-0 shadow-md shadow-primary/50"
+      }
+    >
+      <Container
+        variant="div"
+        className={
+          "w-full flex items-center justify-between gap-4 lg:space-x-32"
+        }
+      >
+        <Container variant="div" className={"flex items-center gap-4"}>
+          <Button
+            ariaLabel={menuOpen ? "Close Menu" : "Open Menu"}
+            onClick={onMenuClick}
+            className={`${styling["icon"]} md:hidden group`}
+          >
+            <TbMenu2 size={20} />
+          </Button>
+          <Headings
+            variant="h1"
+            className={
+              "flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl"
+            }
+          >
+            {/* The words will come from the nav button that is either Dashboard pr To-do and they are split into two */}
+            <Span className={"text-primary"}>Dash</Span>
+            <Span className={"text-dark"}>board</Span>
+          </Headings>
         </Container>
-    )
+
+        <Container
+          variant="div"
+          className={
+            "flex items-center justify-between md:w-full h-full gap-4 lg:space-x-16"
+          }
+        >
+          <Container variant="div" className={"w-full hidden md:block"}>
+            <SearchBar styling={styling} />
+          </Container>
+
+          <Container
+            variant="div"
+            className={"flex items-center gap-4 md:space-x-8 shrink-0"}
+          >
+            <NotificationAndDate onOpen={setOpenModal} styling={styling} />
+            {openModal === "notification" && (
+              <NotificationContent onClose={() => setOpenModal(null)} />
+            )}
+            {openModal === "calendar" && (
+              <CalendarContent onClose={() => setOpenModal(null)} />
+            )}
+
+            <Container
+              variant="div"
+              className={
+                "hidden medium:flex flex-col items-center justify-center"
+              }
+            >
+              <Paragraph variant="large" className={"font-medium text-dark"}>
+                {dayInWords}
+              </Paragraph>
+              <Paragraph variant="small" className={"font-medium text-blue"}>
+                {day}/{monthInWords}/{year}
+              </Paragraph>
+            </Container>
+          </Container>
+        </Container>
+      </Container>
+
+      <Container variant="div" className={"md:hidden mt-6"}>
+        <SearchBar styling={styling} />
+      </Container>
+    </Container>
+  );
 }
 
-function SearchBar({ styling }: { styling: any }) {
-    return (
-        <form className={styling["inputContainer"]}>
-            <Input 
-                type="text" 
-                defaultStyling={false} 
-                placeholder="Search your task here..." 
-                className={styling["input"]} 
+function SearchBar({ styling }: { styling: StylingProps }) {
+  return (
+    <form className={styling["inputContainer"]}>
+      <Input
+        type="text"
+        defaultStyling={false}
+        placeholder="Search your task here..."
+        className={styling["input"]}
+      />
+      <Button
+        type="submit"
+        ariaLabel="Search query"
+        className={`${styling["icon"]} group`}
+      >
+        <TbSearch className={styling["iconSize"]} />
+      </Button>
+    </form>
+  );
+}
+
+function NotificationAndDate({
+  styling,
+  onOpen,
+}: {
+  styling: StylingProps;
+  onOpen: (modal: "notification" | "calendar") => void;
+}) {
+  return (
+    <Container variant="div" className={"flex items-center gap-4"}>
+      <Button
+        ariaLabel="Notifications"
+        onClick={() => onOpen("notification")}
+        className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
+      >
+        <TbBell className={styling["iconSize"]} />
+      </Button>
+      <Button
+        ariaLabel="Calendar"
+        onClick={() => onOpen("calendar")}
+        className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
+      >
+        <TbCalendarWeek className={styling["iconSize"]} />
+      </Button>
+    </Container>
+  );
+}
+
+function NotificationContent({ onClose }: { onClose: (modal: null) => void }) {
+  return (
+    <Container
+      variant="div"
+      className={
+        "absolute top-14 medium:top-16 right-17 medium:right-41 md:right-45 border border-stone-300 h-80 w-70 rounded-xl"
+      }
+    >
+      <Container
+        variant="header"
+        className={
+          "bg-white border-b rounded-t-xl border-stone-300 flex justify-between py-2 px-6"
+        }
+      >
+        <Container variant="header" className={"flex flex-col"}>
+          <Paragraph className={"font-semibold"}>Notigivations</Paragraph>
+          <Paragraph variant="small" className={"text-gray"}>
+            Today
+          </Paragraph>
+        </Container>
+        <Button
+          variant="text"
+          onClick={() => onClose(null)}
+          className={"text-btn-col hover:text-btn-col/80"}
+        >
+          <SlActionUndo size={30} />
+        </Button>
+      </Container>
+
+      <Container
+        variant="main"
+        className={"h-full bg-gray rounded-b-xl py-2 px-6"}
+      >
+        <Container variant="div" className={"flex items-center gap-3"}>
+          <Container variant="div" className={"w-5/6"}>
+            <Paragraph
+              variant="small"
+              className="flex flex-col leading-none gap-0.5"
+            >
+              <span>Completed mobile app design for John Door. 2h</span>
+              <span>Priority: High</span>
+            </Paragraph>
+          </Container>
+          <Container variant="div" className={"w-1/6"}>
+            <img
+              src={""}
+              alt={""}
+              className={"border border-white h-12 w-full"}
             />
-            <Button 
-                type="submit" 
-                ariaLabel="Search query"
-                className={`${styling["icon"]} group`}
-            >
-                <TbSearch className={styling["iconSize"]} />
-            </Button>
-        </form>
-    )
+          </Container>
+        </Container>
+      </Container>
+    </Container>
+  );
 }
 
-function NotificationAndDate({ styling }: { styling: any }) {
-    return (
-        <Container 
-            variant="div" 
-            className={"flex items-center gap-4"}
-        >
-            <Button 
-                ariaLabel="Notifications"
-                className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
-            >
-                <TbBell className={styling["iconSize"]} />
-            </Button>
-            <Button 
-                ariaLabel="Calendar"
-                className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
-            >
-                <TbCalendarWeek className={styling["iconSize"]} />
-            </Button>
+function CalendarContent({ onClose }: { onClose: (modal: null) => void }) {
+  return (
+    <Container
+      variant="div"
+      className={
+        "absolute top-14 medium:top-16 right-17 medium:right-41 md:right-45 border border-stone-300 h-80 w-70 rounded-xl"
+      }
+    >
+      <Container
+        variant="header"
+        className={
+          "bg-white border-b rounded-t-xl border-stone-300 flex justify-between py-2 px-3"
+        }
+      >
+        <Container variant="header" className={"flex flex-col"}>
+          <p>Calendar</p>
         </Container>
-    )
+        <Button
+          variant="text"
+          onClick={() => onClose(null)}
+          className={"text-btn-col hover:text-btn-col/80"}
+        >
+          <SlActionUndo size={30} />
+        </Button>
+      </Container>
+      CalendarContent
+    </Container>
+  );
 }
