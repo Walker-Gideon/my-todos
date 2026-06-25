@@ -37,9 +37,12 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
         <SecondaryHeading fristWord={"Account"} secondWord={"Information"} />
         <ModalBackButton onClick={onClose} />
       </Container>
-      <Profile primary={false} />
-      <ShadowBox border={true} className={"p-4 min-h-0 flex- overflow-y-auto"}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Profile primary={false} showBtn={true} />
+        <ShadowBox
+          border={true}
+          className={"p-4 min-h-0 flex- overflow-y-auto"}
+        >
           <Container
             variant="div"
             className={"flex flex-col gap-2 w-full md:w-140"}
@@ -97,8 +100,8 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               Cancel
             </Button>
           </Container>
-        </form>
-      </ShadowBox>
+        </ShadowBox>
+      </form>
     </Container>
   );
 }
