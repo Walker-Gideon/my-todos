@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import Profile from "./Profile";
@@ -8,24 +9,35 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
+import { useUpdateProfile } from "@/components/hooks/useUpdateProfile";
+
 type AccountData = {
   firstName: string;
   lastName: string;
   username: string;
   email: string;
+  image: File;
 };
 
 export default function ProfileSettings({ onClose }: { onClose: () => void }) {
+  const { profile, isPending } = useUpdateProfile();
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { errors },
   } = useForm<AccountData>();
 
+  const handleImageChange = (file: File) => {
+    setImageFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
   const onSubmit: SubmitHandler<AccountData> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log(data);
+    profile({ ...data, image: imageFile ?? undefined });
   };
 
   return (
@@ -38,7 +50,12 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
         <ModalBackButton onClick={onClose} />
       </Container>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Profile primary={false} showBtn={true} />
+        <Profile
+          primary={false}
+          showBtn={true}
+          preview={preview}
+          onImageChange={handleImageChange}
+        />
         <ShadowBox
           border={true}
           className={"p-4 min-h-0 flex- overflow-y-auto"}
@@ -54,8 +71,8 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.firstName}
               message={errors.firstName?.message}
               {...register("firstName", {
-                required: "First Name is required",
-                // disabled: isPending,
+                // required: "First Name is required",
+                disabled: isPending,
               })}
             />
             <Input
@@ -65,8 +82,8 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.lastName}
               message={errors.lastName?.message}
               {...register("lastName", {
-                required: "Last Name is required",
-                // disabled: isPending,
+                // required: "Last Name is required",
+                disabled: isPending,
               })}
             />
             <Input
@@ -76,8 +93,8 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.email}
               message={errors.email?.message}
               {...register("email", {
-                required: "Email is required",
-                // disabled: isPending,
+                // required: "Email is required",
+                disabled: isPending,
               })}
             />
           </Container>
@@ -88,6 +105,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
             <Button
               type="submit"
               ariaLabel="Save changes"
+              disabled={isPending}
               className={"px-8 button-secondary-styling"}
             >
               Save Changes
@@ -95,6 +113,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
             <Button
               ariaLabel="Cancel and close profile settings"
               className={"px-8 button-secondary-styling"}
+              disabled={isPending}
               onClick={onClose}
             >
               Cancel

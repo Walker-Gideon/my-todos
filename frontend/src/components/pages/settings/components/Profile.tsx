@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { MdAddPhotoAlternate } from "react-icons/md";
 
 import Span from "@/components/ui/Span";
@@ -7,22 +6,26 @@ import Container from "@/components/layout/Container";
 
 import { useUserProfile } from "@/components/hooks/useUserProfile";
 
+interface ProfileProps {
+  primary?: boolean;
+  showBtn?: boolean;
+  preview?: string | null;
+  onImageChange?: (file: File) => void;
+}
+
 export default function Profile({
   primary = true,
   showBtn = false,
-}: {
-  primary?: boolean;
-  showBtn?: boolean;
-}) {
+  preview,
+  onImageChange,
+}: ProfileProps) {
   const { name, capName, email } = useUserProfile();
-
-  const [preview, setPreview] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
-    setPreview(URL.createObjectURL(file));
+    onImageChange?.(file);
   };
 
   return (
