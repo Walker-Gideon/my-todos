@@ -22,6 +22,13 @@ export interface ResetPasswordData {
   password: string;
 }
 
+export interface UpdateProfileData {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  image?: File;
+}
+
 export const registerUser = async ({
   firstName,
   lastName,
@@ -162,4 +169,42 @@ export const getUserProfile = async () => {
     }
     throw error;
   }
+};
+
+export const updateUserProfile = async ({
+  firstName,
+  lastName,
+  email,
+  image,
+}: UpdateProfileData) => {
+  const token = localStorage.getItem("token");
+
+  const formData = new FormData();
+  if (firstName !== undefined) formData.append("firstName", firstName);
+  if (lastName !== undefined) formData.append("lastName", lastName);
+  if (email !== undefined) formData.append("email", email);
+  if (image !== undefined) formData.append("image", image);
+
+  const response = await fetch(`${BASE_URL}/api/profile`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const err = await response.json();
+    const messages =
+      err.errors && Array.isArray(err.errors)
+        ? err.errors.map(
+            (e: { msg?: string; message?: string }) =>
+              e.msg || e.message || "Validation failed",
+          )
+        : [err.message || err.error || err.msg || "Profile update failed"];
+    const errorMessage = [...new Set(messages)].join(", ");
+    throw new Error(errorMessage);
+  }
+
+  return response.json();
 };
