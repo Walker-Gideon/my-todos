@@ -14,6 +14,7 @@ interface User {
     lastName: string;
     username: string;
     email: string;
+    profileImageUrl?: string;
 }
 
 interface AuthContextType {
@@ -22,7 +23,7 @@ interface AuthContextType {
     isLoading: boolean;
     login: (userData: any) => void;
     logout: () => void;
-    checkAuth: () => Promise<void>;
+    checkAuth: (silent?: boolean) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,8 +32,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const checkAuth = useCallback(async () => {
-        setIsLoading(true);
+    const checkAuth = useCallback(async (silent = false) => {
+        if (!silent) setIsLoading(true);
         try {
             const response = await getUserProfile();
             if (response && response.success) {
@@ -43,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (error) {
             setUser(null);
         } finally {
-            setIsLoading(false);
+            if (!silent) setIsLoading(false);
         }
     }, []);
 
