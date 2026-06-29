@@ -111,7 +111,7 @@ function Profile({
   openSidebar: boolean;
   onOpenSidebar: (value: boolean) => void;
 }) {
-  const { name, capName, email } = useUserProfile();
+  const { name, capName, email, profileImageUrl } = useUserProfile();
 
   return (
     <Container variant="div" className={"mb-3 pb-3 border-b border-white/10"}>
@@ -131,17 +131,19 @@ function Profile({
         className={`flex items-center gap-2 ${openSidebar ? "flex-col justify-center" : "flex-row"}`}
       >
         <Container variant="div" className={"flex shrink-0"}>
-          {/* <img 
-                        src="https://ui-avatars.com/api/?name=User&background=212427&color=fff" 
-                        alt="user image" 
-                        className={`rounded-full border-2 border-col-white-2 object-cover bg-dark transition-all duration-300 aspect-square ${openSidebar ? "w-9.5 h-9.5" : "w-13 h-13 md:w-15 md:h-15"}`} 
-                    /> */}
-
-          <Span
-            className={`rounded-full bg-dark flex items-center justify-center text-white font-bold ${openSidebar ? "w-9.5 h-9.5 text-sm" : "w-13 h-13 md:w-15 md:h-15 text-lg"}`}
-          >
-            {capName}
-          </Span>
+          {profileImageUrl ? (
+            <img
+              src={profileImageUrl}
+              alt="user image"
+              className={`rounded-full border-2 border-col-white-2 object-cover bg-dark transition-all duration-300 aspect-square ${openSidebar ? "w-9.5 h-9.5" : "w-13 h-13 md:w-15 md:h-15"}`}
+            />
+          ) : (
+            <Span
+              className={`rounded-full bg-dark flex items-center justify-center text-white font-bold ${openSidebar ? "w-9.5 h-9.5 text-sm" : "w-13 h-13 md:w-15 md:h-15 text-lg"}`}
+            >
+              {capName}
+            </Span>
+          )}
         </Container>
 
         <Container

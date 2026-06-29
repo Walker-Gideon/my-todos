@@ -105,27 +105,21 @@ export const resetPasswordValidationSchema = {
 
 export const profileValidationSchema = {
   firstName: {
+    optional: true,
     isString: {
       errorMessage: "must be a string",
-    },
-    notEmpty: {
-      errorMessage: "First name is required",
     },
   },
   lastName: {
+    optional: true,
     isString: {
       errorMessage: "must be a string",
-    },
-    notEmpty: {
-      errorMessage: "Last name is required",
     },
   },
   email: {
+    optional: true,
     isString: {
       errorMessage: "must be a string",
-    },
-    notEmpty: {
-      errorMessage: "Email is required",
     },
     isEmail: {
       errorMessage: "Email is invalid",

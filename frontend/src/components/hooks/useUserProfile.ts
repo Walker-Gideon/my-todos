@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 export const useUserProfile = () => {
     const { user } = useAuth();
 
-    const { email, firstName, lastName, username, _id } = user ?? {};
+    const { email, firstName, lastName, profileImageUrl, _id } = user ?? {};
     const name = `${firstName} ${lastName}`;
 
     const capitalizeName = (name: string) => {
@@ -16,7 +16,7 @@ export const useUserProfile = () => {
         email,
         firstName,
         lastName,
-        username,
+        profileImageUrl,
         capName: `${capitalizeName(firstName)}${capitalizeName(lastName)}`
     };
 }

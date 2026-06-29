@@ -19,7 +19,7 @@ export default function Profile({
   preview,
   onImageChange,
 }: ProfileProps) {
-  const { name, capName, email } = useUserProfile();
+  const { name, capName, email, profileImageUrl } = useUserProfile();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,10 +34,10 @@ export default function Profile({
       className={`my-8 flex md:flex-row items-center gap-2 md:gap-4 ${primary ? "flex-col" : "flex-row"}`}
     >
       <Container variant="div" className={"relative flex shrink-0"}>
-        {preview ? (
+        {preview || profileImageUrl ? (
           <img
-            src={preview}
-            alt="preview"
+            src={preview ? preview : profileImageUrl}
+            alt="user image"
             className={`rounded-full border-2 border-white object-cover ${primary ? "w-30 h-30 text-3xl" : "w-18 h-18 text-2xl"}`}
           />
         ) : (

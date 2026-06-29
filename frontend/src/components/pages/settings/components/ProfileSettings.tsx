@@ -9,6 +9,7 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
+import { useAuth } from "@/context/AuthContext";
 import { useUpdateProfile } from "@/components/hooks/useUpdateProfile";
 
 type AccountData = {
@@ -20,6 +21,7 @@ type AccountData = {
 };
 
 export default function ProfileSettings({ onClose }: { onClose: () => void }) {
+  const { user } = useAuth();
   const { profile, isPending } = useUpdateProfile();
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -29,7 +31,14 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AccountData>();
+  } = useForm<AccountData>({
+    values: {
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      username: user?.username || "",
+      email: user?.email || "",
+    } as any,
+  });
 
   const handleImageChange = (file: File) => {
     setImageFile(file);
@@ -71,7 +80,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.firstName}
               message={errors.firstName?.message}
               {...register("firstName", {
-                // required: "First Name is required",
+                required: "First Name is required",
                 disabled: isPending,
               })}
             />
@@ -82,7 +91,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.lastName}
               message={errors.lastName?.message}
               {...register("lastName", {
-                // required: "Last Name is required",
+                required: "Last Name is required",
                 disabled: isPending,
               })}
             />
@@ -93,7 +102,7 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
               error={!!errors.email}
               message={errors.email?.message}
               {...register("email", {
-                // required: "Email is required",
+                required: "Email is required",
                 disabled: isPending,
               })}
             />
