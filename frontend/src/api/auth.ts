@@ -201,7 +201,7 @@ export const updateUserProfile = async ({
             (e: { msg?: string; message?: string }) =>
               e.msg || e.message || "Validation failed",
           )
-        : [err.message || err.error || err.msg || "Profile update failed"];
+        : [err.error || err.message || err.msg || "Profile update failed"];
     const errorMessage = [...new Set(messages)].join(", ");
     throw new Error(errorMessage);
   }
