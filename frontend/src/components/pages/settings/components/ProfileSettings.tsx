@@ -17,10 +17,14 @@ type AccountData = {
   lastName: string;
   username: string;
   email: string;
-  image: File;
+  image?: File;
 };
 
-export default function ProfileSettings({ onClose }: { onClose: () => void }) {
+export default function ProfileSettings({
+  onClose,
+}: {
+  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) {
   const { user } = useAuth();
   const { profile, isPending } = useUpdateProfile();
 
@@ -32,12 +36,12 @@ export default function ProfileSettings({ onClose }: { onClose: () => void }) {
     handleSubmit,
     formState: { errors },
   } = useForm<AccountData>({
-    values: {
+    defaultValues: {
       firstName: user?.firstName || "",
       lastName: user?.lastName || "",
       username: user?.username || "",
       email: user?.email || "",
-    } as any,
+    },
   });
 
   const handleImageChange = (file: File) => {

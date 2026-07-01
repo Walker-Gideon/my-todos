@@ -11,7 +11,8 @@ export default function Settings() {
     "profile" | "password" | null
   >(null);
 
-  function handleClose() {
+  function handleClose(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
     setActiveSetting(null);
   }
 

@@ -14,11 +14,14 @@ type ProfileData = {
   confirmPassword: string;
 };
 
-export default function PasswordSettings({ onClose }: { onClose: () => void }) {
+export default function PasswordSettings({
+  onClose,
+}: {
+  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) {
   const {
     register,
     handleSubmit,
-    // watch,
     formState: { errors },
   } = useForm<ProfileData>();
 
