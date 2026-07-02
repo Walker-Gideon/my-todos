@@ -6,13 +6,16 @@ import { updateUserProfile, type UpdateProfileData } from "@/api/auth";
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-  const { checkAuth } = useAuth();
+  const { login, checkAuth } = useAuth();
 
   const { mutate: profile, isPending } = useMutation({
     mutationFn: (data: UpdateProfileData) => updateUserProfile(data),
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Profile updated successfully");
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      if (data?.user) {
+        login(data.user);
+      }
       checkAuth(true);
     },
     onError: (error) => {
