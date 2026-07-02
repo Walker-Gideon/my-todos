@@ -1,8 +1,8 @@
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useAuth } from "@/context/useAuthContex";
 import { updateUserProfile, type UpdateProfileData } from "@/api/auth";
-import { useAuth } from "@/context/AuthContext";
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();

@@ -9,7 +9,7 @@ import ShadowBox from "@/components/layout/ShadowBox";
 import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/useAuthContex";
 import { useUpdateProfile } from "@/components/hooks/useUpdateProfile";
 
 type AccountData = {

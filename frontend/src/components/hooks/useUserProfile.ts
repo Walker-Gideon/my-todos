@@ -1,23 +1,23 @@
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/useAuthContex";
 
 export const useUserProfile = () => {
-    const { user } = useAuth();
+  const { user } = useAuth();
 
-    const { email, firstName, lastName, profileImageUrl, _id } = user ?? {};
-    const name = `${firstName} ${lastName}`;
+  const { email, firstName, lastName, profileImageUrl, _id } = user ?? {};
+  const name = `${firstName} ${lastName}`;
 
-    const capitalizeName = (name?: string) => {
-        if (!name) return "";
-        return name.split(" ").map((word) => word.charAt(0).toUpperCase())[0];
-    };
+  const capitalizeName = (name?: string) => {
+    if (!name) return "";
+    return name.split(" ").map((word) => word.charAt(0).toUpperCase())[0];
+  };
 
-    return { 
-        id: _id,
-        name,
-        email,
-        firstName,
-        lastName,
-        profileImageUrl,
-        capName: `${capitalizeName(firstName)}${capitalizeName(lastName)}`
-    };
-}
+  return {
+    id: _id,
+    name,
+    email,
+    firstName,
+    lastName,
+    profileImageUrl,
+    capName: `${capitalizeName(firstName)}${capitalizeName(lastName)}`,
+  };
+};
