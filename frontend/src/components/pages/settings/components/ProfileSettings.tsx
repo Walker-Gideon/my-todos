@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 
 import Profile from "./Profile";
@@ -15,8 +15,6 @@ import { useUpdateProfile } from "@/components/hooks/useUpdateProfile";
 type AccountData = {
   firstName: string;
   lastName: string;
-  username: string;
-  email: string;
   image?: File;
 };
 
@@ -32,17 +30,18 @@ export default function ProfileSettings({
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AccountData>({
-    defaultValues: {
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      username: user?.username || "",
-      email: user?.email || "",
-    },
-  });
+  } = useForm<AccountData>();
+
+  useEffect(() => {
+    reset({
+      firstName: user?.firstName ?? "",
+      lastName: user?.lastName ?? "",
+    });
+  }, [user, reset]);
 
   const handleImageChange = (file: File) => {
     setImageFile(file);
@@ -50,7 +49,11 @@ export default function ProfileSettings({
   };
 
   const onSubmit: SubmitHandler<AccountData> = async (data) => {
-    profile({ ...data, image: imageFile ?? undefined });
+    profile({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      image: imageFile ?? undefined,
+    });
   };
 
   return (
@@ -96,17 +99,6 @@ export default function ProfileSettings({
               message={errors.lastName?.message}
               {...register("lastName", {
                 required: "Last Name is required",
-                disabled: isPending,
-              })}
-            />
-            <Input
-              type="email"
-              id="email"
-              label="Email Address"
-              error={!!errors.email}
-              message={errors.email?.message}
-              {...register("email", {
-                required: "Email is required",
                 disabled: isPending,
               })}
             />
