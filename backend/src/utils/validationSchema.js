@@ -127,6 +127,31 @@ export const profileValidationSchema = {
   },
 };
 
+export const updateUserPasswordValidationSchema = {
+  currentPassword: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Current password is required",
+    },
+  },
+  newPassword: {
+    isString: {
+      errorMessage: "must be a string",
+    },
+    notEmpty: {
+      errorMessage: "Password is required",
+    },
+    isLength: {
+      options: {
+        min: 8,
+      },
+      errorMessage: "Password must be at least 8 characters long",
+    },
+  },
+};
+
 export const createTodoValidationSchema = {
   title: {
     isString: {
