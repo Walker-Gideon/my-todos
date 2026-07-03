@@ -13,11 +13,13 @@ import prioritiesRouter from "./priorities.js";
 import userProfileRouter from "./userProfile.js";
 import resetPasswordRouter from "./resetPassword.js";
 import forgetPasswordRouter from "./forgetPassword.js";
+import passwordUpdateRouter from "./password-settings.js";
 
 const router = Router();
 
 router.use(registerRouter);
 router.use(loginRouter);
+router.use(passwordUpdateRouter);
 router.use(dashboardRouter);
 router.use(taskRouter);
 router.use(vitalTaskRouter);
