@@ -245,34 +245,3 @@ export const updateUserProfile = async (req, res) => {
       .json({ message: "Failed to update user profile", error: error.message });
   }
 };
-
-/**
- * @desc Update user password
- * @route PUT /api/password-settings
- * @access Private
- */
-export const updateUserPassword = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  try {
-    const { currentPassword, newPassword } = req.body;
-    const user = await userModel.findById(req.user._id);
-
-    if (!user || !(await user.matchPassword(currentPassword))) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
-
-    user.password = newPassword;
-    await user.save();
-
-    res.status(200).json({ message: "Password updated successfully" });
-  } catch (error) {
-    res.status(500).json({
-      message: "Failed to update user password",
-      error: error.message,
-    });
-  }
-};
