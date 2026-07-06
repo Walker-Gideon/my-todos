@@ -15,7 +15,6 @@ interface ProfileProps {
 
 export default function Profile({
   primary = true,
-  showBtn = false,
   preview,
   onImageChange,
 }: ProfileProps) {
@@ -48,24 +47,22 @@ export default function Profile({
           </Span>
         )}
 
-        {showBtn && (
-          <label
-            htmlFor="profile-upload"
-            className={
-              "absolute right-0 bottom-0 flex items-center justify-center cursor-pointer h-7 w-7 rounded-full bg-btn-col border-2 border-white shadow-sm hover:opacity-90 transition-opacity"
-            }
-            title={preview ? "Change Photo" : "Add Photo"}
-          >
-            <MdAddPhotoAlternate size={16} className="text-white" />
-            <input
-              id="profile-upload"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleImageChange}
-            />
-          </label>
-        )}
+        <label
+          htmlFor="profile-upload"
+          className={
+            "absolute right-0 bottom-0 flex items-center justify-center cursor-pointer h-7 w-7 rounded-full bg-btn-col border-2 border-white shadow-sm hover:opacity-90 transition-opacity"
+          }
+          title={preview ? "Change Photo" : "Add Photo"}
+        >
+          <MdAddPhotoAlternate size={16} className="text-white" />
+          <input
+            id="profile-upload"
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleImageChange}
+          />
+        </label>
       </Container>
       <Container
         variant="div"

@@ -6,7 +6,6 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/layout/Input";
 import Container from "@/components/layout/Container";
 import ShadowBox from "@/components/layout/ShadowBox";
-import ModalBackButton from "@/components/layout/ModalBackButton";
 import SecondaryHeading from "@/components/layout/SecondaryHeading";
 
 import { useAuth } from "@/context/useAuthContex";
@@ -18,11 +17,7 @@ type AccountData = {
   image?: File;
 };
 
-export default function ProfileSettings({
-  onClose,
-}: {
-  onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
-}) {
+export default function ProfileSettings() {
   const { user } = useAuth();
   const { profile, isPending } = useUpdateProfile();
 
@@ -33,13 +28,13 @@ export default function ProfileSettings({
     reset,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<AccountData>();
 
   useEffect(() => {
     reset({
-      firstName: user?.firstName ?? "",
-      lastName: user?.lastName ?? "",
+      firstName: "",
+      lastName: "",
     });
   }, [user, reset]);
 
@@ -63,12 +58,10 @@ export default function ProfileSettings({
         className={"w-full flex items-center justify-between"}
       >
         <SecondaryHeading fristWord={"Account"} secondWord={"Information"} />
-        <ModalBackButton onClick={onClose} />
       </Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Profile
           primary={false}
-          showBtn={true}
           preview={preview}
           onImageChange={handleImageChange}
         />
@@ -105,23 +98,15 @@ export default function ProfileSettings({
           </Container>
           <Container
             variant="div"
-            className={"mt-6 flex flex-row gap-2 md:gap-4"}
+            className={"mt-6 flex items-end justify-end gap-2 md:gap-4"}
           >
             <Button
               type="submit"
               ariaLabel="Save changes"
-              disabled={isPending}
+              disabled={isPending || !isDirty}
               className={"px-8 button-secondary-styling"}
             >
-              Save Changes
-            </Button>
-            <Button
-              ariaLabel="Cancel and close profile settings"
-              className={"px-8 button-secondary-styling"}
-              disabled={isPending}
-              onClick={onClose}
-            >
-              Cancel
+              {isPending ? "Saving changes..." : "Save Changes"}
             </Button>
           </Container>
         </ShadowBox>
