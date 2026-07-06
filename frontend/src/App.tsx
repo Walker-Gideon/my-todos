@@ -58,7 +58,7 @@ export default function App() {
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="vital-task" element={<VitalTask />} />
                 <Route path="my-task" element={<Task />} />
-                <Route path="settings" element={<Settings />} />
+                <Route path="profile" element={<Settings />} />
                 <Route path="categories" element={<Categories />} />
               </Route>
             </Route>
