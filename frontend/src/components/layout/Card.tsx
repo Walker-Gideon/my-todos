@@ -1,3 +1,4 @@
+import { RxExclamationMark } from "react-icons/rx";
 import { TbCircle, TbCircleCheck, TbPencil, TbTrash } from "react-icons/tb";
 
 import Menus from "./Menu";
@@ -6,6 +7,7 @@ import Conditional from "./Conditional";
 import Paragraph from "@/components/ui/Paragraph";
 
 import type { Task } from "@/api/todos";
+import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 
 interface TaskProps {
   task: Task;
@@ -21,31 +23,34 @@ interface TaskProps {
 
 export default function Card({
   task,
-  onUndo,
   onEdit,
   onDelete,
-  undoText,
   isSelected,
   onComplete,
   onIsContentId,
   onContentOpen,
 }: TaskProps) {
-  function handleContentOpen() {
-    onContentOpen(true);
-    onIsContentId(task._id);
+  const { updateTask } = useUpdateTask();
+
+  function handleMarkAsVital(id: string, isVital: boolean) {
+    updateTask({
+      id,
+      data: { isVital },
+      successMessage: isVital
+        ? "Task marked as vital"
+        : "Task removed from vital",
+    });
   }
 
-  function handleIsTaskChange() {
-    onUndo(task._id)
-    if (isSelected) onContentOpen(false);
+  function handleContentOpen() {
+    onContentOpen?.(true);
+    onIsContentId?.(task._id);
   }
 
   return (
     <Container
       variant="div"
-      className={
-        `flex flex-col gap-4 border border-gray-400 rounded-2xl px-4 py-2 ${isSelected ? "bg-gray" : ""}`
-      }
+      className={`flex flex-col gap-4 border border-gray-400 rounded-2xl px-4 py-2 ${isSelected ? "bg-gray" : ""}`}
     >
       <Container
         variant="div"
@@ -74,9 +79,26 @@ export default function Card({
             {task.title}
           </Paragraph>
         </Container>
+
         <Menus>
           <Menus.Toggle />
           <Menus.Lists>
+            <Conditional
+              condition={task.completed === false && task.isVital === true}
+            >
+              <Menus.Buttons onClick={() => handleMarkAsVital(task._id, false)}>
+                <RxExclamationMark />
+                Remove from Vital
+              </Menus.Buttons>
+            </Conditional>
+            <Conditional
+              condition={task.completed === false && task.isVital === false}
+            >
+              <Menus.Buttons onClick={() => handleMarkAsVital(task._id, true)}>
+                <RxExclamationMark />
+                Vital
+              </Menus.Buttons>
+            </Conditional>
             <Menus.Buttons onClick={() => onEdit(task._id)}>
               <TbPencil />
               Edit
@@ -85,16 +107,10 @@ export default function Card({
               <TbTrash />
               Delete
             </Menus.Buttons>
-            <Conditional condition={task.completed === false && task.isVital === false}>
+            <Conditional condition={task.completed === false}>
               <Menus.Buttons onClick={() => onComplete && onComplete(task._id)}>
                 <TbCircleCheck />
-                Mark as Completed
-              </Menus.Buttons>
-            </Conditional>
-            <Conditional condition={task.completed === true || task.isVital === true}>
-              <Menus.Buttons onClick={handleIsTaskChange}>
-                <TbCircle />
-                Undo {undoText}
+                Finish
               </Menus.Buttons>
             </Conditional>
           </Menus.Lists>
@@ -104,25 +120,25 @@ export default function Card({
       <div
         role="button"
         onClick={task.completed === true ? undefined : handleContentOpen}
-        className={`${task.completed === true ? "" : "cursor-pointer"}`}
+        className={`${task.completed === true ? "" : "cursor-pointer"} px-4`}
       >
         <Container variant="div" className={"flex flex-row gap-2 text-sm"}>
-          <Paragraph className={"line-clamp-3 w-2/3 h-15 text-gray-600"}>
-            {task.description || "No description provided."}
+          <Paragraph className={"line-clamp-3 w-2/3 h-19 text-gray-600"}>
+            {task.description}
           </Paragraph>
           {task.image ? (
             <img
               src={task.image}
               alt={task.title}
               className={
-                "w-1/3 h-15 object-cover rounded-xl border border-gray-400"
+                "w-1/3 h-19 object-cover rounded-xl border border-gray-400"
               }
             />
           ) : (
             <Container
               variant="div"
               className={
-                "w-1/3 h-15 border border-gray-400 rounded-xl bg-gray-50 flex items-center justify-center text-[10px] text-gray-400"
+                "w-1/3 h-19 border border-gray-400 rounded-xl bg-gray-50 flex items-center justify-center text-[10px] text-gray-400"
               }
             >
               No Image
@@ -133,11 +149,11 @@ export default function Card({
         <Container
           variant="div"
           className={
-            "w-full rounded-md text-xs flex flex-row flex-wrap items-center justify-between gap-2 text-gray-500"
+            "mt-4 w-full rounded-md text-xs flex flex-row flex-wrap items-center justify-between text-gray-500"
           }
         >
           <Conditional condition={task.completed === false}>
-            <Paragraph className={"flex items-center gap-1"}>
+            <Paragraph variant="small" className={"flex items-center gap-1"}>
               Priority:
               <span
                 style={{ color: task.priority.color }}
@@ -147,16 +163,16 @@ export default function Card({
               </span>
             </Paragraph>
           </Conditional>
-          <Paragraph className={"flex items-center gap-1"}>
+          <Paragraph variant="small" className={"flex items-center gap-1"}>
             Status:
             <span
               style={{ color: task.status.color }}
-              className={"font-semibold"}
+              className={"font-semibold flex items-center flex-row"}
             >
               {task.status.label}
             </span>
           </Paragraph>
-          <Paragraph>
+          <Paragraph variant="small">
             {task.completed
               ? formatTimeAgo(task.updatedAt)
               : task.createdAt

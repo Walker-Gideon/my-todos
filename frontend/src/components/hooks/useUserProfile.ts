@@ -15,10 +15,9 @@ export const useUserProfile = () => {
   const { email, firstName, lastName, profileImageUrl, _id } = user ?? {};
   const name = `${firstName || ""} ${lastName || ""}`.trim();
 
-  const capitalizeName = (name?: string) => {
-    if (!name) return "";
-    return name.split(" ").map((word) => word.charAt(0).toUpperCase())[0];
-  };
+    const capitalizeName = (name?: string) => {
+        return name ? name.split(" ").map((word) => word.charAt(0).toUpperCase())[0] : "";
+    };
 
   return {
     id: _id,
