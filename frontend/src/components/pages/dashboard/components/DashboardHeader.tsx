@@ -5,7 +5,7 @@ import Container from "@/components/layout/Container";
 import { useUserProfile } from "@/components/hooks/useUserProfile";
 
 export default function DashboardHeader() {
-  const { username } = useUserProfile();
+  const { firstName } = useUserProfile();
   const greeting = "Welcome back";
 
   return (
@@ -16,7 +16,7 @@ export default function DashboardHeader() {
       }
     >
       <Paragraph className={"font-medium truncate"}>
-        {greeting}, <Span>{username}</Span>
+        {greeting}, <Span>{firstName}</Span>
       </Paragraph>
       <Span>👋</Span>
     </Container>
