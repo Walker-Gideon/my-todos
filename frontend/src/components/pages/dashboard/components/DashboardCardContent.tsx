@@ -119,7 +119,7 @@ export default function DashboardCardContent({
               <Container
                 variant="div"
                 className={
-                  "w-full h-40 md:h-3 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"
+                  "w-full h-40 md:h-30 text-gray-400 flex items-center justify-center border border-gray-400 rounded-xl"
                 }
               >
                 <ImImage className={"w-20 h-30"} />
@@ -212,7 +212,6 @@ export default function DashboardCardContent({
         onConfirm={handelConfirmDelete}
         onCloseModal={handelCloseDeleteModal}
       />
-      {/* </Container> */}
     </motion.div>
   );
 }

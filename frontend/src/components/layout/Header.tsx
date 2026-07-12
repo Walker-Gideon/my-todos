@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { SlActionUndo } from "react-icons/sl";
-import { TbBell, TbMenu2, TbSearch, TbCalendarWeek } from "react-icons/tb";
+import {
+  TbBell,
+  TbCalendarWeek,
+  TbChevronLeft,
+  TbChevronRight,
+  TbMenu2,
+  TbSearch,
+} from "react-icons/tb";
 
 import Span from "@/components/ui/Span";
 import Input from "@/components/ui/Input";
@@ -30,6 +37,10 @@ export default function Header({
   >(null);
 
   const { dayInWords, day, monthInWords, year } = useDateFormat();
+
+  const toggleModal = (modal: "notification" | "calendar" | null) => {
+    setOpenModal((currentModal) => (currentModal === modal ? null : modal));
+  };
 
   const styling = {
     inputContainer:
@@ -85,14 +96,14 @@ export default function Header({
 
           <Container
             variant="div"
-            className={"flex items-center gap-4 md:space-x-8 shrink-0"}
+            className={"relative flex items-center gap-4 md:space-x-8 shrink-0"}
           >
-            <NotificationAndDate onOpen={setOpenModal} styling={styling} />
+            <NotificationAndDate onOpen={toggleModal} styling={styling} />
             {openModal === "notification" && (
-              <NotificationContent onClose={() => setOpenModal(null)} />
+              <NotificationContent onClose={toggleModal} />
             )}
             {openModal === "calendar" && (
-              <CalendarContent onClose={() => setOpenModal(null)} />
+              <CalendarContent onClose={toggleModal} />
             )}
 
             <Container
@@ -166,23 +177,29 @@ function NotificationAndDate({
   );
 }
 
-function NotificationContent({ onClose }: { onClose: (modal: null) => void }) {
+function NotificationContent({
+  onClose,
+}: {
+  onClose: (modal: "notification" | "calendar" | null) => void;
+}) {
   return (
     <Container
       variant="div"
       className={
-        "absolute top-14 medium:top-16 right-17 medium:right-41 md:right-45 border border-stone-300 h-80 w-70 rounded-xl"
+        "absolute right-0 top-full z-50 mt-3 w-72 overflow-hidden rounded-xl border border-stone-300 bg-white shadow-xl shadow-primary/20"
       }
     >
       <Container
         variant="header"
         className={
-          "bg-white border-b rounded-t-xl border-stone-300 flex justify-between py-2 px-6"
+          "flex items-center justify-between border-b border-stone-300 bg-white px-4 py-3"
         }
       >
         <Container variant="header" className={"flex flex-col"}>
-          <Paragraph className={"font-semibold"}>Notigivations</Paragraph>
-          <Paragraph variant="small" className={"text-gray"}>
+          <Paragraph className={"font-semibold text-dark"}>
+            Notifications
+          </Paragraph>
+          <Paragraph variant="small" className={"text-gray-500"}>
             Today
           </Paragraph>
         </Container>
@@ -191,29 +208,28 @@ function NotificationContent({ onClose }: { onClose: (modal: null) => void }) {
           onClick={() => onClose(null)}
           className={"text-btn-col hover:text-btn-col/80"}
         >
-          <SlActionUndo size={30} />
+          <SlActionUndo size={24} />
         </Button>
       </Container>
 
-      <Container
-        variant="main"
-        className={"h-full bg-gray rounded-b-xl py-2 px-6"}
-      >
-        <Container variant="div" className={"flex items-center gap-3"}>
+      <Container variant="main" className={"bg-gray-50 px-4 py-3"}>
+        <Container variant="div" className={"flex items-start gap-3"}>
           <Container variant="div" className={"w-5/6"}>
             <Paragraph
               variant="small"
-              className="flex flex-col leading-none gap-0.5"
+              className="flex flex-col leading-snug gap-1 text-gray-600"
             >
-              <span>Completed mobile app design for John Door. 2h</span>
-              <span>Priority: High</span>
+              <span>Completed mobile app design for John Door.</span>
+              <span className="font-medium text-dark">Priority: High</span>
             </Paragraph>
           </Container>
           <Container variant="div" className={"w-1/6"}>
             <img
               src={""}
               alt={""}
-              className={"border border-white h-12 w-full"}
+              className={
+                "h-12 w-full rounded-md border border-white bg-gray-200"
+              }
             />
           </Container>
         </Container>
@@ -222,32 +238,131 @@ function NotificationContent({ onClose }: { onClose: (modal: null) => void }) {
   );
 }
 
-function CalendarContent({ onClose }: { onClose: (modal: null) => void }) {
+function CalendarContent({
+  onClose,
+}: {
+  onClose: (modal: "notification" | "calendar" | null) => void;
+}) {
+  const [viewDate, setViewDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const monthLabel = viewDate.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const placeholderValue = selectedDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  const startOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
+  const firstDayOffset = (startOfMonth.getDay() + 6) % 7;
+
+  const calendarDays = Array.from({ length: 42 }, (_, index) => {
+    const day = new Date(startOfMonth);
+    day.setDate(startOfMonth.getDate() - firstDayOffset + index);
+    return day;
+  });
+
+  const isSameDay = (first: Date, second: Date) =>
+    first.toDateString() === second.toDateString();
+
   return (
     <Container
       variant="div"
       className={
-        "absolute top-14 medium:top-16 right-17 medium:right-41 md:right-45 border border-stone-300 h-80 w-70 rounded-xl"
+        "absolute right-0 top-full z-50 mt-3 w-80 overflow-hidden rounded-xl border border-stone-300 bg-white shadow-xl shadow-primary/20"
       }
     >
       <Container
-        variant="header"
-        className={
-          "bg-white border-b rounded-t-xl border-stone-300 flex justify-between py-2 px-3"
-        }
+        variant="div"
+        className={"flex items-center justify-between bg-white px-4 py-3"}
       >
-        <Container variant="header" className={"flex flex-col"}>
-          <p>Calendar</p>
-        </Container>
+        <Paragraph className={"font-semibold text-dark"}>Calendar</Paragraph>
         <Button
           variant="text"
           onClick={() => onClose(null)}
           className={"text-btn-col hover:text-btn-col/80"}
         >
-          <SlActionUndo size={30} />
+          <SlActionUndo size={24} />
         </Button>
       </Container>
-      CalendarContent
+
+      <Container variant="div" className={"w-full px-4 pb-4"}>
+        <Input
+          type="text"
+          defaultValue={placeholderValue}
+          className={
+            "w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+          }
+        />
+
+        <Container variant="div" className={"mt-3 flex items-center justify-between"}>
+          <Button
+            ariaLabel="Previous month"
+            variant="text"
+            onClick={() =>
+              setViewDate(
+                new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1)
+              )
+            }
+            className={"rounded-full p-1 text-dark hover:bg-gray-100"}
+          >
+            <TbChevronLeft size={18} />
+          </Button>
+          <Paragraph className={"text-sm font-semibold text-dark"}>
+            {monthLabel}
+          </Paragraph>
+          <Button
+            ariaLabel="Next month"
+            variant="text"
+            onClick={() =>
+              setViewDate(
+                new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1)
+              )
+            }
+            className={"rounded-full p-1 text-dark hover:bg-gray-100"}
+          >
+            <TbChevronRight size={18} />
+          </Button>
+        </Container>
+
+        <Container variant="div" className={"mt-3 grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-gray-500"}>
+          {weekDays.map((day) => (
+            <span key={day}>{day}</span>
+          ))}
+        </Container>
+
+        <Container variant="main" className={"mt-2 grid grid-cols-7 gap-1 rounded-lg bg-gray-50 p-2"}>
+          {calendarDays.map((day, index) => {
+            const isCurrentMonth = day.getMonth() === viewDate.getMonth();
+            const isSelected = isSameDay(day, selectedDate);
+            const isToday = isSameDay(day, new Date());
+
+            return (
+              <button
+                key={`${day.toISOString()}-${index}`}
+                type="button"
+                onClick={() => {
+                  setSelectedDate(day);
+                  setViewDate(new Date(day.getFullYear(), day.getMonth(), 1));
+                }}
+                className={`h-8 rounded-md text-sm ${
+                  !isCurrentMonth
+                    ? "text-gray-300"
+                    : "text-dark"
+                } ${isSelected ? "bg-primary text-white" : "hover:bg-gray-200"} ${isToday && !isSelected ? "font-semibold ring-1 ring-primary/40" : ""}`}
+              >
+                {day.getDate()}
+              </button>
+            );
+          })}
+        </Container>
+      </Container>
     </Container>
   );
 }

@@ -80,41 +80,42 @@ export default function Card({
           </Paragraph>
         </Container>
 
-        <Menus>
-          <Menus.Toggle />
-          <Menus.Lists>
-            <Conditional
-              condition={task.completed === false && task.isVital === true}
-            >
-              <Menus.Buttons onClick={() => handleMarkAsVital(task._id, false)}>
-                <RxExclamationMark />
-                Remove from Vital
+        {/* Menu Options */}
+        <Conditional condition={task.completed === false}>
+          <Menus>
+            <Menus.Toggle />
+            <Menus.Lists>
+              <Conditional condition={task.isVital === true}>
+                <Menus.Buttons
+                  onClick={() => handleMarkAsVital(task._id, false)}
+                >
+                  <RxExclamationMark />
+                  Remove from Vital
+                </Menus.Buttons>
+              </Conditional>
+              <Conditional condition={task.isVital === false}>
+                <Menus.Buttons
+                  onClick={() => handleMarkAsVital(task._id, true)}
+                >
+                  <RxExclamationMark />
+                  Vital
+                </Menus.Buttons>
+              </Conditional>
+              <Menus.Buttons onClick={() => onEdit(task._id)}>
+                <TbPencil />
+                Edit
               </Menus.Buttons>
-            </Conditional>
-            <Conditional
-              condition={task.completed === false && task.isVital === false}
-            >
-              <Menus.Buttons onClick={() => handleMarkAsVital(task._id, true)}>
-                <RxExclamationMark />
-                Vital
+              <Menus.Buttons onClick={() => onDelete(task.title, task._id)}>
+                <TbTrash />
+                Delete
               </Menus.Buttons>
-            </Conditional>
-            <Menus.Buttons onClick={() => onEdit(task._id)}>
-              <TbPencil />
-              Edit
-            </Menus.Buttons>
-            <Menus.Buttons onClick={() => onDelete(task.title, task._id)}>
-              <TbTrash />
-              Delete
-            </Menus.Buttons>
-            <Conditional condition={task.completed === false}>
               <Menus.Buttons onClick={() => onComplete && onComplete(task._id)}>
                 <TbCircleCheck />
                 Finish
               </Menus.Buttons>
-            </Conditional>
-          </Menus.Lists>
-        </Menus>
+            </Menus.Lists>
+          </Menus>
+        </Conditional>
       </Container>
 
       <div
