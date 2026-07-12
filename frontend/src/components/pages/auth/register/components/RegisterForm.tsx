@@ -6,7 +6,6 @@ import {
   TbUserEdit,
   TbLockFilled,
   TbMailFilled,
-  TbUserFilled,
   TbEye,
   TbEyeOff,
 } from "react-icons/tb";
@@ -23,7 +22,6 @@ import { useRegisterUser } from "@/components/pages/auth/hooks/useRegisterUser";
 type RegisterData = {
   firstName: string;
   lastName: string;
-  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -108,31 +106,6 @@ export default function RegisterForm() {
             />
           </FormRow>
         </div>
-
-        <FormRow
-          errorsField={errors.username}
-          errorMessage={errors.username?.message}
-        >
-          <TbUserFilled className={styling["icon"]} />
-          <Input
-            type="text"
-            defaultStyling={false}
-            placeholder="Username"
-            className={styling["input"]}
-            {...register("username", {
-              required: "Username is required",
-              disabled: isPending,
-              minLength: {
-                value: 5,
-                message: "Username must be at least 5 characters",
-              },
-              maxLength: {
-                value: 20,
-                message: "Username must be less or equal to 20 characters",
-              },
-            })}
-          />
-        </FormRow>
 
         <FormRow
           errorsField={errors.email}
