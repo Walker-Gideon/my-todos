@@ -245,6 +245,7 @@ function CalendarContent({
 }) {
   const [viewDate, setViewDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [inputValue, setInputValue] = useState("");
 
   const monthLabel = viewDate.toLocaleDateString("en-US", {
     month: "long",
@@ -271,6 +272,17 @@ function CalendarContent({
   const isSameDay = (first: Date, second: Date) =>
     first.toDateString() === second.toDateString();
 
+  const handleDateInput = (value: string) => {
+    setInputValue(value);
+
+    const parsedDate = new Date(value);
+    if (!Number.isNaN(parsedDate.getTime())) {
+      const normalizedDate = new Date(parsedDate);
+      setSelectedDate(normalizedDate);
+      setViewDate(new Date(normalizedDate.getFullYear(), normalizedDate.getMonth(), 1));
+    }
+  };
+
   return (
     <Container
       variant="div"
@@ -293,9 +305,11 @@ function CalendarContent({
       </Container>
 
       <Container variant="div" className={"w-full px-4 pb-4"}>
-        <Input
+        <input
           type="text"
-          defaultValue={placeholderValue}
+          value={inputValue || placeholderValue}
+          onChange={(event) => handleDateInput(event.target.value)}
+          placeholder={placeholderValue}
           className={
             "w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
           }
