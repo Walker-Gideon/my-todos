@@ -15,6 +15,17 @@ import Button from "@/components/ui/Button";
 import Headings from "@/components/ui/Headings";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
+import Information from "@/components/layout/Information";
+
+import type { Task } from "@/api/todos";
+import { useDateFormat } from "@/components/hooks/useDateFormat";
+import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
+import { useGetCompletedTodos } from "@/components/hooks/useGetCompletedTodos";
+
+import {
+  getNotificationSections,
+  parseDueDate,
+} from "@/components/hooks/useNotification";
 
 type StylingProps = {
   inputContainer: string;
@@ -22,8 +33,6 @@ type StylingProps = {
   icon: string;
   iconSize: string;
 };
-
-import { useDateFormat } from "@/components/hooks/useDateFormat";
 
 export default function Header({
   menuOpen,
@@ -157,14 +166,26 @@ function NotificationAndDate({
   styling: StylingProps;
   onOpen: (modal: "notification" | "calendar") => void;
 }) {
+  const { todos } = useGetTodosTask();
+  const { completedTodos } = useGetCompletedTodos();
+  const { totalCount } = getNotificationSections(
+    todos ?? [],
+    completedTodos ?? [],
+  );
+
   return (
     <Container variant="div" className={"flex items-center gap-4"}>
       <Button
         ariaLabel="Notifications"
         onClick={() => onOpen("notification")}
-        className={`shadow-lg shadow-primary/50 group ${styling["icon"]}`}
+        className={`relative shadow-lg shadow-primary/50 group ${styling["icon"]}`}
       >
         <TbBell className={styling["iconSize"]} />
+        {totalCount > 0 && (
+          <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+            {totalCount > 99 ? "99+" : totalCount}
+          </span>
+        )}
       </Button>
       <Button
         ariaLabel="Calendar"
@@ -182,11 +203,34 @@ function NotificationContent({
 }: {
   onClose: (modal: "notification" | "calendar" | null) => void;
 }) {
+  const { todos, isLoading, error } = useGetTodosTask();
+  const {
+    completedTodos,
+    isLoading: onLoading,
+    error: onError,
+  } = useGetCompletedTodos();
+
+  const formatDueDate = (value?: string) => {
+    const parsedDate = parseDueDate(value);
+
+    if (!parsedDate) return "No due date";
+
+    return parsedDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  const { sections } = getNotificationSections(
+    todos ?? [],
+    completedTodos ?? [],
+  );
+
   return (
     <Container
       variant="div"
       className={
-        "absolute right-0 top-full z-50 mt-3 w-72 overflow-hidden rounded-xl border border-stone-300 bg-white shadow-xl shadow-primary/20"
+        "absolute right-0 top-full z-50 mt-3 w-80 overflow-hidden rounded-xl border border-stone-300 bg-white shadow-xl shadow-primary/20"
       }
     >
       <Container
@@ -212,27 +256,87 @@ function NotificationContent({
         </Button>
       </Container>
 
-      <Container variant="main" className={"bg-gray-50 px-4 py-3"}>
-        <Container variant="div" className={"flex items-start gap-3"}>
-          <Container variant="div" className={"w-5/6"}>
-            <Paragraph
-              variant="small"
-              className="flex flex-col leading-snug gap-1 text-gray-600"
+      <Container
+        variant="main"
+        className={"h-80 overflow-y-auto bg-gray-50 px-4 py-3"}
+      >
+        {isLoading || onLoading ? (
+          <Information value="Loading notifications..." />
+        ) : error || onError ? (
+          <Information value="Unable to load notifications." />
+        ) : (
+          sections.map((section) => (
+            <Container
+              key={section.title}
+              variant="div"
+              className={"mb-4 last:mb-0"}
             >
-              <span>Completed mobile app design for John Door.</span>
-              <span className="font-medium text-dark">Priority: High</span>
-            </Paragraph>
-          </Container>
-          <Container variant="div" className={"w-1/6"}>
-            <img
-              src={""}
-              alt={""}
-              className={
-                "h-12 w-full rounded-md border border-white bg-gray-200"
-              }
-            />
-          </Container>
-        </Container>
+              {section.items.map((task: Task) => (
+                <Container
+                  key={task._id}
+                  variant="div"
+                  className={
+                    "mb-2 flex items-center justify-between last:mb-0 px-2"
+                  }
+                >
+                  <Container
+                    variant="div"
+                    className={"w-4/6 flex flex-col gap-1"}
+                  >
+                    <Paragraph
+                      variant="small"
+                      className={"line-clamp-2 font-medium text-gray-500"}
+                    >
+                      {section.title === "Completed"
+                        ? "Complete the"
+                        : section.title === "Next task"
+                          ? "Next task"
+                          : section.title === "Due"
+                            ? "Due today"
+                            : section.title === "Overdue"
+                              ? "Overdue task"
+                              : "In progress task"}{" "}
+                      <span className={"text-dark font-bold"}>
+                        {task.title}
+                      </span>
+                    </Paragraph>
+                    <Paragraph className={"mt-1 text-gray-500 text-xs"}>
+                      Priority{" "}
+                      <span style={{ color: task.priority?.color }}>
+                        {" "}
+                        {task.priority?.label ?? "No priority"}{" "}
+                      </span>{" "}
+                      • {formatDueDate(task.dueDate)}
+                    </Paragraph>
+                  </Container>
+                  <Container
+                    variant="div"
+                    className={"w-2/6 flex items-center justify-end"}
+                  >
+                    {task.image ? (
+                      <img
+                        src={task.image}
+                        alt={task.title}
+                        className={
+                          "w-[80%] h-18 object-cover rounded-xl border border-gray-400"
+                        }
+                      />
+                    ) : (
+                      <Container
+                        variant="div"
+                        className={
+                          "w-[80%] h-18 border border-gray-400 rounded-xl bg-gray-50 flex items-center justify-center text-[10px] text-gray-400"
+                        }
+                      >
+                        No Image
+                      </Container>
+                    )}
+                  </Container>
+                </Container>
+              ))}
+            </Container>
+          ))
+        )}
       </Container>
     </Container>
   );
@@ -279,7 +383,9 @@ function CalendarContent({
     if (!Number.isNaN(parsedDate.getTime())) {
       const normalizedDate = new Date(parsedDate);
       setSelectedDate(normalizedDate);
-      setViewDate(new Date(normalizedDate.getFullYear(), normalizedDate.getMonth(), 1));
+      setViewDate(
+        new Date(normalizedDate.getFullYear(), normalizedDate.getMonth(), 1),
+      );
     }
   };
 
@@ -315,13 +421,16 @@ function CalendarContent({
           }
         />
 
-        <Container variant="div" className={"mt-3 flex items-center justify-between"}>
+        <Container
+          variant="div"
+          className={"mt-3 flex items-center justify-between"}
+        >
           <Button
             ariaLabel="Previous month"
             variant="text"
             onClick={() =>
               setViewDate(
-                new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1)
+                new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1),
               )
             }
             className={"rounded-full p-1 text-dark hover:bg-gray-100"}
@@ -336,7 +445,7 @@ function CalendarContent({
             variant="text"
             onClick={() =>
               setViewDate(
-                new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1)
+                new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1),
               )
             }
             className={"rounded-full p-1 text-dark hover:bg-gray-100"}
@@ -345,13 +454,21 @@ function CalendarContent({
           </Button>
         </Container>
 
-        <Container variant="div" className={"mt-3 grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-gray-500"}>
+        <Container
+          variant="div"
+          className={
+            "mt-3 grid grid-cols-7 gap-1 text-center text-[11px] font-medium text-gray-500"
+          }
+        >
           {weekDays.map((day) => (
             <span key={day}>{day}</span>
           ))}
         </Container>
 
-        <Container variant="main" className={"mt-2 grid grid-cols-7 gap-1 rounded-lg bg-gray-50 p-2"}>
+        <Container
+          variant="main"
+          className={"mt-2 grid grid-cols-7 gap-1 rounded-lg bg-gray-50 p-2"}
+        >
           {calendarDays.map((day, index) => {
             const isCurrentMonth = day.getMonth() === viewDate.getMonth();
             const isSelected = isSameDay(day, selectedDate);
@@ -366,9 +483,7 @@ function CalendarContent({
                   setViewDate(new Date(day.getFullYear(), day.getMonth(), 1));
                 }}
                 className={`h-8 rounded-md text-sm ${
-                  !isCurrentMonth
-                    ? "text-gray-300"
-                    : "text-dark"
+                  !isCurrentMonth ? "text-gray-300" : "text-dark"
                 } ${isSelected ? "bg-primary text-white" : "hover:bg-gray-200"} ${isToday && !isSelected ? "font-semibold ring-1 ring-primary/40" : ""}`}
               >
                 {day.getDate()}
