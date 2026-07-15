@@ -13,6 +13,7 @@ import Information from "@/components/layout/Information";
 import ConfirmDelete from "@/components/layout/ConfirmedDelete";
 
 import type { Task } from "@/api/todos";
+import { useGeneral } from "@/context/useGeneralContext";
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 import { useDeleteTodo } from "@/components/hooks/useDeleteTodo";
 import { useUpdateTask } from "@/components/hooks/useUpdateTask";
@@ -98,12 +99,30 @@ function DashboardTodosList({
   onIsContentId: (id: string) => void;
   onContentOpen: (open: boolean) => void;
 }) {
+  const { query } = useGeneral();
   const { updateTask } = useUpdateTask();
   const { deleteTodo, isPending } = useDeleteTodo();
   const { todos, isLoading, error } = useGetTodosTask();
 
   const [isDeleteTitle, setIsDeleteTitle] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState("");
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredTodos = (todos ?? []).filter((task: Task) => {
+    if (!normalizedQuery) return true;
+
+    const searchableText = [
+      task.title,
+      task.description,
+      task.priority?.label,
+      task.status?.label,
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+
+    return searchableText.includes(normalizedQuery);
+  });
 
   function handelConfirmDelete() {
     deleteTodo(isDeleteModalOpen, {
@@ -130,11 +149,24 @@ function DashboardTodosList({
       }
     >
       <Conditional condition={!todos || todos.length === 0}>
-        <Information />
+        <Information
+          value={query.trim() ? "No tasks match your search." : "No tasks yet"}
+        />
       </Conditional>
 
-      <Conditional condition={!!todos && todos.length > 0}>
-        {todos?.map((task: Task) => (
+      <Conditional
+        condition={
+          !!todos &&
+          todos.length > 0 &&
+          filteredTodos.length === 0 &&
+          !!query.trim()
+        }
+      >
+        <Information value="No tasks match your search." />
+      </Conditional>
+
+      <Conditional condition={filteredTodos.length > 0}>
+        {filteredTodos.map((task: Task) => (
           <Card
             key={task._id}
             task={task}
