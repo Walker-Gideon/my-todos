@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { SlActionUndo } from "react-icons/sl";
 import {
   TbBell,
@@ -18,6 +19,7 @@ import Container from "@/components/layout/Container";
 import Information from "@/components/layout/Information";
 
 import type { Task } from "@/api/todos";
+import { useGeneral } from "@/context/useGeneralContext";
 import { useDateFormat } from "@/components/hooks/useDateFormat";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 import { useGetCompletedTodos } from "@/components/hooks/useGetCompletedTodos";
@@ -45,7 +47,12 @@ export default function Header({
     "notification" | "calendar" | null
   >(null);
 
+  const location = useLocation();
   const { dayInWords, day, monthInWords, year } = useDateFormat();
+  const shouldShowSearch = ["/dashboard", "/my-task", "/vital-task"].includes(
+    location.pathname,
+  );
+  const isDashboardRoute = location.pathname === "/dashboard";
 
   const toggleModal = (modal: "notification" | "calendar" | null) => {
     setOpenModal((currentModal) => (currentModal === modal ? null : modal));
@@ -99,9 +106,11 @@ export default function Header({
             "flex items-center justify-between md:w-full h-full gap-4 lg:space-x-16"
           }
         >
-          <Container variant="div" className={"w-full hidden md:block"}>
-            <SearchBar styling={styling} />
-          </Container>
+          {shouldShowSearch && (
+            <Container variant="div" className={"w-full hidden md:block"}>
+              <SearchBar styling={styling} disabled={!isDashboardRoute} />
+            </Container>
+          )}
 
           <Container
             variant="div"
@@ -132,21 +141,46 @@ export default function Header({
         </Container>
       </Container>
 
-      <Container variant="div" className={"md:hidden mt-6"}>
-        <SearchBar styling={styling} />
-      </Container>
+      {shouldShowSearch && (
+        <Container variant="div" className={"md:hidden mt-6"}>
+          <SearchBar styling={styling} disabled={!isDashboardRoute} />
+        </Container>
+      )}
     </Container>
   );
 }
 
-function SearchBar({ styling }: { styling: StylingProps }) {
+function SearchBar({
+  styling,
+  disabled,
+}: {
+  styling: StylingProps;
+  disabled: boolean;
+}) {
+  const { query, setQuery } = useGeneral();
+  const location = useLocation();
+  const isDashboardRoute = location.pathname === "/dashboard";
+
+  useEffect(() => {
+    if (!isDashboardRoute) {
+      setQuery("");
+    }
+  }, [isDashboardRoute, setQuery]);
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  }
+
   return (
-    <form className={styling["inputContainer"]}>
+    <form onSubmit={handleSubmit} className={styling["inputContainer"]}>
       <Input
         type="text"
         defaultStyling={false}
         placeholder="Search your task here..."
         className={styling["input"]}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        disabled={disabled}
       />
       <Button
         type="submit"
