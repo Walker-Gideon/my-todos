@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthProvider } from "./context/AuthContext";
+import { GeneralProvider } from "./context/GeneralContext";
 
 import AppLayout from "./components/pages";
 import Task from "./components/pages/task";
@@ -34,38 +35,40 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route index element={<Navigate replace to="/auth/register" />} />
+        <GeneralProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route index element={<Navigate replace to="/auth/register" />} />
 
-            <Route element={<PublicRoute />}>
-              <Route path="auth" element={<AuthLayout />}>
-                <Route index element={<Navigate replace to="register" />} />
-                <Route path="register" element={<Register />} />
-                <Route path="sign-in" element={<Login />} />
-                <Route path="forget-password" element={<ForgetPassword />} />
-                <Route path="reset-password" element={<ResetPassword />} />
-                <Route
-                  path="verify-email"
-                  element={<ForgotPasswordSuccess />}
-                />
+              <Route element={<PublicRoute />}>
+                <Route path="auth" element={<AuthLayout />}>
+                  <Route index element={<Navigate replace to="register" />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="sign-in" element={<Login />} />
+                  <Route path="forget-password" element={<ForgetPassword />} />
+                  <Route path="reset-password" element={<ResetPassword />} />
+                  <Route
+                    path="verify-email"
+                    element={<ForgotPasswordSuccess />}
+                  />
+                </Route>
               </Route>
-            </Route>
 
-            <Route element={<ProtectedRoute />}>
-              <Route element={<AppLayout />}>
-                <Route index element={<Navigate replace to="dashboard" />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="vital-task" element={<VitalTask />} />
-                <Route path="my-task" element={<Task />} />
-                <Route path="profile" element={<Settings />} />
-                <Route path="categories" element={<Categories />} />
+              <Route element={<ProtectedRoute />}>
+                <Route element={<AppLayout />}>
+                  <Route index element={<Navigate replace to="dashboard" />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="vital-task" element={<VitalTask />} />
+                  <Route path="my-task" element={<Task />} />
+                  <Route path="profile" element={<Settings />} />
+                  <Route path="categories" element={<Categories />} />
+                </Route>
               </Route>
-            </Route>
 
-            {/* Page Not Found */}
-          </Routes>
-        </BrowserRouter>
+              {/* Page Not Found */}
+            </Routes>
+          </BrowserRouter>
+        </GeneralProvider>
       </AuthProvider>
 
       <Toaster
