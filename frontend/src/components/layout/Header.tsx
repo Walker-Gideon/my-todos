@@ -43,6 +43,7 @@ export default function Header({
   menuOpen: boolean;
   onMenuClick: () => void;
 }) {
+  const { heading } = useGeneral();
   const [openModal, setOpenModal] = useState<
     "notification" | "calendar" | null
   >(null);
@@ -66,7 +67,29 @@ export default function Header({
     iconSize: "w-5 h-5 group-hover:scale-80 transition-all duration-300",
   };
 
-  // I just add shrink-0 so if any changes check it, its not part of the design
+  const getHeadingParts = (value: string) => {
+    if (!value) return ["", ""];
+
+    const spaceIndex = value.indexOf(" ");
+    const hyphenIndex = value.indexOf("-");
+
+    if (spaceIndex > 0) {
+      return [value.slice(0, spaceIndex), value.slice(spaceIndex)];
+    }
+
+    if (hyphenIndex > 0) {
+      return [value.slice(0, hyphenIndex), value.slice(hyphenIndex)];
+    }
+
+    if (value.length <= 4) {
+      return [value, ""];
+    }
+
+    return [value.slice(0, 4), value.slice(4)];
+  };
+
+  const [primaryHeading, secondaryHeading] = getHeadingParts(heading);
+
   return (
     <Container
       variant="header"
@@ -91,20 +114,17 @@ export default function Header({
           <Headings
             variant="h1"
             className={
-              "flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl"
+              "flex items-center font-semibold text-xl md:text-[1.7rem] lg:text-3xl w-40"
             }
           >
-            {/* The words will come from the nav button that is either Dashboard pr To-do and they are split into two */}
-            <Span className={"text-primary"}>Dash</Span>
-            <Span className={"text-dark"}>board</Span>
+            <Span className={"text-primary"}>{primaryHeading}</Span>
+            <Span className={"text-dark"}>{secondaryHeading}</Span>
           </Headings>
         </Container>
 
         <Container
           variant="div"
-          className={
-            "flex items-center justify-between md:w-full h-full gap-4 lg:space-x-16"
-          }
+          className={`flex items-center justify-between md:w-full h-full gap-4 lg:space-x-16 ${shouldShowSearch ? "md:justify-between" : "md:w-full md:justify-end lg:space-x-16"}`}
         >
           {shouldShowSearch && (
             <Container variant="div" className={"w-full hidden md:block"}>
