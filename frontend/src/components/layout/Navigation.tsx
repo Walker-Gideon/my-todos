@@ -12,6 +12,7 @@ import Button from "@/components/ui/Button";
 import Paragraph from "@/components/ui/Paragraph";
 
 import { useLogout } from "@/components/hooks/useLogout";
+import { useGeneral } from "@/context/useGeneralContext";
 import { useUserProfile } from "@/components/hooks/useUserProfile";
 
 export default function Navigation({
@@ -22,6 +23,7 @@ export default function Navigation({
   onClick?: () => void;
 }) {
   const { logout } = useLogout();
+  const { setHeading } = useGeneral();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -67,6 +69,8 @@ export default function Navigation({
               icon={item.icon}
               name={item.name}
               href={item.href}
+              heading={item.heading}
+              setHeading={setHeading}
               openSidebar={isSidebarOpen}
               onClick={onClick}
             />
@@ -168,19 +172,28 @@ function NavItems({
   href,
   openSidebar,
   onClick,
+  heading,
+  setHeading,
 }: {
   name: string;
   icon: IconType;
   href: string;
   openSidebar: boolean;
   onClick?: () => void;
+  heading: string;
+  setHeading?: (h: string) => void;
 }) {
   return (
     <NavLink
       to={href}
       aria-label={name}
       end
-      onClick={onClick}
+      onClick={() => {
+        if (onClick) {
+          onClick();
+        }
+        setHeading?.(heading);
+      }}
       className={({ isActive }) =>
         `flex items-center gap-3 p-2 rounded-md transition-all duration-300 group relative ${openSidebar ? "justify-center" : "justify-start"} ${
           isActive
