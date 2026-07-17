@@ -76,7 +76,7 @@ export default function Dashboard() {
               <Container
                 variant="div"
                 className={
-                  "w-full flex-none md:flex-1 min-w-0 flex flex-col order-2 md:order-1"
+                  "w-full md:w-3/5 flex-none md:flex-1 min-w-0 flex flex-col order-2 md:order-1"
                 }
               >
                 <DashboardTodos
@@ -89,7 +89,7 @@ export default function Dashboard() {
               <Container
                 variant="div"
                 className={
-                  "w-full flex-none md:flex-1 min-w-0 flex flex-col gap-4 order-1 md:order-2"
+                  "w-full md:w-2/5 flex-none md:flex-1 min-w-0 flex flex-col gap-4 order-1 md:order-2"
                 }
               >
                 <DashboardStatus />
