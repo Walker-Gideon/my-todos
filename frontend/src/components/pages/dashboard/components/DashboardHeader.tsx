@@ -15,7 +15,7 @@ export default function DashboardHeader() {
         "w-full flex min-w-0 items-center flex-row gap-2 text-3xl shrink-0 mb-4 md:mb-2"
       }
     >
-      <Paragraph className={"font-medium truncate"}>
+      <Paragraph className={"font-medium truncate text-2xl md:text-3xl"}>
         {greeting}, <Span>{firstName}</Span>
       </Paragraph>
       <Span>👋</Span>
