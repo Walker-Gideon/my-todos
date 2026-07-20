@@ -12,11 +12,8 @@ export default function VitalTaskDisplay({
   ...rest
 }: TaskDisplayProps) {
   const { todos } = useGetTodosTask();
-  const vitalTodos = todos?.filter((t: Task) => {
-    if (t.isVital === true) {
-      return t;
-    }
-  });
+
+  const vitalTodos = todos?.filter((t: Task) => t.isVital === true);
 
   return (
     <>
@@ -24,7 +21,7 @@ export default function VitalTaskDisplay({
         <TaskList
           fristWord="Vital"
           secondWord=" Task"
-          todosTasks={vitalTodos}
+          taksTodos={vitalTodos}
           {...rest}
         />
       </Container>
@@ -42,7 +39,7 @@ export default function VitalTaskDisplay({
             <TaskList
               fristWord="Vital"
               secondWord=" Task"
-              todosTasks={vitalTodos}
+              taksTodos={vitalTodos}
               {...rest}
             />
           </motion.div>
