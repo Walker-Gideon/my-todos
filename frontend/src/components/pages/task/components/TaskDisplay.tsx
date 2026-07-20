@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "motion/react";
 import Container from "@/components/layout/Container";
 import TaskList from "@/components/layout/TaskList";
 
-import type { Task } from "@/api/todos";
 import type { TaskDisplayProps } from "@/components/pages/interface";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
@@ -12,11 +11,6 @@ export default function TaskDisplay({
   ...rest
 }: TaskDisplayProps) {
   const { todos } = useGetTodosTask();
-  const taskTodos = todos?.filter((t: Task) => {
-    if (t.isVital === false && t.completed === false) {
-      return t;
-    }
-  });
 
   return (
     <>
@@ -24,7 +18,7 @@ export default function TaskDisplay({
         <TaskList
           fristWord="My"
           secondWord=" Tasks"
-          todosTasks={taskTodos}
+          taksTodos={todos}
           {...rest}
         />
       </Container>
@@ -42,7 +36,7 @@ export default function TaskDisplay({
             <TaskList
               fristWord="My"
               secondWord=" Tasks"
-              todosTasks={taskTodos}
+              taksTodos={todos}
               {...rest}
             />
           </motion.div>

@@ -14,7 +14,7 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 import { useGetTodosTask } from "@/components/hooks/useGetTodosTask";
 
 interface TaskListProps {
-  todosTasks: Task[];
+  taksTodos: Task[];
   contentId: string;
   fristWord: string;
   secondWord: string;
@@ -25,7 +25,7 @@ interface TaskListProps {
 }
 
 export default function TaskList({
-  todosTasks,
+  taksTodos,
   fristWord,
   secondWord,
   ...rest
@@ -52,8 +52,8 @@ export default function TaskList({
           "w-full mt-4 flex flex-1 flex-col gap-4 h-full min-h-0 overflow-y-auto"
         }
       >
-        <Conditional condition={todosTasks?.length > 0}>
-          {todosTasks?.map((task: Task) => (
+        <Conditional condition={taksTodos?.length > 0}>
+          {taksTodos?.map((task: Task) => (
             <Card
               key={task._id}
               task={task}
@@ -70,7 +70,7 @@ export default function TaskList({
             />
           ))}
         </Conditional>
-        <Conditional condition={todosTasks?.length === 0}>
+        <Conditional condition={taksTodos?.length === 0}>
           <Information />
         </Conditional>
         <Conditional condition={isLoading}>
