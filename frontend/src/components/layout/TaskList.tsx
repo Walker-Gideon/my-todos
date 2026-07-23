@@ -65,8 +65,12 @@ export default function TaskList({
                 setIsDeleteModalOpen(id);
                 setIsDeleteTitle(title);
               }}
-              onUndo={(id) => updateTask({ id, data: { isVital: false } })}
-              undoText="vital task"
+              onComplete={(id) => {
+                updateTask({
+                  id,
+                  data: { completed: true },
+                });
+              }}
             />
           ))}
         </Conditional>
