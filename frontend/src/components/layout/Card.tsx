@@ -11,10 +11,8 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 
 interface TaskProps {
   task: Task;
-  undoText?: string;
   isSelected?: boolean;
   onEdit: (id: string) => void;
-  onUndo?: (id: string) => void;
   onComplete?: (id: string) => void;
   onIsContentId?: (id: string) => void;
   onContentOpen?: (open: boolean) => void;
