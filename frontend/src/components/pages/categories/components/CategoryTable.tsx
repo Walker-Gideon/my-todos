@@ -59,6 +59,7 @@ export default function CategoryTable({
                     <Button
                       ariaLabel={`Edit ${item.name}`}
                       onClick={() => {}}
+                      disabled={true}
                       className={
                         "flex items-center gap-1.5 px-5 button-secondary-styling"
                       }
@@ -69,6 +70,7 @@ export default function CategoryTable({
                     <Button
                       ariaLabel={`Delete ${item.name}`}
                       onClick={() => {}}
+                      disabled={true}
                       className={
                         "flex items-center gap-1.5 button-secondary-styling"
                       }
