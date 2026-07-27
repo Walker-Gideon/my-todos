@@ -25,12 +25,13 @@ export default function Navigation({
   const { logout } = useLogout();
   const { setHeading } = useGeneral();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const isExpanded = show || isSidebarOpen;
 
   return (
     <Container
       variant="aside"
-      as={show ? motion.aside : "aside"}
-      {...(show
+      as={show !== undefined ? motion.aside : "aside"}
+      {...(show !== undefined
         ? {
             initial: { x: "-100%" },
             animate: { x: 0 },
@@ -38,10 +39,10 @@ export default function Navigation({
             transition: { type: "spring", damping: 25, stiffness: 200 },
           }
         : {})}
-      className={`fixed md:relative flex flex-col h-screen md:h-full bg-primary text-col-white ${isSidebarOpen ? "w-64 p-3 medium:p-4" : "md:w-15 p-2 pt-4 md:pt-2"} shadow-sidebar border-r border-r-primary rounded-r-md md:transition-all md:duration-300 md:ease-in-out ${show ? "z-50" : "hidden md:flex"}`}
+      className={`fixed md:relative flex flex-col h-screen md:h-full bg-primary text-col-white ${isExpanded ? "w-64 p-3 medium:p-4" : "md:w-15 p-2 pt-4 md:pt-2"} shadow-sidebar border-r border-r-primary rounded-r-md md:transition-all md:duration-300 md:ease-in-out ${show !== undefined ? "z-50" : "hidden md:flex"}`}
       onClick={(e) => e.stopPropagation()}
     >
-      <Profile openSidebar={isSidebarOpen} onOpenSidebar={setIsSidebarOpen} />
+      <Profile openSidebar={isExpanded} onOpenSidebar={setIsSidebarOpen} />
       <Container
         variant="div"
         className={"flex flex-col justify-between flex-1"}
@@ -55,7 +56,7 @@ export default function Navigation({
               href={item.href}
               heading={item.heading}
               setHeading={setHeading}
-              openSidebar={isSidebarOpen}
+              openSidebar={isExpanded}
               onClick={onClick}
             />
           ))}
@@ -67,16 +68,16 @@ export default function Navigation({
           <Button
             ariaLabel="Logout"
             onClick={() => logout()}
-            className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm group relative ${isSidebarOpen ? "justify-start" : "md:justify-center"}`}
+            className={`w-full flex items-center gap-3 hover:bg-white/20 transition-all px-2 py-2.5 rounded-md text-sm group relative ${isExpanded ? "justify-start" : "md:justify-center"}`}
           >
             <TbLogout size={20} className={"shrink-0"} />
             <Span
-              className={`font-medium ${isSidebarOpen ? "block" : "md:hidden"}`}
+              className={`font-medium ${isExpanded ? "block" : "md:hidden"}`}
             >
               Logout
             </Span>
 
-            {!isSidebarOpen && (
+            {!isExpanded && (
               <div
                 className={
                   "absolute left-full ml-4 px-3 py-1.5 bg-dark text-white text-xs font-semibold rounded-md opacity-0 group-hover:opacity-100 group-hover:translate-x-1 pointer-events-none transition-all duration-200 whitespace-nowrap z-[60] shadow-xl border border-white/10 after:content-[''] after:absolute after:right-full after:top-1/2 after:-translate-y-1/2 after:border-8 after:border-y-transparent after:border-l-transparent after:border-r-dark"
@@ -104,7 +105,7 @@ function Profile({
   return (
     <Container variant="div" className={"mb-3 pb-3 border-b border-white/10"}>
       <Button
-        ariaLabel={openSidebar ? "Open Sidebar" : "Close Sidebar"}
+        ariaLabel={openSidebar ? "Close Sidebar" : "Open Sidebar"}
         onClick={() => onOpenSidebar(!openSidebar)}
         className={`hidden md:block items-center justify-center transition-all duration-300 ${openSidebar ? "absolute right-2 top-1" : "w-full px-2.5 mt-1 mb-3"}`}
       >
