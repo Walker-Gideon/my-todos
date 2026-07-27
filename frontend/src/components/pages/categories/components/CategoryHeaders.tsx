@@ -24,6 +24,7 @@ export default function CategoryHeaders({
       <Button
         variant="text"
         ariaLabel="Add Task Status"
+        disabled={true}
         onClick={onOpenModal}
         className={
           "group w-auto flex items-center gap-1 font-regular text-gray hover:text-secondary transition-primary whitespace-nowrap"
