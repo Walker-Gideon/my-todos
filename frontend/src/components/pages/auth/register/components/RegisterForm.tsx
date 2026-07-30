@@ -42,7 +42,6 @@ export default function RegisterForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<RegisterData> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 800));
     registerUser(data);
   };
 
@@ -55,6 +54,7 @@ export default function RegisterForm() {
     e.preventDefault();
     setShowConfirmPassword(!showConfirmPassword);
   };
+
   const handlePassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPassword(!showPassword);
