@@ -93,7 +93,7 @@ export default function Dashboard() {
                 }
               >
                 <DashboardStatus />
-                <DashboardCompleted onEditTask={handleOpenEditModal} />
+                <DashboardCompleted />
               </Container>
             </ShadowBox>
           </motion.div>
