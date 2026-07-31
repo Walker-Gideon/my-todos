@@ -36,7 +36,7 @@ export default function DashboardTodos({
     <ShadowBox
       border={true}
       className={
-        "p-4 flex flex-1 flex-col h-full max-h-120 min-h-0 md:max-h-none"
+        "p-4 flex flex-1 flex-col h-full max-h-120 min-h-56 md:min-h-0 md:max-h-none"
       }
     >
       <DashboardTodosHeader onOpenModal={onOpenModal} />
