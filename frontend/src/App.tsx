@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { AuthProvider } from "./context/AuthContext";
 import { GeneralProvider } from "./context/GeneralContext";
@@ -33,7 +32,6 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
       <AuthProvider>
         <GeneralProvider>
           <BrowserRouter>
