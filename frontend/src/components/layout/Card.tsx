@@ -12,11 +12,11 @@ import { useUpdateTask } from "@/components/hooks/useUpdateTask";
 interface TaskProps {
   task: Task;
   isSelected?: boolean;
-  onEdit: (id: string) => void;
+  onEdit?: (id: string) => void;
   onComplete?: (id: string) => void;
   onIsContentId?: (id: string) => void;
   onContentOpen?: (open: boolean) => void;
-  onDelete: (title: string, id: string) => void;
+  onDelete?: (title: string, id: string) => void;
 }
 
 export default function Card({
