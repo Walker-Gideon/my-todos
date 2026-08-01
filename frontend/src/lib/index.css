@@ -65,15 +65,3 @@ body {
   font-weight: 400;
   font-style: normal;
 }
-
-/* 
-import { motion } from "motion/react"
-*/
-
-/* space-y-6 min-h-0 flex-1 overflow-y-scroll h-[510px] p-6 */
-/* <main className="flex-1 min-h-0 overflow-y-auto" /> // takes remaining space, scrolls */
-
-/* BUGS To fix */
-/* 1. There is a buy base on the "undoTask prop in the Card component and it is displaying in the DashboardTodos base on when the card it being marked as isVital is True but you realize that there the isVital 
-
-2. Make the Create and Edit modal submit button disabled unless the fields are filled and on the edit the fields should have the task data */
