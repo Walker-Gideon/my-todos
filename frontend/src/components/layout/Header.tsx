@@ -17,6 +17,7 @@ import Headings from "@/components/ui/Headings";
 import Paragraph from "@/components/ui/Paragraph";
 import Container from "@/components/layout/Container";
 import Information from "@/components/layout/Information";
+import Conditional from "@/components/layout/Conditional";
 
 import type { Task } from "@/api/todos";
 import { useGeneral } from "@/context/useGeneralContext";
@@ -318,12 +319,13 @@ function NotificationContent({
           <Information value="Loading notifications..." />
         ) : error || onError ? (
           <Information value="Unable to load notifications." />
-        ) : (
-          sections.map((section) => (
-            <Container
-              key={section.title}
-              variant="div"
-              className={"mb-4 last:mb-0"}
+        ) : sections.every(section => section.items.length === 0) ? (
+          <Information value="No notifications." />
+        ) : (sections.map((section) => (
+              <Container
+                key={section.title}
+                variant="div"
+                className={"mb-4 last:mb-0"}
             >
               {section.items.map((task: Task) => (
                 <Container
