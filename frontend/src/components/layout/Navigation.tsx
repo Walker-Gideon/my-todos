@@ -107,7 +107,7 @@ function Profile({
       <Button
         ariaLabel={openSidebar ? "Close Sidebar" : "Open Sidebar"}
         onClick={() => onOpenSidebar(!openSidebar)}
-        className={`hidden md:block items-center justify-center transition-all duration-300 ${openSidebar ? "absolute right-2 top-1" : "w-full px-2.5 mt-1 mb-3"}`}
+        className={`hidden lg:block items-center justify-center transition-all duration-300 ${openSidebar ? "absolute right-2 top-1" : "w-full px-2.5 mt-1 mb-3"}`}
       >
         <TbLayoutSidebar
           size={24}
