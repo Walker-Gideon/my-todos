@@ -81,7 +81,11 @@ export default function DashboardStatus() {
         icon={<TbClipboardData size={24} />}
         subheading={"Task Status"}
       />
-      <div className={"flex items-center justify-between xl:justify-center gap-2 xl:gap-12 mt-4"}>
+      <div
+        className={
+          "flex items-center justify-between xl:justify-center gap-2 xl:gap-12 mt-4"
+        }
+      >
         <CircleProgress
           percentage={completedPercentage}
           color="#22c55e"
