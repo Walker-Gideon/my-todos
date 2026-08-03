@@ -119,6 +119,35 @@ export default function CreateTaskModal({
     }
   }, [taskToEdit, reset]);
 
+  useEffect(() => {
+    if (!show) {
+      reset({
+        taskTitle: "",
+        dueDate: "",
+        priority: "",
+        description: "",
+      });
+      setValue("image", [] as any);
+      setPreview(null);
+    }
+  }, [show, reset, setValue]);
+
+  const resetFormState = () => {
+    reset({
+      taskTitle: "",
+      dueDate: "",
+      priority: "",
+      description: "",
+    });
+    setValue("image", [] as any);
+    setPreview(null);
+  };
+
+  const handleCloseModal = () => {
+    onCloseModal();
+    resetFormState();
+  };
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     let imageBase64 = preview || "";
 
@@ -149,18 +178,14 @@ export default function CreateTaskModal({
         },
         {
           onSuccess: () => {
-            onCloseModal();
-            reset();
-            setPreview(null);
+            handleCloseModal();
           },
         },
       );
     } else {
       createTask(taskData, {
         onSuccess: () => {
-          onCloseModal();
-          reset();
-          setPreview(null);
+          handleCloseModal();
         },
       });
     }
@@ -177,7 +202,7 @@ export default function CreateTaskModal({
           className={"w-full flex items-center justify-between"}
         >
           <SecondaryHeading fristWord={fristWord} secondWord={secondWord} />
-          <ModalBackButton onClick={onCloseModal} />
+          <ModalBackButton onClick={handleCloseModal} />
         </Container>
 
         <Conditional condition={summaryError}>
