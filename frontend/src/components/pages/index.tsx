@@ -39,7 +39,6 @@ export default function AppLayout() {
         <Navigation />
         <Container
           variant="main"
-          // overflow-y-auto md:overflow-hidden
           className={"flex-1 min-h-0 mx-4 md:mx-8 pb-2 overflow-hidden"}
         >
           <Outlet />
