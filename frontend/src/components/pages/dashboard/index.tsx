@@ -108,8 +108,8 @@ export default function Dashboard() {
       <CreateTaskModal
         show={isModalOpen}
         onCloseModal={handleCloseModal}
-        fristWord={taskToEdit ? "Edit Ta" : "Add New Ta"}
-        secondWord="sk"
+        fristWord={taskToEdit ? "Edit" : "Add New"}
+        secondWord="Task"
         taskToEdit={taskToEdit}
       />
     </Container>
