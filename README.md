@@ -194,7 +194,7 @@ Reference lookup models used to normalize priority levels (e.g. Low, Medium, Hig
 ### 1. Clone the Repository
 
 ```bash
-git clone [<your-repo-url>](https://github.com/Walker-Gideon/my-todos.git)
+git clone https://github.com/Walker-Gideon/my-todos.git
 cd my-todos
 ```
 
